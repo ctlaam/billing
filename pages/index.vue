@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  layout: 'account',
   name: 'IndexPage',
 }
 </script>

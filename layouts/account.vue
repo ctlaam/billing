@@ -1,6 +1,6 @@
 <template>
   <div>
-    123213123
+    an cut ne
     <Nuxt />
   </div>
 </template>
