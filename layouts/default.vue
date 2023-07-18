@@ -1,9 +1,11 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex app">
     <Navbar />
-    <div>
+    <div class="main-content">
       <Header />
-      <Nuxt />
+      <div id="content" class="mb-5">
+        <Nuxt />
+      </div>
       <Footer></Footer>
     </div>
   </div>
@@ -23,4 +25,18 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.app {
+}
+.main-content {
+  padding: 2em 10em;
+  background-color: #161d31;
+  width: 100%;
+  color: #d0d2d6;
+  position: relative;
+}
+#content {
+  height: 80vh;
+  overflow-y: auto;
+}
+</style>

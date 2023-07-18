@@ -11,7 +11,7 @@
         <div class="title-item h4 mb-4">Menu chức năng</div>
         <div class="list-items">
           <div class="item mb-3">
-            <div class="d-flex align-items-center justify-content-left">
+            <div class="d-flex align-items-center justify-content-left ">
               <a-icon type="home" /> <span class="name-item">Dasboard</span>
             </div>
           </div>
@@ -42,12 +42,14 @@
         <div class="list-items">
           <div class="item mb-3">
             <div class="d-flex align-items-center justify-content-left">
-              <a-icon type="link" /> <span class="name-item">Liên kết khác</span>
+              <a-icon type="link" />
+              <span class="name-item">Liên kết khác</span>
             </div>
           </div>
           <div class="item active mb-3">
             <div class="d-flex align-items-center justify-content-left">
-              <a-icon type="info-circle" /> <span class="name-item">Các câu hỏi thường gặp</span>
+              <a-icon type="info-circle" />
+              <span class="name-item">Các câu hỏi thường gặp</span>
             </div>
           </div>
         </div>
@@ -76,8 +78,8 @@ export default {}
       .list-items {
         .item {
           height: 3em;
-          font-size: 1.4em;
-          padding: 0.8rem;
+          font-size: 1.3em;
+          padding: 0.5rem 0 0.5rem 0.5rem;
           display: flex;
           align-items: center;
           .name-item {
