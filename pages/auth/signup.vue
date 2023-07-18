@@ -25,14 +25,28 @@
           <a-form-item>
             <a-input
               v-decorator="[
-                'userName',
+                'fullName',
                 {
                   rules: [
-                    { required: true, message: 'Please input your username!' },
+                    { required: true, message: 'Vui lòng nhập Họ & tên!' },
                   ],
                 },
               ]"
-              placeholder="Username"
+              placeholder="Họ & tên"
+            >
+            </a-input>
+          </a-form-item>
+          <a-form-item>
+            <a-input
+              v-decorator="[
+                'userName',
+                {
+                  rules: [
+                    { required: true, message: 'Vui lòng nhập tên đăng nhập!' },
+                  ],
+                },
+              ]"
+              placeholder="Tên đăng nhập"
             >
             </a-input>
           </a-form-item>
@@ -42,45 +56,50 @@
                 'password',
                 {
                   rules: [
-                    { required: true, message: 'Please input your Password!' },
+                    { required: true, message: 'Vui lòng nhập mật khẩu!' },
                   ],
                 },
               ]"
               type="password"
-              placeholder="Password"
+              placeholder="Mật khẩu"
             >
             </a-input>
           </a-form-item>
           <a-form-item>
-            <div class="w-100 d-flex">
-              <a-checkbox
-                class="w-50"
-                v-decorator="[
-                  'remember',
-                  {
-                    valuePropName: 'checked',
-                    initialValue: true,
-                  },
-                ]"
-              >
-                Nhớ mật khẩu
-              </a-checkbox>
-              <div class="w-50 text-end">
-                <a class="login-form-forgot text-right" href="">
-                  Quên mật khẩu
-                </a>
-              </div>
-            </div>
-
+            <a-input
+              v-decorator="[
+                'password2',
+                {
+                  rules: [
+                    { required: true, message: 'Vui lòng nhập lại mật khẩu!' },
+                    {
+                      validator: compareToFirstPassword,
+                    },
+                  ],
+                },
+              ]"
+              type="password"
+              placeholder="Nhập lại mật khẩu"
+            >
+            </a-input>
+          </a-form-item>
+          <a-form-item>
+            <a-input
+              v-decorator="['personCode', {}]"
+              placeholder="Người giới thiệu"
+            >
+            </a-input>
+          </a-form-item>
+          <a-form-item>
             <a-button
               type="primary"
               html-type="submit"
               class="login-form-button w-100"
             >
-              Đăng kí
+              Đăng Kí
             </a-button>
-            Hoặc
-            <a @click="singUp" style="color: #008dff"> Đăng kí ngay </a>
+            Bạn đã có tài khoản
+            <a @click="singIn" style="color: #008dff"> Đăng nhập ngay </a>
           </a-form-item>
         </a-form>
       </div>
@@ -98,13 +117,20 @@ export default {
       password2: null,
     }
   },
-
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
   methods: {
-    singUp() {
-      this.$router.push('/auth/signup')
+    singIn() {
+      this.$router.push('/auth')
+    },
+    compareToFirstPassword(rule, value, callback) {
+      const form = this.form
+      if (value && value !== form.getFieldValue('password')) {
+        callback('Mật khẩu không khớp !')
+      } else {
+        callback()
+      }
     },
     handleSubmit(e) {
       e.preventDefault()

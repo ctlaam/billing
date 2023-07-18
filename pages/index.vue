@@ -1,10 +1,18 @@
 <template>
-  <Tutorial />
+  <Dasboard />
 </template>
 
 <script>
+import Dasboard from '../components/dasboard'
+
 export default {
-  layout: 'account',
   name: 'IndexPage',
+  components: {
+    Dasboard,
+  },
+  data() {
+    return {}
+  },
 }
 </script>
+
