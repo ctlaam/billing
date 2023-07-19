@@ -13,8 +13,8 @@
           <nuxt-link to="/" exact active-class="active">
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
-                <a-icon type="bank" />
-                <span class="name-item">Bill chuyển khoản</span>
+                <a-icon type="home" />
+                <span class="name-item">Dashboard</span>
               </div>
             </div>
           </nuxt-link>

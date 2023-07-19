@@ -6,23 +6,25 @@
     </div>
     <div class="list-banks">
       <div class="row" style="margin: 0">
-        <div v-for="item in itemBanks" class="col-md-6 col-xl-3 col-12 mb-4" >
-          <a href="https://autobill.shop/bill/balance/vcb/create">
-            <div class="card text-center">
-              <div class="card-body">
-                <div class="p-50 mb-1">
-                  <img
-                    class="rounded-circle"
-                    :src="item.img"
-                    alt=""
-                    height="50"
-                  />
-                </div>
-                <h3 class="fw-bolder">{{ item.name }}</h3>
-                <h4 class="card-text">Đã tạo: 3 bill</h4>
+        <div
+          @click="selectItem(item)"
+          v-for="item in itemBanks"
+          class="col-md-6 col-xl-3 col-12 mb-4 bank"
+        >
+          <div class="card text-center">
+            <div class="card-body">
+              <div class="p-50 mb-1">
+                <img
+                  class="rounded-circle"
+                  :src="item.img"
+                  alt=""
+                  height="50"
+                />
               </div>
+              <h3 class="fw-bolder">{{ item.name }}</h3>
+              <h4 class="card-text">Đã tạo: 3 bill</h4>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -31,6 +33,11 @@
 <script>
 export default {
   props: ['title', 'subtitle', 'itemBanks'],
+  methods: {
+    selectItem(item) {
+      this.$emit('selectItem', item)
+    },
+  },
 }
 </script>
 
@@ -38,6 +45,9 @@ export default {
 #list-item {
   color: #d0d2d6;
   .list-banks {
+    .bank {
+      cursor: pointer;
+    }
     .card {
       font-size: 20px;
       color: #d0d2d6;

@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .app {
 }
 .main-content {
@@ -38,5 +38,21 @@ export default {
 #content {
   height: 80vh;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #e5e5e5;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #e5e5e5;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #888888;
+  }
 }
 </style>
