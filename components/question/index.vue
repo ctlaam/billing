@@ -113,7 +113,6 @@
 </template>
 
 <script>
-import 'bootstrap/dist/js/bootstrap.min.js'
 
 export default {}
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div id="form-balance">
+    {{ itemSelected }}
     <div class="title d-flex align-items-center">
       <div class="h2">Dashboard</div>
       <div class="h4">Home > <span style="color: #5650b4">Dashboard</span></div>
@@ -276,16 +277,14 @@
         </a-form>
       </div>
       <div class="example-img">
-        <img
-          src="https://autobill.shop/assets/images/balance/vcb/demo.png"
-          alt=""
-        />
+        <img :src="itemSelected.url_example" alt="" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import path from 'path'
 import moment from 'moment'
 function getBase64(img, callback) {
   const reader = new FileReader()
@@ -313,9 +312,21 @@ export default {
       oneSim: true,
       sim1: 4,
       sim2: 4,
+      url: null,
     }
   },
-  computed: {},
+  computed: {
+    dynamicImagePath() {
+      console.log(this.itemSelected)
+      const imagePath = path.join(
+        '/_nuxt/static/balance/',
+        this.itemSelected.url_example
+      )
+      console.log(imagePath)
+      console.log(imagePath == '/_nuxt/static/balance/mbb.png')
+      return `${this.$nuxt.context.env.DOMAIN}/static/balance/mbb.png`
+    },
+  },
   methods: {
     filterCurrency(currency, text = '') {
       if (currency) {

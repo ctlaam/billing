@@ -1,7 +1,7 @@
 <template>
   <div id="navbar">
-    <div class="image">
-      <img src="../../static/logo.png" width="100" alt="" />
+    <div class="image mb-4">
+      <img src="../../static/ICON.png" width="50" alt="" />
     </div>
     <div class="walet mb-5">
       <p class="h3">Số dư ví: 0đ</p>
@@ -91,7 +91,7 @@ export default {}
         text-transform: uppercase;
       }
       .list-items {
-        a{
+        a {
           color: #d0d2d6;
         }
         .item {
