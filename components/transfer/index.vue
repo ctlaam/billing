@@ -1,11 +1,11 @@
 <template>
   <div id="form-balance">
     <div class="title d-flex align-items-center">
-      <div class="h2">Số dư</div>
+      <div class="h2">Chuyển khoản</div>
       <div class="h4">
         Home >
         <span style="color: #5650b4"
-          >Tạo phiếu số dư {{ itemSelected.name }}</span
+          >Tạo phiếu chuyển khoản {{ itemSelected.name }}</span
         >
       </div>
     </div>
@@ -18,7 +18,7 @@
         >
           <a-row :gutter="12">
             <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item label="Số tiền">
+              <a-form-item label="Số tiền cần chuyển">
                 <a-input
                   @keydown="handleKeyDown"
                   v-decorator="[
@@ -36,7 +36,7 @@
                 />
               </a-form-item>
             </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+            <a-col :span="6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Giờ">
                 <a-time-picker
                   v-decorator="[
@@ -70,41 +70,142 @@
               /> -->
               </a-form-item>
             </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item label="Tên tài khoản">
-                <a-input
+            <a-col :span="6" :style="{ display: true ? 'block' : 'none' }">
+              <a-form-item label="Ngày">
+                <a-date-picker
+                  :disabled-date="disabledDate"
                   v-decorator="[
-                    'nameAccount',
+                    'date',
                     {
+                      initialValue: moment(dateNow, 'YYYY/MM/DD'),
+                      // initialValue: moment('12:12', 'HH:mm'),
                       rules: [
                         {
                           required: true,
-                          message: 'Nhập tên tài khoản',
+                          message: 'Nhập ngày chuyển khoản',
                         },
                       ],
                     },
                   ]"
-                  placeholder="Nhập tên tài khoản của bạn"
+                  placeholder="Chọn ngày"
+                />
+                <!-- <a-input
+                v-decorator="[
+                  'password',
+                  {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Input something!',
+                      },
+                    ],
+                  },
+                ]"
+                placeholder="placeholder"
+              /> -->
+              </a-form-item>
+            </a-col>
+            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+              <a-form-item label="Tên người nhận">
+                <a-input
+                  v-decorator="[
+                    'nameAccountRecive',
+                    {
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Nhập tên người nhận',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Nhập tên người nhận"
                 />
               </a-form-item>
             </a-col>
             <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item label="Số tài khoản">
+              <a-form-item label="Số tài khoản người nhận">
                 <a-input
                   @keydown="handleKeyDown"
                   v-decorator="[
-                    'accountNumber',
+                    'accountNumberRecive',
 
                     {
                       rules: [
                         {
                           required: true,
-                          message: 'Nhập số tài khoản',
+                          message: 'Nhập số tài khoản người nhận',
                         },
                       ],
                     },
                   ]"
-                  placeholder="Nhập số tài khoản của bạn"
+                  placeholder="Nhập số tài khoản người nhận"
+                />
+              </a-form-item>
+            </a-col>
+            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+              <a-form-item label="Ngân hàng thụ hưởng">
+                <a-select
+                  v-decorator="[
+                    'bankNameRecive',
+
+                    {
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Chọn ngân hàng thụ hưởng',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Chọn ngân hàng thụ hưởng"
+                >
+                  <a-select-option
+                    v-for="i in 25"
+                    :key="(i + 9).toString(36) + i"
+                  >
+                    {{ (i + 9).toString(36) + i }}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+              <a-form-item label="Mã giao dịch (mã được tạo tự động) ">
+                <a-input
+                  :disabled="true"
+                  v-decorator="[
+                    'codeTransfer',
+
+                    {
+                      initialValue: generateRandomNumberString(10),
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Nhập mã giao dịch',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Nhập mã giao dịch"
+                />
+              </a-form-item>
+            </a-col>
+            <a-col :span="24" :style="{ display: true ? 'block' : 'none' }">
+              <a-form-item label="Nội dung">
+                <a-textarea
+                  :auto-size="{ minRows: 2, maxRows: 6 }"
+                  v-decorator="[
+                    'content',
+                    {
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Nhập nội dung chuyển khoản',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Nhập nội dung chuyển khoản"
                 />
               </a-form-item>
             </a-col>
@@ -281,7 +382,11 @@
         </a-form>
       </div>
       <div class="example-img">
-        <img :src="require(`~/assets/balance/${dynamicImagePath}`)" alt="" />
+        <img
+          v-if="dynamicImagePath"
+          :src="require(`~/assets/transfer/${dynamicImagePath}`)"
+          alt=""
+        />
       </div>
     </div>
   </div>
@@ -298,7 +403,7 @@ export default {
   props: ['itemSelected'],
   created() {
     if (!this.itemSelected) {
-      this.$router.push('/balance')
+      this.$router.push('/transfer')
     }
   },
   data() {
@@ -316,11 +421,14 @@ export default {
       sim1: 4,
       sim2: 4,
       url: null,
+      dateNow: null,
       timeNow: null,
     }
   },
   created() {
+    this.dateNow = moment(new Date()).format('YYYY/MM/DD')
     this.timeNow = moment(new Date()).format('HH:mm')
+    console.log(this.timeNow)
   },
   computed: {
     dynamicImagePath() {
@@ -328,6 +436,24 @@ export default {
     },
   },
   methods: {
+    disabledDate(current) {
+      // Lấy ngày hiện tại
+      const currentDate = moment()
+
+      // Để vô hiệu hóa các ngày trong tương lai, ta so sánh ngày hiện tại với ngày được chọn
+      return current && current > currentDate.endOf('day')
+    },
+    generateRandomNumberString(length) {
+      let result = ''
+      const characters = '0123456789'
+
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length)
+        result += characters.charAt(randomIndex)
+      }
+
+      return result
+    },
     filterCurrency(currency, text = '') {
       if (currency) {
         console.log(currency)

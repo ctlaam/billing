@@ -1,8 +1,13 @@
 <template>
   <div id="list-item">
     <div class="title d-flex align-items-center mb-5">
-      <div class="h1">{{ title }}</div>
-      <div class="h3">Home > <span style="color: #5650b4">Balance</span></div>
+      <div class="h2">{{ title }}</div>
+      <div class="h4">
+        <nuxt-link to="/" exact active-class="active" style="color: #5650b4"
+          >Home</nuxt-link
+        >
+        > <span style="color: #a3a7ae">{{ subtitle }}</span>
+      </div>
     </div>
     <div class="list-banks">
       <div class="row" style="margin: 0">
@@ -43,6 +48,16 @@ export default {
 
 <style lang="scss">
 #list-item {
+  .title {
+    .h2 {
+      border-right: 1px solid #ccc;
+      padding: 0 1rem;
+      color: #aaadb4;
+    }
+    .h4 {
+      margin-left: 1rem;
+    }
+  }
   color: #d0d2d6;
   .list-banks {
     .bank {

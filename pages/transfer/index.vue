@@ -1,23 +1,40 @@
 <template>
-    <div>
-      <ListItem :itemBanks="itemBanks" />
-    </div>
-  </template>
-  
-  <script>
-  import ListItem from '../../components/common/ListItem.vue'
-  import { LISTBANKS_BALANCE } from '../../constants/constants.js'
-  export default {
-    components: {
-      ListItem,
+  <div>
+    <ListItem
+      v-if="!showForm"
+      :itemBanks="itemBanks"
+      @selectItem="selectItem"
+      title="Bill chuyển khoản"
+      subtitle="Danh sách ngân hàng bill chuyển khoản"
+    />
+    <FormTransfer v-else :itemSelected="itemSelected" />
+  </div>
+</template>
+
+<script>
+import ListItem from '../../components/common/ListItem.vue'
+import FormTransfer from '../../components/transfer/index.vue'
+import { LISTBANKS_TRANFER } from '../../constants/constants.js'
+export default {
+  components: {
+    ListItem,
+    FormTransfer,
+  },
+  data() {
+    return {
+      itemBanks: LISTBANKS_TRANFER,
+      showForm: false,
+      itemSelected: null,
+    }
+  },
+  methods: {
+    selectItem(item) {
+      this.showForm = true
+      this.itemSelected = item
+      console.log(item)
     },
-    data() {
-      return {
-        itemBanks: LISTBANKS_BALANCE,
-      }
-    },
-  }
-  </script>
-  
-  <style></style>
-  
+  },
+}
+</script>
+
+<style></style>

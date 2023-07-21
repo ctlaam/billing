@@ -4,6 +4,9 @@
       v-if="!showForm"
       :itemBanks="itemBanks"
       @selectItem="selectItem"
+      title="Bill số dư"
+      subtitle="Danh sách ngân hàng bill số dư"
+
     />
     <FormBalance :itemSelected="itemSelected" v-else />
   </div>
