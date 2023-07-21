@@ -4,21 +4,21 @@ export const LISTBANKS_TRANFER = [
     name: 'Vietcombank',
     img: 'https://autobill.shop/assets/images/LogoBank/vietcombank.png',
     type: 1,
-    url_example: '',
+    url_example: 'vcb.jpeg',
   },
   {
     id: 2,
     name: 'Vietinbank',
-    img: 'https://autobill.shop/assets/images/LogoBank/techcombank.png',
+    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-VietinBank-CTG-Ori.png',
     type: 1,
-    url_example: '',
+    url_example: 'vtb.png',
   },
   {
     id: 3,
     name: 'Techcombank',
     img: 'https://autobill.shop/assets/images/LogoBank/techcombank.png',
     type: 2,
-    url_example: '',
+    url_example: 'tcb.png',
   },
 
   {
@@ -26,14 +26,14 @@ export const LISTBANKS_TRANFER = [
     name: 'Momo',
     img: 'https://autobill.shop/assets/images/LogoBank/momo.png',
     type: 3,
-    url_example: '',
+    url_example: 'momo.png',
   },
   {
     id: 5,
     name: 'MbBank',
     img: 'https://autobill.shop/assets/images/LogoBank/mbbank.png',
     type: 1,
-    url_example: '',
+    url_example: 'mbb.png',
   },
 ]
 
@@ -43,18 +43,21 @@ export const LISTBANKS_VOLATILITY = [
     name: 'Vietcombank',
     img: 'https://autobill.shop/assets/images/LogoBank/vietcombank.png',
     type: 1,
+    url_example: '',
   },
   {
     id: 2,
     name: 'Vietinbank',
-    img: 'https://autobill.shop/assets/images/LogoBank/techcombank.png',
+    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-VietinBank-CTG-Ori.png',
     type: 1,
+    url_example: '',
   },
   {
     id: 3,
     name: 'Techcombank',
     img: 'https://autobill.shop/assets/images/LogoBank/techcombank.png',
     type: 2,
+    url_example: '',
   },
 
   {
@@ -62,12 +65,14 @@ export const LISTBANKS_VOLATILITY = [
     name: 'Momo',
     img: 'https://autobill.shop/assets/images/LogoBank/momo.png',
     type: 3,
+    url_example: '',
   },
   {
     id: 5,
     name: 'MbBank',
     img: 'https://autobill.shop/assets/images/LogoBank/mbbank.png',
     type: 1,
+    url_example: '',
   },
 ]
 

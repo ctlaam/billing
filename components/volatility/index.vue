@@ -302,7 +302,7 @@ export default {
   props: ['itemSelected'],
   created() {
     if (!this.itemSelected) {
-      this.$router.push('/balance')
+      this.$router.push('/volatility')
     }
   },
   data() {
