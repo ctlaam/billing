@@ -12,7 +12,7 @@
     </div>
     <div class="right p-5 d-flex align-items-center justify-content-center">
       <div>
-        <h1 class="card-title mb-4">Chào mừng đến với autobill.shop! 👋</h1>
+        <h1 class="card-title mb-4">Chào mừng đến với fakebill.online! 👋</h1>
         <h4 class="mb-4">
           Vui lòng đăng nhập để sử dụng chức năng trên hệ thống
         </h4>
@@ -25,14 +25,18 @@
           <a-form-item>
             <a-input
               v-decorator="[
-                'userName',
+                'email',
                 {
                   rules: [
-                    { required: true, message: 'Please input your username!' },
+                    {
+                      type: 'email',
+                      message: 'Email không đúng định dạng',
+                    },
+                    { required: true, message: 'Vui lòng nhập email!' },
                   ],
                 },
               ]"
-              placeholder="Username"
+              placeholder="Email"
             >
             </a-input>
           </a-form-item>
@@ -42,7 +46,11 @@
                 'password',
                 {
                   rules: [
-                    { required: true, message: 'Please input your Password!' },
+                    { required: true, message: 'Vui lòng nhập mật khẩu!' },
+                    {
+                      min: 6,
+                      message: 'Mật khẩu phải trên 6 kí tự!',
+                    },
                   ],
                 },
               ]"
@@ -77,7 +85,7 @@
               html-type="submit"
               class="login-form-button w-100"
             >
-              Đăng kí
+              Đăng nhập
             </a-button>
             Hoặc
             <a @click="singUp" style="color: #008dff"> Đăng kí ngay </a>
@@ -89,6 +97,7 @@
 </template>
 
 <script>
+import * as authApi from '../../api/auth.js'
 export default {
   layout: 'account',
   data() {
@@ -111,6 +120,24 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           // call api here
+          // login api
+          authApi
+            .callFunction('https://api.fakebill.online/auth/login/', 'POST', {
+              email: values.email,
+              password: values.password,
+            })
+            .then((res) => {
+              this.$message.success('Đăng nhập thành công')
+              this.$store.dispatch('auth/login', {
+                accessToken: res.data.tokens.access,
+                refreshToken: res.data.tokens.refresh,
+                userId: res.data.id,
+              })
+              this.$router.push('/')
+            })
+            .catch((err) => {
+              this.$message.error('Đăng nhập thất bại')
+            })
           console.log('Received values of form: ', values)
         }
       })

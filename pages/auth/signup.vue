@@ -12,9 +12,9 @@
     </div>
     <div class="right p-5 d-flex align-items-center justify-content-center">
       <div>
-        <h1 class="card-title mb-4">Chào mừng đến với autobill.shop! 👋</h1>
+        <h1 class="card-title mb-4">Chào mừng đến với fakebill.online! 👋</h1>
         <h4 class="mb-4">
-          Vui lòng đăng nhập để sử dụng chức năng trên hệ thống
+          Vui lòng đăng kí tài khoản để sử dụng chức năng trên hệ thống
         </h4>
         <a-form
           id="components-form-demo-normal-login"
@@ -22,7 +22,7 @@
           class="login-form"
           @submit="handleSubmit"
         >
-          <a-form-item>
+          <!-- <a-form-item>
             <a-input
               v-decorator="[
                 'fullName',
@@ -49,6 +49,24 @@
               placeholder="Tên đăng nhập"
             >
             </a-input>
+          </a-form-item> -->
+          <a-form-item>
+            <a-input
+              v-decorator="[
+                'email',
+                {
+                  rules: [
+                    {
+                      type: 'email',
+                      message: 'Email không đúng định dạng',
+                    },
+                    { required: true, message: 'Vui lòng nhập email!' },
+                  ],
+                },
+              ]"
+              placeholder="Email"
+            >
+            </a-input>
           </a-form-item>
           <a-form-item>
             <a-input
@@ -57,6 +75,10 @@
                 {
                   rules: [
                     { required: true, message: 'Vui lòng nhập mật khẩu!' },
+                    {
+                      min: 6,
+                      message: 'Mật khẩu phải trên 6 kí tự!',
+                    },
                   ],
                 },
               ]"
@@ -83,13 +105,13 @@
             >
             </a-input>
           </a-form-item>
-          <a-form-item>
+          <!-- <a-form-item>
             <a-input
               v-decorator="['personCode', {}]"
               placeholder="Người giới thiệu"
             >
             </a-input>
-          </a-form-item>
+          </a-form-item> -->
           <a-form-item>
             <a-button
               type="primary"
@@ -108,6 +130,7 @@
 </template>
 
 <script>
+import * as authApi from '../../api/auth.js'
 export default {
   layout: 'account',
   data() {
@@ -137,6 +160,23 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           // call api here
+          // resgister api
+          authApi
+            .callFunction(
+              'https://api.fakebill.online/auth/register/',
+              'POST',
+              {
+                email: values.email,
+                password: values.password,
+              }
+            )
+            .then((res) => {
+              this.$message.success('Đăng kí thành công !')
+              this.$router.push('/auth')
+            })
+            .catch((err) => {
+              this.$message.error('Đăng nhập thất bại')
+            })
           console.log('Received values of form: ', values)
         }
       })

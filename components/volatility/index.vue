@@ -16,9 +16,48 @@
           :form="form"
           @submit="handleSearch"
         >
+          <!-- part 1 -->
           <a-row :gutter="12">
             <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item label="Số tiền">
+              <a-form-item label="Tên tài khoản nguồn">
+                <a-input
+                  v-decorator="[
+                    'nameAccount',
+                    {
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Nhập tên nguồn tài khoản !',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Nhập tên nguồn tài khoản"
+                />
+              </a-form-item>
+            </a-col>
+            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+              <a-form-item label="Số tài khoản nguồn">
+                <a-input
+                  @keydown="handleKeyDown"
+                  v-decorator="[
+                    'accountNumber',
+
+                    {
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Nhập số tài khoản !',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Nhập số nguồn tài khoản"
+                />
+              </a-form-item>
+            </a-col>
+            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+              <a-form-item label="Số dư cuối kì">
                 <a-input
                   @keydown="handleKeyDown"
                   v-decorator="[
@@ -27,12 +66,12 @@
                       rules: [
                         {
                           required: true,
-                          message: 'Nhập số tiền!',
+                          message: 'Nhập số dư cuối kì !',
                         },
                       ],
                     },
                   ]"
-                  placeholder="Nhập số tiền cần làm giả"
+                  placeholder="Nhập số dư cuối kì"
                 />
               </a-form-item>
             </a-col>
@@ -70,45 +109,194 @@
               /> -->
               </a-form-item>
             </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item label="Tên tài khoản">
-                <a-input
-                  v-decorator="[
-                    'nameAccount',
-                    {
-                      rules: [
-                        {
-                          required: true,
-                          message: 'Nhập tên tài khoản',
-                        },
-                      ],
-                    },
-                  ]"
-                  placeholder="Nhập tên tài khoản của bạn"
-                />
-              </a-form-item>
-            </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item label="Số tài khoản">
-                <a-input
-                  @keydown="handleKeyDown"
-                  v-decorator="[
-                    'accountNumber',
+          </a-row>
 
-                    {
-                      rules: [
-                        {
-                          required: true,
-                          message: 'Nhập số tài khoản',
-                        },
-                      ],
-                    },
-                  ]"
-                  placeholder="Nhập số tài khoản của bạn"
-                />
+          <a-row :gutter="12">
+            <!-- instruction -->
+            <a-col :span="24" id="instruction" style="font-size: 1.4rem">
+              <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading p-2 mb-4">
+                  Hướng dẫn cho phần nhập biến động:
+                </h4>
+                <div class="alert-body">
+                  <ul>
+                    <li class="mb-25">
+                      Vui lòng nhập số tiền để số dư không bị âm (Nếu là nhận
+                      tiền thì số tiền không được lớn hơn hoặc bằng số dư hiện
+                      tại)
+                    </li>
+                    <li class="mb-25">
+                      Vui lòng chọn thời gian giảm dần (giao dịch mới nhất sẽ
+                      nằm trên cùng)
+                    </li>
+                    <li class="mb-25">
+                      Phần nội dung bạn chỉ cần điền mỗi nội dung chuyển tiền
+                      thôi, phần râu ria còn lại hệ thống sẽ tự xử lý
+                    </li>
+                    <li>
+                      Nếu muốn hiển thị biến động đầy đủ thì nên thêm 4 biến
+                      động (như demo)
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </a-col>
+          </a-row>
+          <!-- biến động số dư -->
+
+          <a-row :gutter="12">
+            <a-col :span="24" :style="{ display: true ? 'block' : 'none' }">
+              <a-form-item label="Thể loại">
+                <a-tabs default-active-key="1" @change="changeTab">
+                  <a-tab-pane key="1" tab="Nhận tiền">
+                    <div v-if="keyTab == 1">
+                      <a-row
+                        v-for="(i, index) in numberTest"
+                        :key="index"
+                        :gutter="12"
+                      >
+                        <a-col :span="12">
+                          <a-form-item label="Số tiền">
+                            <a-input
+                              @keydown="handleKeyDown"
+                              v-decorator="[
+                                'money-volatility',
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập số tiền !',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập số tiền"
+                            />
+                          </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
+                          <a-form-item label="Số dư hiện tại">
+                            <a-input
+                              @keydown="handleKeyDown"
+                              v-decorator="[
+                                'current-balance',
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập số dư hiện tại !',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập số dư hiện tại"
+                            />
+                          </a-form-item>
+                        </a-col>
+                        <a-col
+                          :span="6"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Giờ">
+                            <a-time-picker
+                              v-decorator="[
+                                'timer-volatility',
+                                {
+                                  initialValue: moment(timeNow, 'HH:mm'),
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập giờ chuyển khoản',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              format="hh:mm a"
+                              placeholder="Chọn giờ"
+                            />
+                          </a-form-item>
+                        </a-col>
+                        <a-col
+                          :span="6"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Ngày">
+                            <a-date-picker
+                              :disabled-date="disabledDate"
+                              v-decorator="[
+                                'date-volatility',
+                                {
+                                  initialValue: moment(dateNow, 'YYYY/MM/DD'),
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập ngày chuyển khoản',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Chọn ngày"
+                            />
+                          </a-form-item>
+                        </a-col>
+                      </a-row>
+                    </div>
+                  </a-tab-pane>
+                  <a-tab-pane key="2" tab="Trừ tiền" force-render>
+                    <div v-if="keyTab == 2">
+                      <a-row :gutter="12">
+                        <a-col
+                          :span="12"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Tên tài khoản nguồn">
+                            <a-input
+                              v-decorator="[
+                                'nameAccount-2',
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập tên nguồn tài khoản !',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập tên nguồn tài khoản"
+                            />
+                          </a-form-item>
+                        </a-col>
+                        <a-col
+                          :span="12"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Số tài khoản nguồn">
+                            <a-input
+                              @keydown="handleKeyDown"
+                              v-decorator="[
+                                'accountNumber-2',
+
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập số tài khoản !',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập số nguồn tài khoản"
+                            />
+                          </a-form-item>
+                        </a-col>
+                      </a-row>
+                    </div>
+                  </a-tab-pane>
+                </a-tabs>
               </a-form-item>
             </a-col>
           </a-row>
+          <!-- hình nền -->
           <a-row :gutter="12">
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Hình nền</div>
@@ -321,9 +509,13 @@ export default {
       sim2: 4,
       url: null,
       timeNow: null,
+      dateNow: null,
+      keyTab: 1,
+      numberTest:4,
     }
   },
   created() {
+    this.dateNow = moment(new Date()).format('YYYY/MM/DD')
     this.timeNow = moment(new Date()).format('HH:mm')
   },
   computed: {
@@ -331,7 +523,20 @@ export default {
       return this.itemSelected.url_example
     },
   },
+  test(){
+
+  },
   methods: {
+    changeTab(key) {
+      this.keyTab = key
+    },
+    disabledDate(current) {
+      // Lấy ngày hiện tại
+      const currentDate = moment()
+
+      // Để vô hiệu hóa các ngày trong tương lai, ta so sánh ngày hiện tại với ngày được chọn
+      return current && current > currentDate.endOf('day')
+    },
     filterCurrency(currency, text = '') {
       if (currency) {
         console.log(currency)
@@ -454,6 +659,9 @@ export default {
       margin-left: 1rem;
     }
   }
+  .ant-form-item label {
+    color: #aaadb4;
+  }
   .content-form {
     padding: 1rem;
     margin-right: 2rem;
@@ -485,6 +693,25 @@ export default {
       max-width: 100%;
       height: auto;
       object-fit: cover;
+    }
+  }
+  .ant-tabs-nav .ant-tabs-tab {
+    color: #aaadb4;
+  }
+  #instruction {
+    .alert.alert-danger {
+      border: none;
+      color: #ea5455 !important;
+      background: rgba(234, 84, 85, 0.12) !important;
+      border-color: 1px solid #f9cccc;
+      border-radius: 0.358rem;
+    }
+    .alert-danger .alert-heading {
+      box-shadow: rgba(234, 84, 85, 0.4) 0px 6px 15px -7px;
+    }
+    .alert-danger {
+      background: rgba(234, 84, 85, 0.12) !important;
+      color: #ea5455 !important;
     }
   }
 }
