@@ -22,7 +22,7 @@
                 <a-input
                   @keydown="handleKeyDown"
                   v-decorator="[
-                    'money',
+                    'value_money',
                     {
                       rules: [
                         {
@@ -40,7 +40,7 @@
               <a-form-item label="Giờ">
                 <a-time-picker
                   v-decorator="[
-                    'timer',
+                    'time',
                     {
                       initialValue: moment(timeNow, 'HH:mm'),
                       rules: [
@@ -109,7 +109,7 @@
               <a-form-item label="Tên người nhận">
                 <a-input
                   v-decorator="[
-                    'nameAccountRecive',
+                    'name',
                     {
                       rules: [
                         {
@@ -128,7 +128,7 @@
                 <a-input
                   @keydown="handleKeyDown"
                   v-decorator="[
-                    'accountNumberRecive',
+                    'bank_code',
 
                     {
                       rules: [
@@ -147,7 +147,7 @@
               <a-form-item label="Ngân hàng thụ hưởng">
                 <a-select
                   v-decorator="[
-                    'bankNameRecive',
+                    'bank_name',
 
                     {
                       rules: [
@@ -160,11 +160,8 @@
                   ]"
                   placeholder="Chọn ngân hàng thụ hưởng"
                 >
-                  <a-select-option
-                    v-for="i in 25"
-                    :key="(i + 9).toString(36) + i"
-                  >
-                    {{ (i + 9).toString(36) + i }}
+                  <a-select-option v-for="i in listBanks" :key="i">
+                    {{ i }}
                   </a-select-option>
                 </a-select>
               </a-form-item>
@@ -174,7 +171,7 @@
                 <a-input
                   :disabled="true"
                   v-decorator="[
-                    'codeTransfer',
+                    'transfer_code',
 
                     {
                       initialValue: generateRandomNumberString(10),
@@ -195,7 +192,7 @@
                 <a-textarea
                   :auto-size="{ minRows: 2, maxRows: 6 }"
                   v-decorator="[
-                    'content',
+                    'description',
                     {
                       rules: [
                         {
@@ -214,51 +211,55 @@
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Hình nền</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div class="img mb-2">
-                    <img
-                      style="max-width: 100px"
-                      src="../../static/nen1.png"
-                      alt=""
-                    />
+                <a-radio-group v-model="background">
+                  <div class="item text-center">
+                    <div class="img mb-2">
+                      <img
+                        style="max-width: 100px"
+                        src="../../static/nen1.png"
+                        alt=""
+                      />
+                    </div>
+                    <a-radio value="hinhnen1">Hình nền 1</a-radio>
                   </div>
-                  <a-checkbox>Hình nền 1</a-checkbox>
-                </div>
-                <div class="item text-center">
-                  <div class="img mb-2">
-                    <img
-                      style="max-width: 100px"
-                      src="../../static/nen2.png"
-                      alt=""
-                    />
+                  <div class="item text-center">
+                    <div class="img mb-2">
+                      <img
+                        style="max-width: 100px"
+                        src="../../static/nen2.png"
+                        alt=""
+                      />
+                    </div>
+                    <a-radio value="hinhnen2">Hình nền 2</a-radio>
                   </div>
-                  <a-checkbox>Hình nền 2</a-checkbox>
-                </div>
+                </a-radio-group>
               </div>
             </a-col>
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Giao diện</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div class="img mb-2">
-                    <img
-                      style="max-width: 100px"
-                      src="../../static/giaodien1.png"
-                      alt=""
-                    />
+                <a-radio-group v-model="lightness">
+                  <div class="item text-center">
+                    <div class="img mb-2">
+                      <img
+                        style="max-width: 100px"
+                        src="../../static/giaodien1.png"
+                        alt=""
+                      />
+                    </div>
+                    <a-radio value="light">Tối</a-radio>
                   </div>
-                  <a-checkbox>Tối</a-checkbox>
-                </div>
-                <div class="item text-center">
-                  <div class="img mb-2">
-                    <img
-                      style="max-width: 100px"
-                      src="../../static/giaodien2.png"
-                      alt=""
-                    />
+                  <div class="item text-center">
+                    <div class="img mb-2">
+                      <img
+                        style="max-width: 100px"
+                        src="../../static/giaodien2.png"
+                        alt=""
+                      />
+                    </div>
+                    <a-radio value="dard">Sáng</a-radio>
                   </div>
-                  <a-checkbox>Sáng</a-checkbox>
-                </div>
+                </a-radio-group>
               </div>
             </a-col>
           </a-row>
@@ -274,6 +275,7 @@
                   action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                   :before-upload="beforeUploadImg"
                   @change="handleChangeImg"
+                  v-model="avatar"
                 >
                   <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
                   <div v-else>
@@ -285,7 +287,7 @@
             </a-col>
             <a-col class="mb-5" :span="8"
               ><div class="title mb-4">Chế độ nguồn điện thấp</div>
-              <a-switch v-model="baterry"
+              <a-switch v-model="modeBaterry"
             /></a-col>
             <a-col class="mb-5" :span="8"
               ><div class="title mb-4">Phần trăm pin</div>
@@ -303,30 +305,27 @@
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Chế độ mạng</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div>
-                    <a-checkbox v-model="internetWifi">Wifi</a-checkbox>
-                    <a-input-number
-                      id="inputNumber"
-                      v-model="wifi"
-                      :min="1"
-                      :max="4"
-                      @change="isNumber2"
-                      @keydown="handleKeyDown"
-                      :formatter="(percentBaterry) => `${percentBaterry}`"
-                    />
+                <a-radio-group v-model="internetWifi">
+                  <div class="item text-center">
+                    <div>
+                      <a-radio value="wifi">Wifi</a-radio>
+
+                      <a-input-number
+                        id="inputNumber"
+                        v-model="wifi"
+                        :min="1"
+                        :max="4"
+                        @change="isNumber2"
+                        @keydown="handleKeyDown"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="item text-center">
-                  <a-checkbox
-                    style="line-height: 32px"
-                    @click="internetWifi = false"
-                    :checked="!internetWifi"
-                    >4G</a-checkbox
-                  >
-                </div>
-              </div></a-col
-            >
+                  <div class="item text-center">
+                    <a-radio value="4G" style="line-height: 32px">4G</a-radio>
+                  </div>
+                </a-radio-group>
+              </div>
+            </a-col>
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Sim</div>
               <div class="list-item d-flex justify-content-evenly">
@@ -340,11 +339,10 @@
                       :max="4"
                       @change="isNumber3"
                       @keydown="handleKeyDown"
-                      :formatter="(percentBaterry) => `${percentBaterry}`"
                     />
                   </div>
                 </div>
-                <div class="item text-center">
+                <div class="item text-center" v-if="false">
                   <a-checkbox
                     style="line-height: 32px"
                     @click="oneSim = false"
@@ -358,7 +356,6 @@
                     :max="4"
                     @change="isNumber4"
                     @keydown="handleKeyDown"
-                    :formatter="(percentBaterry) => `${percentBaterry}`"
                   />
                 </div>
               </div>
@@ -388,11 +385,15 @@
           alt=""
         />
       </div>
+      <button @click="downloadImage">Download Image</button>
     </div>
   </div>
 </template>
 
 <script>
+import * as transferAPi from '../../api/transfer.js'
+import axios from 'axios'
+
 import moment from 'moment'
 function getBase64(img, callback) {
   const reader = new FileReader()
@@ -416,13 +417,24 @@ export default {
       percentBaterry: 68,
       money: null,
       wifi: 2,
-      internetWifi: true,
+      internetWifi: 'wifi',
       oneSim: true,
       sim1: 4,
       sim2: 4,
       url: null,
       dateNow: null,
       timeNow: null,
+      listBanks: [
+        'Ngân hàng Quân Đội (MB)',
+        'Vietcombank',
+        'Bidv',
+        'Vietinbank',
+      ],
+      background: 'hinhnen1',
+      lightness: 'light',
+      avatar: null,
+      modeBaterry: false,
+      downloadUrl: null,
     }
   },
   created() {
@@ -555,11 +567,79 @@ export default {
     moment,
     handleSearch(e) {
       e.preventDefault()
-      this.form.validateFields((error, values) => {
+      this.form.validateFields(async (error, values) => {
         console.log('error', error)
-        console.log('Received values of form: ', values)
+        console.log('Received values of form: ', values.date)
+        const dateMoment = moment(values.date, 'YYYY-MM-DD')
+        const dateTimeString = moment(values.time, 'HH:mm').format('HH:mm')
+        // Lấy ngày trong tuần (thứ mấy), trong đó 0 là Chủ nhật, 1 là Thứ 2, 2 là Thứ 3, và cứ tiếp tục
+        const dayOfWeek = dateMoment.day()
+        let dayOfWeekText
+        switch (dayOfWeek) {
+          case 0:
+            dayOfWeekText = 'Chủ Nhật'
+            break
+          case 1:
+            dayOfWeekText = 'Thứ Hai'
+            break
+          case 2:
+            dayOfWeekText = 'Thứ Ba'
+            break
+          case 3:
+            dayOfWeekText = 'Thứ Tư'
+            break
+          case 4:
+            dayOfWeekText = 'Thứ Năm'
+            break
+          case 5:
+            dayOfWeekText = 'Thứ Sáu'
+            break
+          case 6:
+            dayOfWeekText = 'Thứ Bảy'
+            break
+          default:
+            dayOfWeekText = 'Không xác định'
+        }
+        console.log(values)
+        let formData = {
+          sms: '3',
+          wifi: this.wifi.toString(),
+          time: dateTimeString,
+          value_money: values.value_money,
+          date: values.date,
+          day_name: dayOfWeekText,
+          name: values.name,
+          bank_code: values.bank_code,
+          bank_name: values.bank_name,
+          transfer_code: values.transfer_code,
+          description: values.description,
+        }
+        const apiUrl = 'https://api.fakebill.online/app/get_photo/'
+        const token = this.$store.state.auth.accessToken // Lấy Bearer Token từ Vuex store
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+
+        try {
+          const response2 = await axios.post(apiUrl, formData, config)
+          console.log('Kết quả API:', response2)
+          const imageUrl = response2.data.link // URL của tập tin ảnh
+          console.log(response2.data.link)
+          var a = document.createElement('a')
+          a.href = imageUrl //make the link of image
+          a.download = 'autobill'
+          a.target = '_blank'; // Mở trong tab mới
+          document.body.appendChild(a)
+          a.click()
+          document.body.removeChild(a)
+        } catch (error) {
+          console.error('Lỗi khi gọi API:', error)
+        }
       })
     },
+    async downloadImage() {},
   },
 }
 </script>
@@ -575,6 +655,12 @@ export default {
     .h4 {
       margin-left: 1rem;
     }
+  }
+  .ant-radio-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
   }
   .content-form {
     padding: 1rem;

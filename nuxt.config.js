@@ -52,6 +52,9 @@ export default {
     '@/assets/custom-bootstrap.scss',
     '@/assets/styles.css',
   ],
+  router: {
+    middleware: 'auth', // Sử dụng middleware auth.js
+  },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['@/plugins/antd-ui'],
 
