@@ -6,6 +6,11 @@ export const state = () => ({
   userId: null,
 })
 
+
+export const getters = {
+  // Định nghĩa getter để lấy access token từ state
+  accessToken: (state) => state.token,
+}
 export const mutations = {
   setAuthentication(state, isAuthenticated) {
     state.isAuthenticated = isAuthenticated
