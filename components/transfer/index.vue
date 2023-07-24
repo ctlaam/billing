@@ -174,7 +174,7 @@
                     'transfer_code',
 
                     {
-                      initialValue: generateRandomNumberString(10),
+                      initialValue: generateRandomNumberString,
                       rules: [
                         {
                           required: true,
@@ -385,7 +385,6 @@
           alt=""
         />
       </div>
-      <button @click="downloadImage">Download Image</button>
     </div>
   </div>
 </template>
@@ -434,17 +433,26 @@ export default {
       lightness: 'light',
       avatar: null,
       modeBaterry: false,
-      downloadUrl: null,
     }
   },
   created() {
     this.dateNow = moment(new Date()).format('YYYY/MM/DD')
     this.timeNow = moment(new Date()).format('HH:mm')
-    console.log(this.timeNow)
   },
   computed: {
     dynamicImagePath() {
       return this.itemSelected.url_example
+    },
+    generateRandomNumberString() {
+      let result = ''
+      const characters = '0123456789'
+
+      for (let i = 0; i < 10; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length)
+        result += characters.charAt(randomIndex)
+      }
+
+      return result
     },
   },
   methods: {
@@ -455,20 +463,9 @@ export default {
       // Để vô hiệu hóa các ngày trong tương lai, ta so sánh ngày hiện tại với ngày được chọn
       return current && current > currentDate.endOf('day')
     },
-    generateRandomNumberString(length) {
-      let result = ''
-      const characters = '0123456789'
 
-      for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length)
-        result += characters.charAt(randomIndex)
-      }
-
-      return result
-    },
     filterCurrency(currency, text = '') {
       if (currency) {
-        console.log(currency)
         currency = Math.round(currency)
         var input = currency.toString().replace(/\./g, '').split('')
         var arr = []
@@ -539,7 +536,6 @@ export default {
     },
     // for upload img
     handleChangeImg(info) {
-      console.log(info)
       if (info.file.status === 'uploading') {
         this.loadingImg = true
         return
@@ -548,7 +544,6 @@ export default {
         // Get this url from response in real world.
         getBase64(info.file.originFileObj, (imageUrl) => {
           this.imageUrl = imageUrl
-          console.log(this.imageUrl)
           this.loadingImg = false
         })
       }
@@ -568,8 +563,6 @@ export default {
     handleSearch(e) {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
-        console.log('error', error)
-        console.log('Received values of form: ', values.date)
         const dateMoment = moment(values.date, 'YYYY-MM-DD')
         const dateTimeString = moment(values.time, 'HH:mm').format('HH:mm')
         // Lấy ngày trong tuần (thứ mấy), trong đó 0 là Chủ nhật, 1 là Thứ 2, 2 là Thứ 3, và cứ tiếp tục
@@ -600,7 +593,6 @@ export default {
           default:
             dayOfWeekText = 'Không xác định'
         }
-        console.log(values)
         let formData = {
           sms: '3',
           wifi: this.wifi.toString(),
@@ -614,32 +606,23 @@ export default {
           transfer_code: values.transfer_code,
           description: values.description,
         }
-        const apiUrl = 'https://api.fakebill.online/app/get_photo/'
-        const token = this.$store.state.auth.accessToken // Lấy Bearer Token từ Vuex store
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-
-        try {
-          const response2 = await axios.post(apiUrl, formData, config)
-          console.log('Kết quả API:', response2)
-          const imageUrl = response2.data.link // URL của tập tin ảnh
-          console.log(response2.data.link)
-          var a = document.createElement('a')
-          a.href = imageUrl //make the link of image
-          a.download = 'autobill'
-          a.target = '_blank'; // Mở trong tab mới
-          document.body.appendChild(a)
-          a.click()
-          document.body.removeChild(a)
-        } catch (error) {
-          console.error('Lỗi khi gọi API:', error)
-        }
+        transferAPi
+          .getPhoto(formData)
+          .then((res) => {
+            let downloadUrl = res.link
+            var a = document.createElement('a')
+            a.href = downloadUrl //make the link of image
+            a.download = 'autobill'
+            a.target = '_blank' // Mở trong tab mới
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
       })
     },
-    async downloadImage() {},
   },
 }
 </script>

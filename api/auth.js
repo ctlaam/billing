@@ -1,29 +1,45 @@
-import api from './commonapi'
-// Hàm wrapper để gọi API bằng Promise
-export function callFunction(url, method = 'POST', data = null) {
-  console.log('Đăng nhập');
+import axios from 'axios'
+const baseURL = process.env.BASE_URL
+export function logIn(data) {
+  const url = `${baseURL}/auth/login/`
   return new Promise((resolve, reject) => {
-    api
-      .request({ url, method, data })
-      .then((response) => {
-        resolve(response.data)
+    axios
+      .post(url, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
-      .catch((error) => {
-        reject(error)
+      .then((response) => {
+        if (response.status) {
+          resolve(response.data.data)
+        } else {
+          reject(response)
+        }
+      })
+      .catch((response) => {
+        reject(response.response.data.message)
       })
   })
 }
 
-
-// export function signup(url, method = 'POST', data = null) {
-//   return new Promise((resolve, reject) => {
-//     api
-//       .request({ url, method, data })
-//       .then((response) => {
-//         resolve(response.data)
-//       })
-//       .catch((error) => {
-//         reject(error)
-//       })
-//   })
-// }
+export function signUp(data) {
+  const url = `${baseURL}/auth/register/`
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        if (response.status) {
+          resolve(response.data.data)
+        } else {
+          reject(response)
+        }
+      })
+      .catch((response) => {
+        reject(response.response.status)
+      })
+  })
+}

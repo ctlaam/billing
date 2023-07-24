@@ -334,7 +334,6 @@ export default {
   methods: {
     filterCurrency(currency, text = '') {
       if (currency) {
-        console.log(currency)
         currency = Math.round(currency)
         var input = currency.toString().replace(/\./g, '').split('')
         var arr = []
@@ -405,7 +404,6 @@ export default {
     },
     // for upload img
     handleChangeImg(info) {
-      console.log(info)
       if (info.file.status === 'uploading') {
         this.loadingImg = true
         return
@@ -414,7 +412,6 @@ export default {
         // Get this url from response in real world.
         getBase64(info.file.originFileObj, (imageUrl) => {
           this.imageUrl = imageUrl
-          console.log(this.imageUrl)
           this.loadingImg = false
         })
       }

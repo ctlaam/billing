@@ -98,6 +98,7 @@
 
 <script>
 import * as authApi from '../../api/auth.js'
+import Cookies from 'js-cookie';
 export default {
   layout: 'account',
   data() {
@@ -121,24 +122,31 @@ export default {
         if (!err) {
           // call api here
           // login api
+          this.$store.dispatch('auth/login', {
+            accessToken: 'res.tokens.acces',
+            refreshToken: 'res.tokens.refres',
+            userId: 'res.id',
+          })
           authApi
-            .callFunction('https://api.fakebill.online/auth/login/', 'POST', {
+            .logIn({
               email: values.email,
               password: values.password,
             })
             .then((res) => {
               this.$message.success('Đăng nhập thành công')
               this.$store.dispatch('auth/login', {
-                accessToken: res.data.tokens.access,
-                refreshToken: res.data.tokens.refresh,
-                userId: res.data.id,
+                accessToken: res.tokens.access,
+                refreshToken: res.tokens.refresh,
+                userId: res.id,
               })
+              Cookies.set("access_token",  res.tokens.access, { expires: 1 });
+              Cookies.set("refresh_token",  res.tokens.refresh, { expires: 1 });
+              Cookies.set("user_id",  res.id, { expires: 1 });
               this.$router.push('/')
             })
             .catch((err) => {
               this.$message.error('Đăng nhập thất bại')
             })
-          console.log('Received values of form: ', values)
         }
       })
     },

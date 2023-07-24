@@ -53,10 +53,10 @@ export default {
     '@/assets/styles.css',
   ],
   router: {
-    middleware: ['axios','auth'], // Sử dụng middleware auth.js
+    middleware: ['axios', 'auth'], // Sử dụng middleware auth.js
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/antd-ui', '@/plugins/axios'],
+  plugins: ['@/plugins/antd-ui'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

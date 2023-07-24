@@ -147,20 +147,51 @@
           <a-row :gutter="12">
             <a-col :span="24" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Thể loại">
-                <a-tabs default-active-key="1" @change="changeTab">
+                <a-tabs
+                  v-for="(item, index) in numberVolatility"
+                  :key="index"
+                  default-active-key="1"
+                  @change="changeTab($event, index)"
+                >
                   <a-tab-pane key="1" tab="Nhận tiền">
-                    <div v-if="keyTab == 1">
-                      <a-row
-                        v-for="(i, index) in numberTest"
-                        :key="index"
-                        :gutter="12"
-                      >
+                    <div v-if="item.keyTab == 1">
+                      <a-row :gutter="12">
+                        <a-col :span="16" class="h3"
+                          >Biến động {{ index + 1 }}</a-col
+                        >
+                        <a-col :span="8" class="text-end"
+                          ><button
+                            v-if="index >= 1"
+                            class="delete-item btn btn-outline-danger text-nowrap px-1 waves-effect"
+                            data-repeater-delete=""
+                            type="button"
+                            style="font-size: 1.4rem"
+                            @click="deleteVolatile(item.id)"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="feather feather-x me-25"
+                            >
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                            <span>Xoá biến động</span>
+                          </button></a-col
+                        >
                         <a-col :span="12">
                           <a-form-item label="Số tiền">
                             <a-input
                               @keydown="handleKeyDown"
                               v-decorator="[
-                                'money-volatility',
+                                `money-volatility${index}`,
                                 {
                                   rules: [
                                     {
@@ -179,7 +210,7 @@
                             <a-input
                               @keydown="handleKeyDown"
                               v-decorator="[
-                                'current-balance',
+                                `current-balance${index}`,
                                 {
                                   rules: [
                                     {
@@ -200,7 +231,7 @@
                           <a-form-item label="Giờ">
                             <a-time-picker
                               v-decorator="[
-                                'timer-volatility',
+                                `timer-volatility${index}`,
                                 {
                                   initialValue: moment(timeNow, 'HH:mm'),
                                   rules: [
@@ -224,7 +255,7 @@
                             <a-date-picker
                               :disabled-date="disabledDate"
                               v-decorator="[
-                                'date-volatility',
+                                `date-volatility${index}`,
                                 {
                                   initialValue: moment(dateNow, 'YYYY/MM/DD'),
                                   rules: [
@@ -240,10 +271,11 @@
                           </a-form-item>
                         </a-col>
                       </a-row>
+                      <div class="a-row" :span="24"></div>
                     </div>
                   </a-tab-pane>
                   <a-tab-pane key="2" tab="Trừ tiền" force-render>
-                    <div v-if="keyTab == 2">
+                    <div v-if="item.keyTab == 2">
                       <a-row :gutter="12">
                         <a-col
                           :span="12"
@@ -293,6 +325,36 @@
                     </div>
                   </a-tab-pane>
                 </a-tabs>
+                <a-row :gutter="12">
+                  <a-col :span="24">
+                    <div class="col-12 mb-2">
+                      <button
+                        class="add-item btn btn-icon btn-success waves-effect waves-float waves-light"
+                        type="button"
+                        data-repeater-create=""
+                        style="font-size: 1.4rem"
+                        @click="addVolatile"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="feather feather-plus me-25"
+                        >
+                          <line x1="12" y1="5" x2="12" y2="19"></line>
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>Thêm biến động</span>
+                      </button>
+                    </div>
+                  </a-col>
+                </a-row>
               </a-form-item>
             </a-col>
           </a-row>
@@ -511,7 +573,10 @@ export default {
       timeNow: null,
       dateNow: null,
       keyTab: 1,
-      numberTest:4,
+      numberVolatility: [
+        { id: 1, name: '1', keyTab: 1 },
+        { id: 2, name: '2', keyTab: 1 },
+      ],
     }
   },
   created() {
@@ -523,12 +588,22 @@ export default {
       return this.itemSelected.url_example
     },
   },
-  test(){
-
-  },
+  test() {},
   methods: {
-    changeTab(key) {
-      this.keyTab = key
+    deleteVolatile(id) {
+      this.numberVolatility = this.numberVolatility.filter(
+        (item) => item.id !== id
+      )
+    },
+    addVolatile() {
+      this.numberVolatility.push({
+        id: this.numberVolatility.length + 1,
+        name: this.numberVolatility.length + 1,
+        keyTab: 1,
+      })
+    },
+    changeTab(key, index) {
+      this.numberVolatility[index].keyTab = key
     },
     disabledDate(current) {
       // Lấy ngày hiện tại
@@ -539,7 +614,6 @@ export default {
     },
     filterCurrency(currency, text = '') {
       if (currency) {
-        console.log(currency)
         currency = Math.round(currency)
         var input = currency.toString().replace(/\./g, '').split('')
         var arr = []
@@ -610,7 +684,6 @@ export default {
     },
     // for upload img
     handleChangeImg(info) {
-      console.log(info)
       if (info.file.status === 'uploading') {
         this.loadingImg = true
         return
@@ -619,7 +692,6 @@ export default {
         // Get this url from response in real world.
         getBase64(info.file.originFileObj, (imageUrl) => {
           this.imageUrl = imageUrl
-          console.log(this.imageUrl)
           this.loadingImg = false
         })
       }
@@ -641,6 +713,26 @@ export default {
       this.form.validateFields((error, values) => {
         console.log('error', error)
         console.log('Received values of form: ', values)
+        const arrayVolatility = []
+
+        // Lấy thông tin money-volatility, timer-volatility, date-volatility và current-balance và đẩy vào mảng arrayVolatility
+        let index = 0
+        while (
+          values.hasOwnProperty(`money-volatility${index}`) &&
+          values.hasOwnProperty(`timer-volatility${index}`) &&
+          values.hasOwnProperty(`date-volatility${index}`) &&
+          values.hasOwnProperty(`current-balance${index}`)
+        ) {
+          arrayVolatility.push({
+            money_volatility: values[`money-volatility${index}`],
+            timer_volatility: values[`timer-volatility${index}`],
+            date_volatility: values[`date-volatility${index}`],
+            current_balance: values[`current-balance${index}`],
+          })
+          index++
+        }
+
+        console.log(arrayVolatility)
       })
     },
   },

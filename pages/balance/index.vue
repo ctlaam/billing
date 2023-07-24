@@ -32,7 +32,6 @@ export default {
     selectItem(item) {
       this.showForm = true
       this.itemSelected = item
-      console.log(item)
     },
   },
 }

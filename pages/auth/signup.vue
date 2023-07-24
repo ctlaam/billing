@@ -162,22 +162,21 @@ export default {
           // call api here
           // resgister api
           authApi
-            .callFunction(
-              'https://api.fakebill.online/auth/register/',
-              'POST',
-              {
-                email: values.email,
-                password: values.password,
-              }
-            )
+            .signUp({
+              email: values.email,
+              password: values.password,
+            })
             .then((res) => {
               this.$message.success('Đăng kí thành công !')
               this.$router.push('/auth')
             })
             .catch((err) => {
-              this.$message.error('Đăng nhập thất bại')
+              if (err == 400) {
+                this.$message.error('Email đã tồn tại !')
+              } else {
+                this.$message.error('Đăng kí thất bại !')
+              }
             })
-          console.log('Received values of form: ', values)
         }
       })
     },

@@ -1,28 +1,18 @@
-export default function ({ $axios, store }) {
+import axios from 'axios'
+
+export default function ({ store }) {
   // Đăng ký một interceptor onRequest để thực hiện tác vụ trước khi gọi API
   // /plugins/axios.js
-  console.log($axios)
-  $axios.interceptors.request.use(
+  axios.interceptors.request.use(
     (config) => {
       const excludedEndpoints = [
-        '/login',
-        '/register',
-        '/logout',
-        '/login/login1',
+        '/auth',
+        '/auth/login',
       ]
       // Lấy Bearer Token từ Vuex Store
-      const token = store.state.auth.accessToken
-      console.log(token, 'token')
+      const token = store.state.auth.accessToken    
 
       // Nếu tồn tại Bearer Token, thêm vào tiêu đề "Authorization" của yêu cầu Axios
-      if (
-        !isAuthenticated &&
-        route.path !== '/auth' &&
-        route.path !== '/auth/signup'
-      ) {
-        // Chuyển hướng đến /auth/signup
-        return redirect('/auth')
-      }
       if (
         !excludedEndpoints.some((endpoint) => config.url.includes(endpoint))
       ) {
@@ -34,6 +24,7 @@ export default function ({ $axios, store }) {
       return config
     },
     (error) => {
+      console.log(err);
       return Promise.reject(error)
     }
   )

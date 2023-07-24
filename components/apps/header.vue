@@ -22,7 +22,9 @@
             <a-menu-item> <a-icon type="user" />Thông tin cá nhân </a-menu-item>
             <a-menu-item> <a-icon type="history" />Lịch sử </a-menu-item>
             <a-menu-item> <a-icon type="credit-card" />Nạp tiền </a-menu-item>
-            <a-menu-item> <a-icon type="poweroff" />Đăng xuất </a-menu-item>
+            <a-menu-item @click="logOut">
+              <a-icon type="poweroff" />Đăng xuất
+            </a-menu-item>
           </a-menu>
           <a-avatar
             class="mb-2"
@@ -36,7 +38,18 @@
 </template>
 
 <script>
-export default {}
+import Cookies from 'js-cookie'
+export default {
+  methods: {
+    logOut() {
+      Cookies.remove('access_token')
+      Cookies.remove('refresh_token')
+      Cookies.remove('user_id')
+      this.$store.dispatch('auth/logout')
+      this.$router.push('/auth')
+    },
+  },
+}
 </script>
 
 <style lang="scss">
