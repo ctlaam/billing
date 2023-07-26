@@ -363,51 +363,55 @@
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Hình nền</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div class="img mb-2">
-                    <img
-                      style="max-width: 100px"
-                      src="../../static/nen1.png"
-                      alt=""
-                    />
+                <a-radio-group v-model="background">
+                  <div class="item text-center">
+                    <div class="img mb-2">
+                      <img
+                        style="max-width: 100px"
+                        src="../../static/nen1.png"
+                        alt=""
+                      />
+                    </div>
+                    <a-radio value="hinhnen1">Hình nền 1</a-radio>
                   </div>
-                  <a-checkbox>Hình nền 1</a-checkbox>
-                </div>
-                <div class="item text-center">
-                  <div class="img mb-2">
-                    <img
-                      style="max-width: 100px"
-                      src="../../static/nen2.png"
-                      alt=""
-                    />
+                  <div class="item text-center">
+                    <div class="img mb-2">
+                      <img
+                        style="max-width: 100px"
+                        src="../../static/nen2.png"
+                        alt=""
+                      />
+                    </div>
+                    <a-radio value="hinhnen2">Hình nền 2</a-radio>
                   </div>
-                  <a-checkbox>Hình nền 2</a-checkbox>
-                </div>
+                </a-radio-group>
               </div>
             </a-col>
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Giao diện</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div class="img mb-2">
-                    <img
-                      style="max-width: 100px"
-                      src="../../static/giaodien1.png"
-                      alt=""
-                    />
+                <a-radio-group v-model="lightness">
+                  <div class="item text-center">
+                    <div class="img mb-2">
+                      <img
+                        style="max-width: 100px"
+                        src="../../static/giaodien1.png"
+                        alt=""
+                      />
+                    </div>
+                    <a-radio value="light">Tối</a-radio>
                   </div>
-                  <a-checkbox>Tối</a-checkbox>
-                </div>
-                <div class="item text-center">
-                  <div class="img mb-2">
-                    <img
-                      style="max-width: 100px"
-                      src="../../static/giaodien2.png"
-                      alt=""
-                    />
+                  <div class="item text-center">
+                    <div class="img mb-2">
+                      <img
+                        style="max-width: 100px"
+                        src="../../static/giaodien2.png"
+                        alt=""
+                      />
+                    </div>
+                    <a-radio value="dard">Sáng</a-radio>
                   </div>
-                  <a-checkbox>Sáng</a-checkbox>
-                </div>
+                </a-radio-group>
               </div>
             </a-col>
           </a-row>
@@ -577,6 +581,8 @@ export default {
         { id: 1, name: '1', keyTab: 1 },
         { id: 2, name: '2', keyTab: 1 },
       ],
+      background: 'hinhnen1',
+      lightness: 'light',
     }
   },
   created() {
