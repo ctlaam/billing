@@ -4,7 +4,7 @@ export const LISTBANKS_TRANFER = [
     name: 'Vietcombank',
     img: 'https://autobill.shop/assets/images/LogoBank/vietcombank.png',
     type: 1,
-    url_example: 'vcb.jpeg',
+    url_example: 'vcb.jpg',
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const LISTBANKS_TRANFER = [
     name: 'Techcombank',
     img: 'https://autobill.shop/assets/images/LogoBank/techcombank.png',
     type: 2,
-    url_example: 'tcb.png',
+    url_example: 'tcb.jpg',
   },
 
   {
@@ -26,7 +26,7 @@ export const LISTBANKS_TRANFER = [
     name: 'Agribank',
     img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-Agribank-V.png',
     type: 3,
-    url_example: 'momo.png',
+    url_example: 'agribank.png',
   },
   {
     id: 5,
