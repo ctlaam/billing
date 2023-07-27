@@ -8,6 +8,7 @@
       </div>
       <Footer></Footer>
     </div>
+    <fullscreen-modal > </fullscreen-modal>
   </div>
 </template>
 
@@ -15,12 +16,14 @@
 import Header from '../components/apps/header.vue'
 import Navbar from '../components/apps/navbar.vue'
 import Footer from '../components/apps/footer.vue'
+import FullscreenModal from '../components/apps/FullscreenModal.vue'
 
 export default {
   components: {
     Header,
     Navbar,
     Footer,
+    FullscreenModal,
   },
 }
 </script>

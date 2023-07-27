@@ -8,8 +8,8 @@ export const LISTBANKS_TRANFER = [
   },
   {
     id: 2,
-    name: 'Vietinbank',
-    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-VietinBank-CTG-Ori.png',
+    name: 'ACB',
+    img: 'https://autobill.shop/assets/images/LogoBank/acb.png',
     type: 1,
     url_example: 'vtb.png',
   },
@@ -23,14 +23,14 @@ export const LISTBANKS_TRANFER = [
 
   {
     id: 4,
-    name: 'Momo',
-    img: 'https://autobill.shop/assets/images/LogoBank/momo.png',
+    name: 'Agribank',
+    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-Agribank-V.png',
     type: 3,
     url_example: 'momo.png',
   },
   {
     id: 5,
-    name: 'MbBank',
+    name: 'MBBank',
     img: 'https://autobill.shop/assets/images/LogoBank/mbbank.png',
     type: 1,
     url_example: 'mbb.png',
@@ -47,8 +47,8 @@ export const LISTBANKS_VOLATILITY = [
   },
   {
     id: 2,
-    name: 'Vietinbank',
-    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-VietinBank-CTG-Ori.png',
+    name: 'ACB',
+    img: 'https://autobill.shop/assets/images/LogoBank/acb.png',
     type: 1,
     url_example: '',
   },
@@ -62,14 +62,14 @@ export const LISTBANKS_VOLATILITY = [
 
   {
     id: 4,
-    name: 'Momo',
-    img: 'https://autobill.shop/assets/images/LogoBank/momo.png',
+    name: 'Agribank',
+    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-Agribank-V.png',
     type: 3,
     url_example: '',
   },
   {
     id: 5,
-    name: 'MbBank',
+    name: 'MBBank',
     img: 'https://autobill.shop/assets/images/LogoBank/mbbank.png',
     type: 1,
     url_example: '',
@@ -93,23 +93,23 @@ export const LISTBANKS_BALANCE = [
   },
   {
     id: 3,
-    name: 'ViettinBank',
-    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-VietinBank-CTG-Ori.png',
+    name: 'ACB',
+    img: 'https://autobill.shop/assets/images/LogoBank/acb.png',
     type: 2,
     url_example: 'vtb.png',
   },
 
   {
     id: 4,
-    name: 'TPBank',
-    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/02/Icon-TPBank.png',
+    name: 'Techcombank',
+    img: 'https://autobill.shop/assets/images/LogoBank/techcombank.png',
     type: 3,
     url_example: 'tpbank.png',
   },
   {
     id: 5,
-    name: 'VPBank',
-    img: 'https://autobill.shop/assets/images/LogoBank/vpbank.png',
+    name: 'Agribank',
+    img: 'https://cdn.haitrieu.com/wp-content/uploads/2022/01/Logo-Agribank-V.png',
     type: 1,
     url_example: 'vpb.png',
   },

@@ -105,6 +105,52 @@
               /> -->
               </a-form-item>
             </a-col>
+            <a-col
+              v-if="['MBBank', 'ACB'].includes(itemSelected.name)"
+              :span="12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
+              <a-form-item label="Tên tài khoản nguồn">
+                <a-input
+                  v-decorator="[
+                    'name_source',
+                    {
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Nhập tên tài khoản nguồn',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Nhập tên tài khoản nguồn"
+                />
+              </a-form-item>
+            </a-col>
+            <a-col
+              v-if="['MBBank', 'ACB'].includes(itemSelected.name)"
+              :span="12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
+              <a-form-item label="Số tài khoản nguồn">
+                <a-input
+                  @keydown="handleKeyDown"
+                  v-decorator="[
+                    'bank_code_source',
+
+                    {
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Nhập số tài khoản nguồn',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Nhập số tài khoản nguồn"
+                />
+              </a-form-item>
+            </a-col>
             <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Tên người nhận">
                 <a-input
@@ -167,7 +213,7 @@
               </a-form-item>
             </a-col>
             <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item label="Mã giao dịch (mã được tạo tự động) ">
+              <a-form-item v-if="!['ACB'].includes(itemSelected.name)" label="Mã giao dịch (mã được tạo tự động) ">
                 <a-input
                   :disabled="true"
                   v-decorator="[
@@ -445,13 +491,55 @@ export default {
     },
     generateRandomNumberString() {
       let result = ''
+      const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
       const characters = '0123456789'
+      switch (this.itemSelected.name) {
+        case 'Vietcombank':
+          for (let i = 0; i < 10; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length)
+            result += characters.charAt(randomIndex)
+          }
 
-      for (let i = 0; i < 10; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length)
-        result += characters.charAt(randomIndex)
+          break
+        case 'MBBank':
+          for (let i = 0; i < 2; i++) {
+            result += upperCaseLetters.charAt(
+              Math.floor(Math.random() * upperCaseLetters.length)
+            )
+          }
+
+          // Tạo 14 kí tự số sau
+          for (let i = 0; i < 14; i++) {
+            result += characters.charAt(
+              Math.floor(Math.random() * characters.length)
+            )
+          }
+          break
+        case 'Techcombank':
+          for (let i = 0; i < 2; i++) {
+            result += upperCaseLetters.charAt(
+              Math.floor(Math.random() * upperCaseLetters.length)
+            )
+          }
+
+          // Tạo 14 kí tự số sau
+          for (let i = 0; i < 14; i++) {
+            result += characters.charAt(
+              Math.floor(Math.random() * characters.length)
+            )
+          }
+          break
+        case 'Agribank':
+          // Tạo 14 kí tự số sau
+          for (let i = 0; i < 6; i++) {
+            result += characters.charAt(
+              Math.floor(Math.random() * characters.length)
+            )
+          }
+          break
+        default:
+          break
       }
-
       return result
     },
   },

@@ -98,7 +98,7 @@
 
 <script>
 import * as authApi from '../../api/auth.js'
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
 export default {
   layout: 'account',
   data() {
@@ -122,6 +122,7 @@ export default {
         if (!err) {
           // call api here
           // login api
+          this.$store.dispatch('loading/setModalLoading', true)
           this.$store.dispatch('auth/login', {
             accessToken: 'res.tokens.acces',
             refreshToken: 'res.tokens.refres',
@@ -133,15 +134,16 @@ export default {
               password: values.password,
             })
             .then((res) => {
+              this.$store.dispatch('loading/setModalLoading', false)
               this.$message.success('Đăng nhập thành công')
               this.$store.dispatch('auth/login', {
                 accessToken: res.tokens.access,
                 refreshToken: res.tokens.refresh,
                 userId: res.id,
               })
-              Cookies.set("access_token",  res.tokens.access, { expires: 1 });
-              Cookies.set("refresh_token",  res.tokens.refresh, { expires: 1 });
-              Cookies.set("user_id",  res.id, { expires: 1 });
+              Cookies.set('access_token', res.tokens.access, { expires: 1 })
+              Cookies.set('refresh_token', res.tokens.refresh, { expires: 1 })
+              Cookies.set('user_id', res.id, { expires: 1 })
               this.$router.push('/')
             })
             .catch((err) => {
