@@ -56,7 +56,10 @@ export default {
     middleware: ['axios', 'auth'], // Sử dụng middleware auth.js
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/antd-ui'],
+  plugins: [
+    '@/plugins/antd-ui',
+    { src: '@/plugins/vclickoutside', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

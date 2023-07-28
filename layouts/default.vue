@@ -8,7 +8,8 @@
       </div>
       <Footer></Footer>
     </div>
-    <fullscreen-modal > </fullscreen-modal>
+    <fullscreen-modal> </fullscreen-modal>
+    <div class="modal"></div>
   </div>
 </template>
 
@@ -32,7 +33,7 @@ export default {
 .app {
 }
 .main-content {
-  padding: 2em 10em;
+  padding: 2em 5em;
   background-color: #161d31;
   width: 100%;
   color: #d0d2d6;
@@ -58,4 +59,10 @@ export default {
     background: #888888;
   }
 }
+@media only screen and (max-width: 1024px) {
+  .main-content {
+    padding: 2em 2em;
+  }
+}
+
 </style>

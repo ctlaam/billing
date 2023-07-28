@@ -4,6 +4,9 @@
     class="d-flex align-items-center justify-content-between mb-4"
   >
     <div class="left d-flex">
+      <div @click="showNavbar" class="item mobile h3">
+        <a-icon type="menu" />
+      </div>
       <div class="item h3">
         <a-icon type="user" />
       </div>
@@ -48,6 +51,12 @@ export default {
       this.$store.dispatch('auth/logout')
       this.$router.push('/auth')
     },
+    showNavbar(){
+      const nav = document.getElementById('navbar')
+      nav.classList.toggle('navbar-mobile')
+      const modal = document.querySelector('.modal')
+      modal.classList.add('show')
+    }
   },
 }
 </script>
@@ -69,6 +78,9 @@ export default {
         cursor: pointer;
       }
     }
+    .mobile {
+      display: none;
+    }
   }
   .right {
     padding: 0 1rem;
@@ -89,6 +101,15 @@ export default {
     .anticon {
       position: relative;
       top: -3px;
+    }
+  }
+}
+@media only screen and (max-width: 1024px) {
+  #header {
+    .left {
+      .mobile {
+        display: block;
+      }
     }
   }
 }

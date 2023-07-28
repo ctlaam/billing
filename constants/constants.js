@@ -56,7 +56,7 @@ export const LISTBANKS_TRANFER = [
     id: 6,
     name: 'MSB',
     img: 'msb.png',
-    url_example: 'msb.jpg',
+    url_example: 'msb.JPG',
     background: [],
   },
 ]
@@ -119,7 +119,7 @@ export const LISTBANKS_VOLATILITY = [
     id: 6,
     name: 'MSB',
     img: 'msb.png',
-    url_example: 'msb.png',
+    url_example: 'msb.PNG',
     background: [],
   },
 ]

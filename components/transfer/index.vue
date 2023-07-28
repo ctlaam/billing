@@ -9,20 +9,20 @@
         >
       </div>
     </div>
-    <div @click="$emit('showOrHideForm',false)" class="p-3 h2 title">
+    <div @click="$emit('showOrHideForm', false)" class="p-3 h2 title">
       <a-button class="d-flex align-items-center">
         <a-icon type="arrow-left" /> Quay lại</a-button
       >
     </div>
-    <div class="d-flex">
+    <div class="d-flex form">
       <div class="content-form">
         <a-form
           class="ant-advanced-search-form"
           :form="form"
           @submit="handleSearch"
         >
-          <a-row :gutter="12">
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+          <div class="row">
+            <div class="col-md-6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Số tiền cần chuyển">
                 <a-input
                   @keydown="handleKeyDown"
@@ -40,8 +40,11 @@
                   placeholder="Nhập số tiền cần làm giả"
                 />
               </a-form-item>
-            </a-col>
-            <a-col :span="6" :style="{ display: true ? 'block' : 'none' }">
+            </div>
+            <div
+              class="col-md-3 col-6"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Giờ">
                 <a-time-picker
                   v-decorator="[
@@ -74,8 +77,11 @@
                 placeholder="placeholder"
               /> -->
               </a-form-item>
-            </a-col>
-            <a-col :span="6" :style="{ display: true ? 'block' : 'none' }">
+            </div>
+            <div
+              class="col-md-3 col-6"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Ngày">
                 <a-date-picker
                   :disabled-date="disabledDate"
@@ -109,10 +115,10 @@
                 placeholder="placeholder"
               /> -->
               </a-form-item>
-            </a-col>
-            <a-col
+            </div>
+            <div
               v-if="['MBBank', 'ACB'].includes(itemSelected.name)"
-              :span="12"
+              class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
               <a-form-item label="Tên tài khoản nguồn">
@@ -131,10 +137,10 @@
                   placeholder="Nhập tên tài khoản nguồn"
                 />
               </a-form-item>
-            </a-col>
-            <a-col
+            </div>
+            <div
               v-if="['MBBank', 'ACB', 'MSB'].includes(itemSelected.name)"
-              :span="12"
+              class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
               <a-form-item label="Số tài khoản nguồn">
@@ -155,8 +161,8 @@
                   placeholder="Nhập số tài khoản nguồn"
                 />
               </a-form-item>
-            </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+            </div>
+            <div class="col-md-6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Tên người nhận">
                 <a-input
                   v-decorator="[
@@ -173,8 +179,8 @@
                   placeholder="Nhập tên người nhận"
                 />
               </a-form-item>
-            </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+            </div>
+            <div class="col-md-6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Số tài khoản người nhận">
                 <a-input
                   @keydown="handleKeyDown"
@@ -193,10 +199,10 @@
                   placeholder="Nhập số tài khoản người nhận"
                 />
               </a-form-item>
-            </a-col>
-            <a-col
+            </div>
+            <!-- <div
               v-if="!['MSB'].includes(itemSelected.name)"
-              :span="12"
+              class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
               <a-form-item
@@ -221,10 +227,10 @@
                   placeholder="Nhập mã giao dịch"
                 />
               </a-form-item>
-            </a-col>
-            <a-col
+            </div> -->
+            <div
               v-if="!['MSB'].includes(itemSelected.name)"
-              :span="12"
+              class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
               <a-form-item label="Ngân hàng thụ hưởng">
@@ -248,14 +254,10 @@
                   </a-select-option>
                 </a-select>
               </a-form-item>
-            </a-col>
-            <a-col
-              v-if="!['MSB'].includes(itemSelected.name)"
-              :span="12"
-              :style="{ display: true ? 'block' : 'none' }"
-            >
+            </div>
+            <div class="col-md-6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item
-                v-if="!['ACB', 'Techcombank'].includes(itemSelected.name)"
+                v-if="!['ACB', 'MSB'].includes(itemSelected.name)"
                 label="Mã giao dịch (mã được tạo tự động) "
               >
                 <a-input
@@ -276,8 +278,8 @@
                   placeholder="Nhập mã giao dịch"
                 />
               </a-form-item>
-            </a-col>
-            <a-col :span="24" :style="{ display: true ? 'block' : 'none' }">
+            </div>
+            <div :span="24" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Nội dung">
                 <a-textarea
                   :auto-size="{ minRows: 2, maxRows: 6 }"
@@ -295,18 +297,23 @@
                   placeholder="Nhập nội dung chuyển khoản"
                 />
               </a-form-item>
-            </a-col>
-          </a-row>
-          <a-row :gutter="12">
-            <a-col
+            </div>
+          </div>
+          <div class="row">
+            <div
               v-if="
-                !['ACB', 'Techcombank', 'Agribank'].includes(
+                !['ACB', 'Techcombank', 'Agribank', 'MSB'].includes(
                   this.itemSelected.name
                 )
               "
               class="mb-5"
-              :span="itemSelected.background.length > 2 ? 24 : 12"
-              ><div class="title mb-4">Hình nền</div>
+              :class="
+                itemSelected.background.length > 2
+                  ? 'col-xl-12 col-md-12'
+                  : 'col-xl-6 col-md-6'
+              "
+            >
+              <div class="title mb-4">Hình nền</div>
               <!-- <div class="list-item d-flex justify-content-evenly"> -->
               <a-radio-group v-model="background">
                 <div class="row w-100">
@@ -314,8 +321,8 @@
                     class="col-6 mb-4"
                     :class="
                       itemSelected.background.length > 2
-                        ? 'col-md-2'
-                        : 'col-md-4'
+                        ? ' col-md-3'
+                        : 'col-md-6'
                     "
                     v-for="(background, index) in itemSelected.background"
                     :key="index"
@@ -342,19 +349,19 @@
                 </div>
               </a-radio-group>
               <!-- </div> -->
-            </a-col>
-            <a-col
+            </div>
+            <div
               v-if="
-                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
                 )
               "
-              class="mb-5"
-              :span="12"
-              ><div class="title mb-4">Giao diện</div>
-              <div class="list-item d-flex justify-content-evenly">
+              class="col-md-6 mb-5"
+            >
+              <div class="title mb-4">Giao diện</div>
+              <div class="list-item row">
                 <a-radio-group v-model="lightness">
-                  <div class="item text-center">
+                  <div class="item col-6">
                     <div class="img mb-2">
                       <img
                         style="max-width: 100px"
@@ -364,7 +371,7 @@
                     </div>
                     <a-radio value="light">Tối</a-radio>
                   </div>
-                  <div class="item text-center">
+                  <div class="item col-6">
                     <div class="img mb-2">
                       <img
                         style="max-width: 100px"
@@ -376,16 +383,16 @@
                   </div>
                 </a-radio-group>
               </div>
-            </a-col>
-          </a-row>
-          <a-row :gutter="24">
-            <a-col
+            </div>
+          </div>
+          <div class="row">
+            <div
               v-if="
-                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
                 )
               "
-              class="mb-5"
+              class="mb-5 col-xl-4 col-md-6 col-12"
               :span="8"
             >
               <div class="title mb-4">Ảnh đại diện</div>
@@ -407,36 +414,34 @@
                   </div>
                 </a-upload>
               </div>
-            </a-col>
-            <a-col
+            </div>
+            <div
               v-if="
-                ['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                ['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
                 )
               "
-              class="mb-5"
-              :span="6"
+              class="col-md-6 mb-5 col-12"
             >
-              <div class="title mb-4">Giao diện</div>
+              <div class="title mb-4 col-12">Giao diện</div>
               <div class="item">
                 <a-radio :checked="true">Iphone 14 pro max</a-radio>
               </div>
-            </a-col>
+            </div>
 
-            <a-col
+            <div
               v-if="['Agribank'].includes(itemSelected.name)"
-              class="mb-5"
-              :span="6"
+              class="col-md-6 mb-5 col-12"
             >
               <div class="title mb-4">Đăng ký OTT biến động số dư</div>
               <a-switch v-model="modeOTT" />
-            </a-col>
-            <a-col class="mb-5" :span="6">
+            </div>
+            <div class="col-md-6 mb-5 col-12">
               <div class="title mb-4">Chế độ nguồn điện thấp</div>
               <a-switch v-model="modeBaterry" />
-            </a-col>
-            <a-col class="mb-5" :span="4"
-              ><div class="title mb-4">Phần trăm pin</div>
+            </div>
+            <div class="mb-5 col-md-6 col-12">
+              <div class="title mb-4">Phần trăm pin</div>
               <a-input-number
                 id="inputNumber"
                 v-model="percentBaterry"
@@ -445,12 +450,13 @@
                 @change="isNumber"
                 @keydown="handleKeyDown"
                 :formatter="(percentBaterry) => `${percentBaterry}%`"
-            /></a-col>
-          </a-row>
-          <a-row :gutter="24">
-            <a-col class="mb-5" :span="12"
-              ><div class="title mb-4">Chế độ mạng</div>
-              <div class="list-item d-flex justify-content-evenly">
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 mb-5 col-12">
+              <div class="title mb-4">Chế độ mạng</div>
+              <div class="list-item d-flex">
                 <a-radio-group v-model="internetWifi">
                   <div class="item text-center">
                     <div>
@@ -472,10 +478,10 @@
                   </div>
                 </a-radio-group>
               </div>
-            </a-col>
-            <a-col class="mb-5" :span="12"
-              ><div class="title mb-4">Sim</div>
-              <div class="list-item d-flex justify-content-evenly">
+            </div>
+            <div class="col-md-7 mb-5 col-12">
+              <div class="title mb-4">Sim</div>
+              <div class="list-item d-flex">
                 <a-radio-group v-model="modeSim">
                   <div class="item text-center">
                     <div>
@@ -507,10 +513,10 @@
                   </div>
                 </a-radio-group>
               </div>
-            </a-col>
-          </a-row>
-          <a-row class="mt-5">
-            <a-col :span="24" :style="{ textAlign: 'left' }">
+            </div>
+          </div>
+          <div class="mt-5">
+            <div :span="24" :style="{ textAlign: 'left' }">
               <a-button
                 class="btn-create d-flex align-items-center justify-content-center"
                 style="
@@ -522,8 +528,8 @@
               >
                 <a-icon type="plus-circle" /> Tạo ảnh
               </a-button>
-            </a-col>
-          </a-row>
+            </div>
+          </div>
         </a-form>
       </div>
       <div class="example-img">
@@ -848,10 +854,13 @@ export default {
     justify-content: space-evenly;
     width: 100%;
   }
+  .title {
+    color: #d0d2d6;
+  }
   .content-form {
     padding: 1rem;
     margin-right: 2rem;
-    color: #d0d2d6;
+    width: 75%;
     background-color: #283046;
     float: left;
     flex: 1 1 auto;
@@ -881,5 +890,41 @@ export default {
       object-fit: cover;
     }
   }
+}
+
+@media only screen and (max-width: 1024px) {
+  #form-balance .content-form {
+    width: 80%;
+  }
+  #form-balance .ant-radio-group {
+    justify-content: start;
+    .item.text-center {
+      margin-right: 20px;
+    }
+  }
+}
+@media only screen and (max-width: 575px) {
+  #form-balance {
+    .d-flex.form {
+      display: block !important;
+      width: 100%;
+      margin-bottom: 2em;
+      .ant-input-number {
+        width: 60px;
+      }
+      .ant-form label {
+        margin: 0;
+      }
+    }
+    .content-form {
+      margin: 0;
+      width: 100%;
+    }
+  }
+}
+#form-balance .example-img {
+  width: 100%;
+  float: left;
+  margin-top: 20px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="navbar">
+  <div v-click-outside="hide" id="navbar" class="navbar-mobile">
     <div class="image mb-4">
       <img src="../../static/ICON.png" width="50" alt="" />
     </div>
@@ -42,7 +42,8 @@
           <nuxt-link to="/balance" exact active-class="active">
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
-                <a-icon type="bank" /> <span class="name-item">Bill số dư</span>
+                <a-icon type="bank" />
+                <span class="name-item">Bill số dư</span>
               </div>
             </div>
           </nuxt-link>
@@ -72,9 +73,21 @@
     </div>
   </div>
 </template>
-
 <script>
-export default {}
+import vClickOutside from 'v-click-outside'
+export default {
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+  methods: {
+    hide() {
+      const nav = document.getElementById('navbar')
+      nav.classList.add('navbar-mobile')
+      const modal = document.querySelector('.modal')
+      modal.classList.remove('show')
+    },
+  },
+}
 </script>
 
 <style lang="scss">
@@ -121,6 +134,32 @@ export default {}
         }
       }
     }
+  }
+}
+.modal {
+  display: none;
+}
+@media only screen and (max-width: 1024px) {
+  #navbar.navbar-mobile {
+    display: none;
+  }
+  #navbar {
+    position: absolute;
+    z-index: 99999;
+    // font-size: 9px !important;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  .modal.show {
+    position: fixed;
+    right: 0;
+    display: block;
+    z-index: 99998;
+    width: 100;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
   }
 }
 </style>

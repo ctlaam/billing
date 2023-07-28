@@ -12,8 +12,13 @@
     </div>
     <div class="right p-5 d-flex align-items-center justify-content-center">
       <div>
-        <h1 class="card-title mb-4">Chào mừng đến với fakebill.online! 👋</h1>
-        <h4 class="mb-4">
+        <div class="logo">
+          <img src="../../static/logo.png" alt="" />
+        </div>
+        <h1 class="card-title mb-4 text-center">
+          Chào mừng đến với fakebill.online! 👋
+        </h1>
+        <h4 class="mb-4 text-center">
           Vui lòng đăng kí tài khoản để sử dụng chức năng trên hệ thống
         </h4>
         <a-form
@@ -205,6 +210,31 @@ export default {
   }
   .ant-form-item {
     color: #d0d2d6;
+  }
+}
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+  #signup {
+    img {
+      width: 100%;
+    }
+  }
+}
+@media only screen and (max-width: 1024px) {
+  #signup {
+    .left {
+      display: none;
+    }
+    .right {
+      width: 100%;
+      .logo {
+        display: block;
+        text-align: center;
+        margin-bottom: 2em;
+        img {
+          width: 100%;
+        }
+      }
+    }
   }
 }
 </style>
