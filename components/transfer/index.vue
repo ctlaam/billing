@@ -128,7 +128,7 @@
               </a-form-item>
             </a-col>
             <a-col
-              v-if="['MBBank', 'ACB'].includes(itemSelected.name)"
+              v-if="['MBBank', 'ACB', 'MSB'].includes(itemSelected.name)"
               :span="12"
               :style="{ display: true ? 'block' : 'none' }"
             >
@@ -189,7 +189,39 @@
                 />
               </a-form-item>
             </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+            <a-col
+              v-if="!['MSB'].includes(itemSelected.name)"
+              :span="12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
+              <a-form-item
+                v-if="!['ACB', 'Techcombank'].includes(itemSelected.name)"
+                label="Mã giao dịch (mã được tạo tự động) "
+              >
+                <a-input
+                  :disabled="true"
+                  v-decorator="[
+                    'transfer_code',
+
+                    {
+                      initialValue: generateRandomNumberString,
+                      rules: [
+                        {
+                          required: true,
+                          message: 'Nhập mã giao dịch',
+                        },
+                      ],
+                    },
+                  ]"
+                  placeholder="Nhập mã giao dịch"
+                />
+              </a-form-item>
+            </a-col>
+            <a-col
+              v-if="!['MSB'].includes(itemSelected.name)"
+              :span="12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Ngân hàng thụ hưởng">
                 <a-select
                   v-decorator="[
@@ -212,8 +244,15 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item v-if="!['ACB'].includes(itemSelected.name)" label="Mã giao dịch (mã được tạo tự động) ">
+            <a-col
+              v-if="!['MSB'].includes(itemSelected.name)"
+              :span="12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
+              <a-form-item
+                v-if="!['ACB', 'Techcombank'].includes(itemSelected.name)"
+                label="Mã giao dịch (mã được tạo tự động) "
+              >
                 <a-input
                   :disabled="true"
                   v-decorator="[
@@ -254,34 +293,59 @@
             </a-col>
           </a-row>
           <a-row :gutter="12">
-            <a-col class="mb-5" :span="12"
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="itemSelected.background.length > 2 ? 24 : 12"
               ><div class="title mb-4">Hình nền</div>
-              <div class="list-item d-flex justify-content-evenly">
-                <a-radio-group v-model="background">
-                  <div class="item text-center">
-                    <div class="img mb-2">
-                      <img
-                        style="max-width: 100px"
-                        src="../../static/nen1.png"
-                        alt=""
-                      />
+              <!-- <div class="list-item d-flex justify-content-evenly"> -->
+              <a-radio-group v-model="background">
+                <div class="row w-100">
+                  <div
+                    class="col-6 mb-4"
+                    :class="
+                      itemSelected.background.length > 2
+                        ? 'col-md-2'
+                        : 'col-md-4'
+                    "
+                    v-for="(background, index) in itemSelected.background"
+                    :key="index"
+                  >
+                    <div class="item">
+                      <div class="img mb-2">
+                        <img
+                          style="max-width: 100px"
+                          :src="require(`~/assets/background${background}`)"
+                          alt=""
+                        />
+                      </div>
+                      <a-radio :value="`hinhnen${index + 1}`"
+                        >Hình nền {{ index + 1 }}</a-radio
+                      >
                     </div>
-                    <a-radio value="hinhnen1">Hình nền 1</a-radio>
                   </div>
-                  <div class="item text-center">
+                  <!-- <div class="item text-center">
                     <div class="img mb-2">
-                      <img
-                        style="max-width: 100px"
-                        src="../../static/nen2.png"
-                        alt=""
-                      />
+                      <img style="max-width: 100px" src="" alt="" />
                     </div>
                     <a-radio value="hinhnen2">Hình nền 2</a-radio>
-                  </div>
-                </a-radio-group>
-              </div>
+                  </div> -->
+                </div>
+              </a-radio-group>
+              <!-- </div> -->
             </a-col>
-            <a-col class="mb-5" :span="12"
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="12"
               ><div class="title mb-4">Giao diện</div>
               <div class="list-item d-flex justify-content-evenly">
                 <a-radio-group v-model="lightness">
@@ -310,7 +374,15 @@
             </a-col>
           </a-row>
           <a-row :gutter="24">
-            <a-col class="mb-5" :span="8">
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="8"
+            >
               <div class="title mb-4">Ảnh đại diện</div>
               <div class="item">
                 <a-upload
@@ -331,11 +403,34 @@
                 </a-upload>
               </div>
             </a-col>
-            <a-col class="mb-5" :span="8"
-              ><div class="title mb-4">Chế độ nguồn điện thấp</div>
-              <a-switch v-model="modeBaterry"
-            /></a-col>
-            <a-col class="mb-5" :span="8"
+            <a-col
+              v-if="
+                ['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="6"
+            >
+              <div class="title mb-4">Giao diện</div>
+              <div class="item">
+                <a-radio :checked="true">Iphone 14 pro max</a-radio>
+              </div>
+            </a-col>
+
+            <a-col
+              v-if="['Agribank'].includes(itemSelected.name)"
+              class="mb-5"
+              :span="6"
+            >
+              <div class="title mb-4">Đăng ký OTT biến động số dư</div>
+              <a-switch v-model="modeOTT" />
+            </a-col>
+            <a-col class="mb-5" :span="6">
+              <div class="title mb-4">Chế độ nguồn điện thấp</div>
+              <a-switch v-model="modeBaterry" />
+            </a-col>
+            <a-col class="mb-5" :span="4"
               ><div class="title mb-4">Phần trăm pin</div>
               <a-input-number
                 id="inputNumber"
@@ -363,6 +458,7 @@
                         :max="4"
                         @change="isNumber2"
                         @keydown="handleKeyDown"
+                        :disabled="internetWifi === '4G'"
                       />
                     </div>
                   </div>
@@ -375,35 +471,36 @@
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Sim</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div>
-                    <a-checkbox v-model="oneSim">Sim 1</a-checkbox>
+                <a-radio-group v-model="modeSim">
+                  <div class="item text-center">
+                    <div>
+                      <a-radio value="simone">Sim 1</a-radio>
+                      <a-input-number
+                        id="sim1"
+                        :min="1"
+                        :max="4"
+                        @change="isNumber3"
+                        @keydown="handleKeyDown"
+                        v-model="sim1"
+                        :disabled="modeSim === 'simtwo'"
+                      />
+                    </div>
+                  </div>
+                  <div class="item text-center">
+                    <a-radio style="line-height: 32px" value="simtwo"
+                      >Sim 2</a-radio
+                    >
                     <a-input-number
-                      id="sim1"
-                      v-model="sim1"
+                      id="sim2"
                       :min="1"
                       :max="4"
-                      @change="isNumber3"
+                      @change="isNumber4"
                       @keydown="handleKeyDown"
+                      v-model="sim2"
+                      :disabled="modeSim === 'simone'"
                     />
                   </div>
-                </div>
-                <div class="item text-center" v-if="false">
-                  <a-checkbox
-                    style="line-height: 32px"
-                    @click="oneSim = false"
-                    :checked="!oneSim"
-                    >Sim 2</a-checkbox
-                  >
-                  <a-input-number
-                    id="sim2"
-                    v-model="sim2"
-                    :min="1"
-                    :max="4"
-                    @change="isNumber4"
-                    @keydown="handleKeyDown"
-                  />
-                </div>
+                </a-radio-group>
               </div>
             </a-col>
           </a-row>
@@ -479,6 +576,8 @@ export default {
       lightness: 'light',
       avatar: null,
       modeBaterry: false,
+      modeSim: 'simone',
+      modeOTT: false,
     }
   },
   created() {
@@ -648,7 +747,7 @@ export default {
       return isJpgOrPng && isLt2M
     },
     moment,
-    handleSearch(e) {
+    async handleSearch(e) {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
         const dateMoment = moment(values.date, 'YYYY-MM-DD')
@@ -694,7 +793,8 @@ export default {
           transfer_code: values.transfer_code,
           description: values.description,
         }
-        transferAPi
+        this.$store.dispatch('loading/setModalLoading', true)
+        await transferAPi
           .getPhoto(formData)
           .then((res) => {
             let downloadUrl = res.link
@@ -705,9 +805,19 @@ export default {
             document.body.appendChild(a)
             a.click()
             document.body.removeChild(a)
+            this.$message.success({
+              content: 'Tạo ảnh thành công',
+              key: 'success',
+            })
+            this.$store.dispatch('loading/setModalLoading', false)
           })
           .catch((error) => {
             console.log(error)
+            this.$message.error({
+              content: 'Có lỗi xảy ra, vui lòng thử lại',
+              key: 'error',
+            })
+            this.$store.dispatch('loading/setModalLoading', false)
           })
       })
     },

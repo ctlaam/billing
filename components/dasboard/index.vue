@@ -20,19 +20,18 @@
           <div class="card bg-info text-white mb-4 rounded">
             <div class="card-body rounded item-notify">
               <p class="card-text h4">
-                Vui lòng tham gia vào
+                Mua tài khoản TẠI ĐÂY
                 <a
                   class="badge rounded-pill bg-warning draggable"
-                  href="https://t.me/+3t0O-omFrhNjY2E1"
-                  >group telegram</a
+                  href="https://t.me/fakebill8888"
+                  >telegram</a
                 >
-                và đăng ký
+                và theo dõi cập nhật mới nhất TẠI ĐÂY
                 <a
                   class="badge rounded-pill bg-warning draggable"
-                  href="https://t.me/+Vwr3urbgMDVhOTll"
+                  href="https://t.me/FakebillChannelOfficial"
                   >kênh telegram</a
                 >
-                để nhận thông báo từ trang web.
               </p>
             </div>
           </div>
@@ -43,7 +42,7 @@
               class="card-header h-100 d-flex align-items-center justify-content-between"
             >
               <div>
-                <h2 class="fw-bolder mb-75">197</h2>
+                <h2 class="fw-bolder mb-75">0</h2>
                 <p class="card-text h4">Tổng bill đã tạo</p>
               </div>
               <div class="avatar bg-light-primary p-50 m-0 h1">
@@ -58,7 +57,7 @@
               class="card-header h-100 d-flex align-items-center justify-content-between"
             >
               <div>
-                <h2 class="fw-bolder mb-75">197</h2>
+                <h2 class="fw-bolder mb-75">0</h2>
                 <p class="card-text h4">Tổng đơn đã mua</p>
               </div>
               <div class="avatar bg-light-success p-50 m-0 h1">
@@ -73,7 +72,7 @@
               class="card-header h-100 d-flex align-items-center justify-content-between"
             >
               <div>
-                <h2 class="fw-bolder mb-75">19.700.000đ</h2>
+                <h2 class="fw-bolder mb-75">0đ</h2>
                 <p class="card-text h4">Tiền chi tiêu</p>
               </div>
               <div class="avatar bg-light-danger p-50 m-0 h1">
@@ -88,7 +87,7 @@
               class="card-header h-100 d-flex align-items-center justify-content-between"
             >
               <div>
-                <h2 class="fw-bolder mb-75">2.000.000.000đ</h2>
+                <h2 class="fw-bolder mb-75">0đ</h2>
                 <p class="card-text h4">Tiền còn lại</p>
               </div>
               <div class="avatar bg-light-warning p-50 m-0 h1">

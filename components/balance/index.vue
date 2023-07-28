@@ -110,34 +110,59 @@
             </a-col>
           </a-row>
           <a-row :gutter="12">
-            <a-col class="mb-5" :span="12"
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="itemSelected.background.length > 2 ? 24 : 12"
               ><div class="title mb-4">Hình nền</div>
-              <div class="list-item d-flex justify-content-evenly">
-                <a-radio-group v-model="background">
-                  <div class="item text-center">
-                    <div class="img mb-2">
-                      <img
-                        style="max-width: 100px"
-                        src="../../static/nen1.png"
-                        alt=""
-                      />
+              <!-- <div class="list-item d-flex justify-content-evenly"> -->
+              <a-radio-group v-model="background">
+                <div class="row w-100">
+                  <div
+                    class="col-6 mb-4"
+                    :class="
+                      itemSelected.background.length > 2
+                        ? 'col-md-2'
+                        : 'col-md-4'
+                    "
+                    v-for="(background, index) in itemSelected.background"
+                    :key="index"
+                  >
+                    <div class="item">
+                      <div class="img mb-2">
+                        <img
+                          style="max-width: 100px"
+                          :src="require(`~/assets/background${background}`)"
+                          alt=""
+                        />
+                      </div>
+                      <a-radio :value="`hinhnen${index + 1}`"
+                        >Hình nền {{ index + 1 }}</a-radio
+                      >
                     </div>
-                    <a-radio value="hinhnen1">Hình nền 1</a-radio>
                   </div>
-                  <div class="item text-center">
+                  <!-- <div class="item text-center">
                     <div class="img mb-2">
-                      <img
-                        style="max-width: 100px"
-                        src="../../static/nen2.png"
-                        alt=""
-                      />
+                      <img style="max-width: 100px" src="" alt="" />
                     </div>
                     <a-radio value="hinhnen2">Hình nền 2</a-radio>
-                  </div>
-                </a-radio-group>
-              </div>
+                  </div> -->
+                </div>
+              </a-radio-group>
+              <!-- </div> -->
             </a-col>
-            <a-col class="mb-5" :span="12"
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="12"
               ><div class="title mb-4">Giao diện</div>
               <div class="list-item d-flex justify-content-evenly">
                 <a-radio-group v-model="lightness">
@@ -166,7 +191,15 @@
             </a-col>
           </a-row>
           <a-row :gutter="24">
-            <a-col class="mb-5" :span="8">
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="8"
+            >
               <div class="title mb-4">Ảnh đại diện</div>
               <div class="item">
                 <a-upload
@@ -177,6 +210,7 @@
                   action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                   :before-upload="beforeUploadImg"
                   @change="handleChangeImg"
+                  v-model="avatar"
                 >
                   <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
                   <div v-else>
@@ -186,11 +220,34 @@
                 </a-upload>
               </div>
             </a-col>
-            <a-col class="mb-5" :span="8"
-              ><div class="title mb-4">Chế độ nguồn điện thấp</div>
-              <a-switch v-model="baterry"
-            /></a-col>
-            <a-col class="mb-5" :span="8"
+            <a-col
+              v-if="
+                ['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="6"
+            >
+              <div class="title mb-4">Giao diện</div>
+              <div class="item">
+                <a-radio :checked="true">Iphone 14 pro max</a-radio>
+              </div>
+            </a-col>
+
+            <a-col
+              v-if="['Agribank'].includes(itemSelected.name)"
+              class="mb-5"
+              :span="6"
+            >
+              <div class="title mb-4">Đăng ký OTT biến động số dư</div>
+              <a-switch v-model="modeOTT" />
+            </a-col>
+            <a-col class="mb-5" :span="6">
+              <div class="title mb-4">Chế độ nguồn điện thấp</div>
+              <a-switch v-model="modeBaterry" />
+            </a-col>
+            <a-col class="mb-5" :span="4"
               ><div class="title mb-4">Phần trăm pin</div>
               <a-input-number
                 id="inputNumber"
@@ -206,64 +263,61 @@
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Chế độ mạng</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div>
-                    <a-checkbox v-model="internetWifi">Wifi</a-checkbox>
-                    <a-input-number
-                      id="inputNumber"
-                      v-model="wifi"
-                      :min="1"
-                      :max="4"
-                      @change="isNumber2"
-                      @keydown="handleKeyDown"
-                      :formatter="(percentBaterry) => `${percentBaterry}`"
-                    />
+                <a-radio-group v-model="internetWifi">
+                  <div class="item text-center">
+                    <div>
+                      <a-radio value="wifi">Wifi</a-radio>
+
+                      <a-input-number
+                        id="inputNumber"
+                        v-model="wifi"
+                        :min="1"
+                        :max="4"
+                        @change="isNumber2"
+                        @keydown="handleKeyDown"
+                        :disabled="internetWifi === '4G'"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="item text-center">
-                  <a-checkbox
-                    style="line-height: 32px"
-                    @click="internetWifi = false"
-                    :checked="!internetWifi"
-                    >4G</a-checkbox
-                  >
-                </div>
-              </div></a-col
-            >
+                  <div class="item text-center">
+                    <a-radio value="4G" style="line-height: 32px">4G</a-radio>
+                  </div>
+                </a-radio-group>
+              </div>
+            </a-col>
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Sim</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div>
-                    <a-checkbox v-model="oneSim">Sim 1</a-checkbox>
+                <a-radio-group v-model="modeSim">
+                  <div class="item text-center">
+                    <div class="d-flex">
+                      <a-radio value="simone">Sim 1</a-radio>
+                      <a-input-number
+                        id="sim1"
+                        :min="1"
+                        :max="4"
+                        @change="isNumber3"
+                        @keydown="handleKeyDown"
+                        v-model="sim1"
+                        :disabled="modeSim === 'simtwo'"
+                      />
+                    </div>
+                  </div>
+                  <div class="item text-center">
+                    <a-radio style="line-height: 32px" value="simtwo"
+                      >Sim 2</a-radio
+                    >
                     <a-input-number
-                      id="sim1"
-                      v-model="sim1"
+                      id="sim2"
                       :min="1"
                       :max="4"
-                      @change="isNumber3"
+                      @change="isNumber4"
                       @keydown="handleKeyDown"
-                      :formatter="(percentBaterry) => `${percentBaterry}`"
+                      v-model="sim2"
+                      :disabled="modeSim === 'simone'"
                     />
                   </div>
-                </div>
-                <div class="item text-center">
-                  <a-checkbox
-                    style="line-height: 32px"
-                    @click="oneSim = false"
-                    :checked="!oneSim"
-                    >Sim 2</a-checkbox
-                  >
-                  <a-input-number
-                    id="sim2"
-                    v-model="sim2"
-                    :min="1"
-                    :max="4"
-                    @change="isNumber4"
-                    @keydown="handleKeyDown"
-                    :formatter="(percentBaterry) => `${percentBaterry}`"
-                  />
-                </div>
+                </a-radio-group>
               </div>
             </a-col>
           </a-row>
@@ -319,7 +373,7 @@ export default {
       percentBaterry: 68,
       money: null,
       wifi: 2,
-      internetWifi: true,
+      internetWifi: 'wifi',
       oneSim: true,
       sim1: 4,
       sim2: 4,
@@ -327,6 +381,10 @@ export default {
       timeNow: null,
       background: 'hinhnen1',
       lightness: 'light',
+      avatar: null,
+      modeBaterry: false,
+      modeSim: 'simone',
+      modeOTT: false,
     }
   },
   created() {

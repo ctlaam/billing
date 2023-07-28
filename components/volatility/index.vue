@@ -270,6 +270,27 @@
                             />
                           </a-form-item>
                         </a-col>
+                        <a-col
+                          :span="12"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Nôi dung giao dịch">
+                            <a-textarea
+                              v-decorator="[
+                                `text-volatility${index}`,
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập nội dung chuyển khoản',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập nội dung chuyển khoản"
+                            />
+                          </a-form-item>
+                        </a-col>
                       </a-row>
                       <div class="a-row" :span="24"></div>
                     </div>
@@ -277,24 +298,148 @@
                   <a-tab-pane key="2" tab="Trừ tiền" force-render>
                     <div v-if="item.keyTab == 2">
                       <a-row :gutter="12">
-                        <a-col
-                          :span="12"
-                          :style="{ display: true ? 'block' : 'none' }"
+                        <a-col :span="16" class="h3"
+                          >Biến động {{ index + 1 }}</a-col
                         >
-                          <a-form-item label="Tên tài khoản nguồn">
-                            <a-input
+                        <a-col :span="8" class="text-end"
+                          ><button
+                            v-if="index >= 1"
+                            class="delete-item btn btn-outline-danger text-nowrap px-1 waves-effect"
+                            data-repeater-delete=""
+                            type="button"
+                            style="font-size: 1.4rem"
+                            @click="deleteVolatile(item.id)"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="feather feather-x me-25"
+                            >
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                            <span>Xoá biến động</span>
+                          </button></a-col
+                        >
+                        <a-col :span="24">
+                          <a-form-item label="Chọn bill đã tạo">
+                            <a-select
+                              class="w-100"
+                              style="width: 120px"
                               v-decorator="[
-                                'nameAccount-2',
+                                `bill-volatility${index}`,
                                 {
+                                  initialValue: 'bill1',
                                   rules: [
                                     {
                                       required: true,
-                                      message: 'Nhập tên nguồn tài khoản !',
+                                      message: 'Chọn bill đã tạo !',
                                     },
                                   ],
                                 },
                               ]"
-                              placeholder="Nhập tên nguồn tài khoản"
+                              placeholder="Chọn bill đã tạo"
+                            >
+                              <a-select-option value="bill1">
+                                Bill 1
+                              </a-select-option>
+                              <a-select-option value="bill2">
+                                Bill 2
+                              </a-select-option>
+                              <a-select-option value="bill3">
+                                Bill 3
+                              </a-select-option>
+                            </a-select>
+                          </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
+                          <a-form-item label="Số tiền">
+                            <a-input
+                              @keydown="handleKeyDown"
+                              v-decorator="[
+                                `money-volatility${index}`,
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập số tiền !',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập số tiền"
+                            />
+                          </a-form-item>
+                        </a-col>
+                        <a-col :span="12">
+                          <a-form-item label="Số dư hiện tại">
+                            <a-input
+                              @keydown="handleKeyDown"
+                              v-decorator="[
+                                `current-balance${index}`,
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập số dư hiện tại !',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập số dư hiện tại"
+                            />
+                          </a-form-item>
+                        </a-col>
+                        <a-col
+                          :span="6"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Giờ">
+                            <a-time-picker
+                              v-decorator="[
+                                `timer-volatility${index}`,
+                                {
+                                  initialValue: moment(timeNow, 'HH:mm'),
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập giờ chuyển khoản',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              format="hh:mm a"
+                              placeholder="Chọn giờ"
+                            />
+                          </a-form-item>
+                        </a-col>
+                        <a-col
+                          :span="6"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Ngày">
+                            <a-date-picker
+                              :disabled-date="disabledDate"
+                              v-decorator="[
+                                `date-volatility${index}`,
+                                {
+                                  initialValue: moment(dateNow, 'YYYY/MM/DD'),
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập ngày chuyển khoản',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Chọn ngày"
                             />
                           </a-form-item>
                         </a-col>
@@ -302,22 +447,20 @@
                           :span="12"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
-                          <a-form-item label="Số tài khoản nguồn">
-                            <a-input
-                              @keydown="handleKeyDown"
+                          <a-form-item label="Nôi dung giao dịch">
+                            <a-textarea
                               v-decorator="[
-                                'accountNumber-2',
-
+                                `text-volatility${index}`,
                                 {
                                   rules: [
                                     {
                                       required: true,
-                                      message: 'Nhập số tài khoản !',
+                                      message: 'Nhập nội dung chuyển khoản',
                                     },
                                   ],
                                 },
                               ]"
-                              placeholder="Nhập số nguồn tài khoản"
+                              placeholder="Nhập nội dung chuyển khoản"
                             />
                           </a-form-item>
                         </a-col>
@@ -360,34 +503,59 @@
           </a-row>
           <!-- hình nền -->
           <a-row :gutter="12">
-            <a-col class="mb-5" :span="12"
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="itemSelected.background.length > 2 ? 24 : 12"
               ><div class="title mb-4">Hình nền</div>
-              <div class="list-item d-flex justify-content-evenly">
-                <a-radio-group v-model="background">
-                  <div class="item text-center">
-                    <div class="img mb-2">
-                      <img
-                        style="max-width: 100px"
-                        src="../../static/nen1.png"
-                        alt=""
-                      />
+              <!-- <div class="list-item d-flex justify-content-evenly"> -->
+              <a-radio-group v-model="background">
+                <div class="row w-100">
+                  <div
+                    class="col-6 mb-4"
+                    :class="
+                      itemSelected.background.length > 2
+                        ? 'col-md-2'
+                        : 'col-md-4'
+                    "
+                    v-for="(background, index) in itemSelected.background"
+                    :key="index"
+                  >
+                    <div class="item">
+                      <div class="img mb-2">
+                        <img
+                          style="max-width: 100px"
+                          :src="require(`~/assets/background${background}`)"
+                          alt=""
+                        />
+                      </div>
+                      <a-radio :value="`hinhnen${index + 1}`"
+                        >Hình nền {{ index + 1 }}</a-radio
+                      >
                     </div>
-                    <a-radio value="hinhnen1">Hình nền 1</a-radio>
                   </div>
-                  <div class="item text-center">
+                  <!-- <div class="item text-center">
                     <div class="img mb-2">
-                      <img
-                        style="max-width: 100px"
-                        src="../../static/nen2.png"
-                        alt=""
-                      />
+                      <img style="max-width: 100px" src="" alt="" />
                     </div>
                     <a-radio value="hinhnen2">Hình nền 2</a-radio>
-                  </div>
-                </a-radio-group>
-              </div>
+                  </div> -->
+                </div>
+              </a-radio-group>
+              <!-- </div> -->
             </a-col>
-            <a-col class="mb-5" :span="12"
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="12"
               ><div class="title mb-4">Giao diện</div>
               <div class="list-item d-flex justify-content-evenly">
                 <a-radio-group v-model="lightness">
@@ -416,7 +584,15 @@
             </a-col>
           </a-row>
           <a-row :gutter="24">
-            <a-col class="mb-5" :span="8">
+            <a-col
+              v-if="
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="8"
+            >
               <div class="title mb-4">Ảnh đại diện</div>
               <div class="item">
                 <a-upload
@@ -427,6 +603,7 @@
                   action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                   :before-upload="beforeUploadImg"
                   @change="handleChangeImg"
+                  v-model="avatar"
                 >
                   <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
                   <div v-else>
@@ -436,11 +613,34 @@
                 </a-upload>
               </div>
             </a-col>
-            <a-col class="mb-5" :span="8"
-              ><div class="title mb-4">Chế độ nguồn điện thấp</div>
-              <a-switch v-model="baterry"
-            /></a-col>
-            <a-col class="mb-5" :span="8"
+            <a-col
+              v-if="
+                ['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                  this.itemSelected.name
+                )
+              "
+              class="mb-5"
+              :span="6"
+            >
+              <div class="title mb-4">Giao diện</div>
+              <div class="item">
+                <a-radio :checked="true">Iphone 14 pro max</a-radio>
+              </div>
+            </a-col>
+
+            <a-col
+              v-if="['Agribank'].includes(itemSelected.name)"
+              class="mb-5"
+              :span="6"
+            >
+              <div class="title mb-4">Đăng ký OTT biến động số dư</div>
+              <a-switch v-model="modeOTT" />
+            </a-col>
+            <a-col class="mb-5" :span="6">
+              <div class="title mb-4">Chế độ nguồn điện thấp</div>
+              <a-switch v-model="modeBaterry" />
+            </a-col>
+            <a-col class="mb-5" :span="4"
               ><div class="title mb-4">Phần trăm pin</div>
               <a-input-number
                 id="inputNumber"
@@ -456,64 +656,67 @@
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Chế độ mạng</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div>
-                    <a-checkbox v-model="internetWifi">Wifi</a-checkbox>
-                    <a-input-number
-                      id="inputNumber"
-                      v-model="wifi"
-                      :min="1"
-                      :max="4"
-                      @change="isNumber2"
-                      @keydown="handleKeyDown"
-                      :formatter="(percentBaterry) => `${percentBaterry}`"
-                    />
+                <a-radio-group v-model="internetWifi">
+                  <div class="item text-center">
+                    <div>
+                      <a-radio value="wifi">Wifi</a-radio>
+
+                      <a-input-number
+                        id="inputNumber"
+                        v-model="wifi"
+                        :min="1"
+                        :max="4"
+                        @change="isNumber2"
+                        @keydown="handleKeyDown"
+                        :disabled="internetWifi === '4G'"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="item text-center">
-                  <a-checkbox
-                    style="line-height: 32px"
-                    @click="internetWifi = false"
-                    :checked="!internetWifi"
-                    >4G</a-checkbox
-                  >
-                </div>
-              </div></a-col
-            >
+                  <div class="item text-center">
+                    <a-radio value="4G" style="line-height: 32px">4G</a-radio>
+                  </div>
+                </a-radio-group>
+              </div>
+            </a-col>
             <a-col class="mb-5" :span="12"
               ><div class="title mb-4">Sim</div>
               <div class="list-item d-flex justify-content-evenly">
-                <div class="item text-center">
-                  <div>
-                    <a-checkbox v-model="oneSim">Sim 1</a-checkbox>
-                    <a-input-number
-                      id="sim1"
-                      v-model="sim1"
-                      :min="1"
-                      :max="4"
-                      @change="isNumber3"
-                      @keydown="handleKeyDown"
-                      :formatter="(percentBaterry) => `${percentBaterry}`"
-                    />
+                <a-radio-group v-model="modeSim">
+                  <div class="item text-center">
+                    <div
+                      class="d-flex align-items-center justify-content-right"
+                    >
+                      <a-radio value="simone">Sim 1</a-radio>
+                      <a-input-number
+                        id="sim1"
+                        :min="1"
+                        :max="4"
+                        @change="isNumber3"
+                        @keydown="handleKeyDown"
+                        v-model="sim1"
+                        :disabled="modeSim === 'simtwo'"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="item text-center">
-                  <a-checkbox
-                    style="line-height: 32px"
-                    @click="oneSim = false"
-                    :checked="!oneSim"
-                    >Sim 2</a-checkbox
-                  >
-                  <a-input-number
-                    id="sim2"
-                    v-model="sim2"
-                    :min="1"
-                    :max="4"
-                    @change="isNumber4"
-                    @keydown="handleKeyDown"
-                    :formatter="(percentBaterry) => `${percentBaterry}`"
-                  />
-                </div>
+                  <div class="item text-center">
+                    <div
+                      class="d-flex align-items-center justify-content-right"
+                    >
+                      <a-radio style="line-height: 32px" value="simtwo"
+                        >Sim 2</a-radio
+                      >
+                      <a-input-number
+                        id="sim2"
+                        :min="1"
+                        :max="4"
+                        @change="isNumber4"
+                        @keydown="handleKeyDown"
+                        v-model="sim2"
+                        :disabled="modeSim === 'simone'"
+                      />
+                    </div>
+                  </div>
+                </a-radio-group>
               </div>
             </a-col>
           </a-row>
@@ -537,7 +740,7 @@
       <div class="example-img">
         <img
           v-if="dynamicImagePath"
-          :src="require(`~/assets/balance/${dynamicImagePath}`)"
+          :src="require(`~/assets/volality/${dynamicImagePath}`)"
           alt=""
         />
       </div>
@@ -569,7 +772,7 @@ export default {
       percentBaterry: 68,
       money: null,
       wifi: 2,
-      internetWifi: true,
+      internetWifi: 'wifi',
       oneSim: true,
       sim1: 4,
       sim2: 4,
@@ -577,12 +780,13 @@ export default {
       timeNow: null,
       dateNow: null,
       keyTab: 1,
-      numberVolatility: [
-        { id: 1, name: '1', keyTab: 1 },
-        { id: 2, name: '2', keyTab: 1 },
-      ],
+      numberVolatility: [{ id: 1, name: '1', keyTab: 1 }],
       background: 'hinhnen1',
       lightness: 'light',
+      avatar: null,
+      modeBaterry: false,
+      modeSim: 'simone',
+      modeOTT: false,
     }
   },
   created() {
@@ -727,13 +931,34 @@ export default {
           values.hasOwnProperty(`money-volatility${index}`) &&
           values.hasOwnProperty(`timer-volatility${index}`) &&
           values.hasOwnProperty(`date-volatility${index}`) &&
-          values.hasOwnProperty(`current-balance${index}`)
+          values.hasOwnProperty(`current-balance${index}`) &&
+          values.hasOwnProperty(`text-volatility${index}`) &&
+          !values.hasOwnProperty(`bill-volatility${index}`)
         ) {
           arrayVolatility.push({
             money_volatility: values[`money-volatility${index}`],
             timer_volatility: values[`timer-volatility${index}`],
             date_volatility: values[`date-volatility${index}`],
             current_balance: values[`current-balance${index}`],
+            text_volatility: values[`text-volatility${index}`],
+          })
+          index++
+        }
+        while (
+          values.hasOwnProperty(`money-volatility${index}`) &&
+          values.hasOwnProperty(`timer-volatility${index}`) &&
+          values.hasOwnProperty(`date-volatility${index}`) &&
+          values.hasOwnProperty(`current-balance${index}`) &&
+          values.hasOwnProperty(`text-volatility${index}`) &&
+          values.hasOwnProperty(`bill-volatility${index}`)
+        ) {
+          arrayVolatility.push({
+            money_volatility: values[`money-volatility${index}`],
+            timer_volatility: values[`timer-volatility${index}`],
+            date_volatility: values[`date-volatility${index}`],
+            current_balance: values[`current-balance${index}`],
+            text_volatility: values[`text-volatility${index}`],
+            bill_volatility: values[`bill-volatility${index}`],
           })
           index++
         }

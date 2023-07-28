@@ -21,13 +21,13 @@
               <div class="p-50 mb-1">
                 <img
                   class="rounded-circle"
-                  :src="item.img"
+                  :src="require(`@/assets/logoBank/${item.img}`)"
                   alt=""
                   height="50"
                 />
               </div>
               <h3 class="fw-bolder">{{ item.name }}</h3>
-              <h4 class="card-text">Đã tạo: 3 bill</h4>
+              <h4 class="card-text">Đã tạo: ___ bill</h4>
             </div>
           </div>
         </div>
