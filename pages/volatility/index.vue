@@ -7,7 +7,11 @@
       title="Bill biến động"
       subtitle="Danh sách ngân hàng bill biến động"
     />
-    <FormVolatility v-else :itemSelected="itemSelected" />
+    <FormVolatility
+      @showOrHideForm="showOrHideForm"
+      v-else
+      :itemSelected="itemSelected"
+    />
   </div>
 </template>
 
@@ -23,10 +27,13 @@ export default {
   data() {
     return {
       itemBanks: LISTBANKS_VOLATILITY,
-      showForm:false,
+      showForm: false,
     }
   },
   methods: {
+    showOrHideForm(bool) {
+      this.showForm = bool
+    },
     selectItem(item) {
       this.showForm = true
       this.itemSelected = item

@@ -4,8 +4,12 @@
       <div class="h1">Dashboard</div>
       <div class="h3">Home > <span style="color: #5650b4">Dashboard</span></div>
     </div>
+    <h2 class="h2 text-center mb-4">Các câu hỏi thường gặp</h2>
+    <div class="h4 text-center mb-4">
+      Dưới đây là các câu hỏi thường gặp nhất
+    </div>
     <div id="accordion">
-      <div class="card">
+      <div class="card mb-5">
         <div class="card-header" id="headingOne">
           <h5 class="mb-0">
             <button
@@ -15,7 +19,7 @@
               aria-expanded="true"
               aria-controls="collapseOne"
             >
-              Collapsible Group Item #1
+              Câu hỏi 1 ?
             </button>
           </h5>
         </div>
@@ -40,7 +44,7 @@
           </div>
         </div>
       </div>
-      <div class="card">
+      <div class="card mb-5">
         <div class="card-header" id="headingTwo">
           <h5 class="mb-0">
             <button
@@ -50,7 +54,7 @@
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              Collapsible Group Item #2
+              Câu hỏi 2 ?
             </button>
           </h5>
         </div>
@@ -74,7 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="card">
+      <div class="card mb-5">
         <div class="card-header" id="headingThree">
           <h5 class="mb-0">
             <button
@@ -84,7 +88,7 @@
               aria-expanded="false"
               aria-controls="collapseThree"
             >
-              Collapsible Group Item #3
+              Câu hỏi 3 ?
             </button>
           </h5>
         </div>
@@ -113,7 +117,6 @@
 </template>
 
 <script>
-
 export default {}
 </script>
 
@@ -128,6 +131,21 @@ export default {}
     }
     .h3 {
       margin-left: 1rem;
+    }
+  }
+  .card {
+    background: #283046 !important;
+    color: #fff;
+    font-size: 1.5rem;
+    button.btn.btn-link {
+      font-size: 1.8rem;
+      text-decoration: none;
+      color: #b4b7bd;
+      width: 100%;
+      text-align: left;
+      &:hover {
+        color: #dadada;
+      }
     }
   }
 }

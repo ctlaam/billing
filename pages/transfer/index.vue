@@ -7,7 +7,7 @@
       title="Bill chuyển khoản"
       subtitle="Danh sách ngân hàng bill chuyển khoản"
     />
-    <FormTransfer v-else :itemSelected="itemSelected" />
+    <FormTransfer @showOrHideForm="showOrHideForm" v-else :itemSelected="itemSelected" />
   </div>
 </template>
 
@@ -31,6 +31,9 @@ export default {
     selectItem(item) {
       this.showForm = true
       this.itemSelected = item
+    },
+    showOrHideForm(bool) {
+      this.showForm = bool
     },
   },
 }

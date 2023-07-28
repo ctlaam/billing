@@ -6,9 +6,12 @@
       @selectItem="selectItem"
       title="Bill số dư"
       subtitle="Danh sách ngân hàng bill số dư"
-
     />
-    <FormBalance :itemSelected="itemSelected" v-else />
+    <FormBalance
+      @showOrHideForm="showOrHideForm"
+      :itemSelected="itemSelected"
+      v-else
+    />
   </div>
 </template>
 
@@ -29,6 +32,9 @@ export default {
     }
   },
   methods: {
+    showOrHideForm(bool) {
+      this.showForm = bool
+    },
     selectItem(item) {
       this.showForm = true
       this.itemSelected = item

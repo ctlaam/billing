@@ -9,6 +9,11 @@
         >
       </div>
     </div>
+    <div @click="$emit('showOrHideForm',false)" class="p-3 h2 title">
+      <a-button class="d-flex align-items-center">
+        <a-icon type="arrow-left" /> Quay lại</a-button
+      >
+    </div>
     <div class="d-flex">
       <div class="content-form">
         <a-form
