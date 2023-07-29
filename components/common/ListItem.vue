@@ -71,4 +71,9 @@ export default {
     }
   }
 }
+@media only screen and (max-width: 575px) {
+  #list-item .title .h2 {
+    display: none;
+  }
+}
 </style>

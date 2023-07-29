@@ -152,7 +152,8 @@ export default {
               this.$router.push('/')
             })
             .catch((err) => {
-              this.$message.error('Đăng nhập thất bại')
+              this.$store.dispatch('loading/setModalLoading', false)
+              this.$message.error('Có lỗi xảy ra vui lòng thử lại sau')
             })
         }
       })
@@ -205,7 +206,7 @@ export default {
         display: block;
         text-align: center;
         margin-bottom: 2em;
-        img{
+        img {
           width: 100%;
         }
       }

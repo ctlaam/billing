@@ -14,7 +14,7 @@
         <a-icon type="arrow-left" /> Quay lại</a-button
       >
     </div>
-    <div class="d-flex">
+    <div class="d-flex form">
       <div class="content-form">
         <a-form
           class="ant-advanced-search-form"
@@ -22,8 +22,8 @@
           @submit="handleSearch"
         >
           <!-- part 1 -->
-          <a-row :gutter="12">
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+          <div class="row">
+            <div class="col-xl-6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Tên tài khoản nguồn">
                 <a-input
                   v-decorator="[
@@ -40,8 +40,8 @@
                   placeholder="Nhập tên nguồn tài khoản"
                 />
               </a-form-item>
-            </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+            </div>
+            <div class="col-xl-6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Số tài khoản nguồn">
                 <a-input
                   @keydown="handleKeyDown"
@@ -60,8 +60,8 @@
                   placeholder="Nhập số nguồn tài khoản"
                 />
               </a-form-item>
-            </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+            </div>
+            <div class="col-xl-6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Số dư cuối kì">
                 <a-input
                   @keydown="handleKeyDown"
@@ -79,8 +79,8 @@
                   placeholder="Nhập số dư cuối kì"
                 />
               </a-form-item>
-            </a-col>
-            <a-col :span="12" :style="{ display: true ? 'block' : 'none' }">
+            </div>
+            <div class="col-xl-6" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Giờ">
                 <a-time-picker
                   v-decorator="[
@@ -113,12 +113,12 @@
                 placeholder="placeholder"
               /> -->
               </a-form-item>
-            </a-col>
-          </a-row>
+            </div>
+          </div>
 
-          <a-row :gutter="12">
+          <div class="row">
             <!-- instruction -->
-            <a-col :span="24" id="instruction" style="font-size: 1.4rem">
+            <div class="col-12" id="instruction" style="font-size: 1.4rem">
               <div class="alert alert-danger" role="alert">
                 <h4 class="alert-heading p-2 mb-4">
                   Hướng dẫn cho phần nhập biến động:
@@ -145,12 +145,12 @@
                   </ul>
                 </div>
               </div>
-            </a-col>
-          </a-row>
+            </div>
+          </div>
           <!-- biến động số dư -->
 
-          <a-row :gutter="12">
-            <a-col :span="24" :style="{ display: true ? 'block' : 'none' }">
+          <div class="row">
+            <div class="col-12" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Thể loại">
                 <a-tabs
                   v-for="(item, index) in numberVolatility"
@@ -160,12 +160,12 @@
                 >
                   <a-tab-pane key="1" tab="Nhận tiền">
                     <div v-if="item.keyTab == 1">
-                      <a-row :gutter="12">
-                        <a-col :span="16" class="h3"
-                          >Biến động {{ index + 1 }}</a-col
-                        >
-                        <a-col :span="8" class="text-end"
-                          ><button
+                      <div class="row">
+                        <div class="h3 col-md-8 col-7">
+                          Biến động {{ index + 1 }}
+                        </div>
+                        <div class="text-end col-4">
+                          <button
                             v-if="index >= 1"
                             class="delete-item btn btn-outline-danger text-nowrap px-1 waves-effect"
                             data-repeater-delete=""
@@ -189,9 +189,9 @@
                               <line x1="6" y1="6" x2="18" y2="18"></line>
                             </svg>
                             <span>Xoá biến động</span>
-                          </button></a-col
-                        >
-                        <a-col :span="12">
+                          </button>
+                        </div>
+                        <div class="col-xl-6">
                           <a-form-item label="Số tiền">
                             <a-input
                               @keydown="handleKeyDown"
@@ -209,8 +209,8 @@
                               placeholder="Nhập số tiền"
                             />
                           </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
+                        </div>
+                        <div class="col-xl-6">
                           <a-form-item label="Số dư hiện tại">
                             <a-input
                               @keydown="handleKeyDown"
@@ -228,9 +228,9 @@
                               placeholder="Nhập số dư hiện tại"
                             />
                           </a-form-item>
-                        </a-col>
-                        <a-col
-                          :span="6"
+                        </div>
+                        <div
+                          class="col-xl-3 col-6"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Giờ">
@@ -251,9 +251,9 @@
                               placeholder="Chọn giờ"
                             />
                           </a-form-item>
-                        </a-col>
-                        <a-col
-                          :span="6"
+                        </div>
+                        <div
+                          class="col-xl-3 col-6"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Ngày">
@@ -274,9 +274,9 @@
                               placeholder="Chọn ngày"
                             />
                           </a-form-item>
-                        </a-col>
-                        <a-col
-                          :span="12"
+                        </div>
+                        <div
+                          class="col-xl-6"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Nôi dung giao dịch">
@@ -295,19 +295,17 @@
                               placeholder="Nhập nội dung chuyển khoản"
                             />
                           </a-form-item>
-                        </a-col>
-                      </a-row>
-                      <div class="a-row" :span="24"></div>
+                        </div>
+                      </div>
+                      <div class="col-12"></div>
                     </div>
                   </a-tab-pane>
                   <a-tab-pane key="2" tab="Trừ tiền" force-render>
                     <div v-if="item.keyTab == 2">
-                      <a-row :gutter="12">
-                        <a-col :span="16" class="h3"
-                          >Biến động {{ index + 1 }}</a-col
-                        >
-                        <a-col :span="8" class="text-end"
-                          ><button
+                      <div class="row">
+                        <div class="h3 col-8">Biến động {{ index + 1 }}</div>
+                        <div class="text-end col-4">
+                          <button
                             v-if="index >= 1"
                             class="delete-item btn btn-outline-danger text-nowrap px-1 waves-effect"
                             data-repeater-delete=""
@@ -331,9 +329,9 @@
                               <line x1="6" y1="6" x2="18" y2="18"></line>
                             </svg>
                             <span>Xoá biến động</span>
-                          </button></a-col
-                        >
-                        <a-col :span="24">
+                          </button>
+                        </div>
+                        <div class="col-12">
                           <a-form-item label="Chọn bill đã tạo">
                             <a-select
                               class="w-100"
@@ -363,8 +361,8 @@
                               </a-select-option>
                             </a-select>
                           </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
+                        </div>
+                        <div class="col-xl-6">
                           <a-form-item label="Số tiền">
                             <a-input
                               @keydown="handleKeyDown"
@@ -382,8 +380,8 @@
                               placeholder="Nhập số tiền"
                             />
                           </a-form-item>
-                        </a-col>
-                        <a-col :span="12">
+                        </div>
+                        <div class="col-xl-6">
                           <a-form-item label="Số dư hiện tại">
                             <a-input
                               @keydown="handleKeyDown"
@@ -401,9 +399,9 @@
                               placeholder="Nhập số dư hiện tại"
                             />
                           </a-form-item>
-                        </a-col>
-                        <a-col
-                          :span="6"
+                        </div>
+                        <div
+                          class="col-3"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Giờ">
@@ -424,9 +422,9 @@
                               placeholder="Chọn giờ"
                             />
                           </a-form-item>
-                        </a-col>
-                        <a-col
-                          :span="6"
+                        </div>
+                        <div
+                          class="col-3"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Ngày">
@@ -447,9 +445,9 @@
                               placeholder="Chọn ngày"
                             />
                           </a-form-item>
-                        </a-col>
-                        <a-col
-                          :span="12"
+                        </div>
+                        <div
+                          class="col-xl-6"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Nôi dung giao dịch">
@@ -468,13 +466,13 @@
                               placeholder="Nhập nội dung chuyển khoản"
                             />
                           </a-form-item>
-                        </a-col>
-                      </a-row>
+                        </div>
+                      </div>
                     </div>
                   </a-tab-pane>
                 </a-tabs>
-                <a-row :gutter="12">
-                  <a-col :span="24">
+                <div class="row">
+                  <div class="col-12">
                     <div class="col-12 mb-2">
                       <button
                         class="add-item btn btn-icon btn-success waves-effect waves-float waves-light"
@@ -501,22 +499,27 @@
                         <span>Thêm biến động</span>
                       </button>
                     </div>
-                  </a-col>
-                </a-row>
+                  </div>
+                </div>
               </a-form-item>
-            </a-col>
-          </a-row>
+            </div>
+          </div>
           <!-- hình nền -->
-          <a-row :gutter="12">
-            <a-col
+          <div class="row">
+            <div
               v-if="
-                !['ACB', 'Techcombank', 'Agribank'].includes(
+                !['ACB', 'Techcombank', 'Agribank', 'MSB'].includes(
                   this.itemSelected.name
                 )
               "
               class="mb-5"
-              :span="itemSelected.background.length > 2 ? 24 : 12"
-              ><div class="title mb-4">Hình nền</div>
+              :class="
+                itemSelected.background.length > 2
+                  ? 'col-xl-12 col-md-12'
+                  : 'col-xl-6 col-md-6'
+              "
+            >
+              <div class="title mb-4">Hình nền</div>
               <!-- <div class="list-item d-flex justify-content-evenly"> -->
               <a-radio-group v-model="background">
                 <div class="row w-100">
@@ -524,8 +527,8 @@
                     class="col-6 mb-4"
                     :class="
                       itemSelected.background.length > 2
-                        ? 'col-md-2'
-                        : 'col-md-4'
+                        ? ' col-md-3'
+                        : 'col-md-6'
                     "
                     v-for="(background, index) in itemSelected.background"
                     :key="index"
@@ -552,16 +555,16 @@
                 </div>
               </a-radio-group>
               <!-- </div> -->
-            </a-col>
-            <a-col
+            </div>
+            <div
               v-if="
-                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
                 )
               "
-              class="mb-5"
-              :span="12"
-              ><div class="title mb-4">Giao diện</div>
+              class="col-md-6 mb-5"
+            >
+              <div class="title mb-4">Giao diện</div>
               <div class="list-item d-flex justify-content-evenly">
                 <a-radio-group v-model="lightness">
                   <div class="item text-center">
@@ -586,17 +589,16 @@
                   </div>
                 </a-radio-group>
               </div>
-            </a-col>
-          </a-row>
-          <a-row :gutter="24">
-            <a-col
+            </div>
+          </div>
+          <div class="row">
+            <div
               v-if="
-                !['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                !['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
                 )
               "
-              class="mb-5"
-              :span="8"
+              class="mb-5 col-md-6 col-12"
             >
               <div class="title mb-4">Ảnh đại diện</div>
               <div class="item">
@@ -617,36 +619,34 @@
                   </div>
                 </a-upload>
               </div>
-            </a-col>
-            <a-col
+            </div>
+            <div
               v-if="
-                ['ACB', 'Techcombank', 'Agribank', 'MBBank'].includes(
+                ['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
                 )
               "
-              class="mb-5"
-              :span="6"
+              class="mb-5 col-md-6 mb-5 col-12"
             >
               <div class="title mb-4">Giao diện</div>
               <div class="item">
                 <a-radio :checked="true">Iphone 14 pro max</a-radio>
               </div>
-            </a-col>
+            </div>
 
-            <a-col
+            <div
               v-if="['Agribank'].includes(itemSelected.name)"
-              class="mb-5"
-              :span="6"
+              class="mb-5 col-md-6 mb-5 col-12"
             >
               <div class="title mb-4">Đăng ký OTT biến động số dư</div>
               <a-switch v-model="modeOTT" />
-            </a-col>
-            <a-col class="mb-5" :span="6">
+            </div>
+            <div class="mb-5 col-md-6 mb-5 col-12">
               <div class="title mb-4">Chế độ nguồn điện thấp</div>
               <a-switch v-model="modeBaterry" />
-            </a-col>
-            <a-col class="mb-5" :span="4"
-              ><div class="title mb-4">Phần trăm pin</div>
+            </div>
+            <div class="mb-5 col-md-6 mb-5 col-12">
+              <div class="title mb-4">Phần trăm pin</div>
               <a-input-number
                 id="inputNumber"
                 v-model="percentBaterry"
@@ -655,11 +655,12 @@
                 @change="isNumber"
                 @keydown="handleKeyDown"
                 :formatter="(percentBaterry) => `${percentBaterry}%`"
-            /></a-col>
-          </a-row>
-          <a-row :gutter="24">
-            <a-col class="mb-5" :span="12"
-              ><div class="title mb-4">Chế độ mạng</div>
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 col-12 mb-5">
+              <div class="title mb-4">Chế độ mạng</div>
               <div class="list-item d-flex justify-content-evenly">
                 <a-radio-group v-model="internetWifi">
                   <div class="item text-center">
@@ -682,9 +683,9 @@
                   </div>
                 </a-radio-group>
               </div>
-            </a-col>
-            <a-col class="mb-5" :span="12"
-              ><div class="title mb-4">Sim</div>
+            </div>
+            <div class="col-md-7 col-12 mb-5">
+              <div class="title mb-4">Sim</div>
               <div class="list-item d-flex justify-content-evenly">
                 <a-radio-group v-model="modeSim">
                   <div class="item text-center">
@@ -723,10 +724,10 @@
                   </div>
                 </a-radio-group>
               </div>
-            </a-col>
-          </a-row>
-          <a-row class="mt-5">
-            <a-col :span="24" :style="{ textAlign: 'left' }">
+            </div>
+          </div>
+          <div class="mt-5">
+            <div class="col-12" :style="{ textAlign: 'left' }">
               <a-button
                 class="btn-create d-flex align-items-center justify-content-center"
                 style="
@@ -738,8 +739,8 @@
               >
                 <a-icon type="plus-circle" /> Tạo ảnh
               </a-button>
-            </a-col>
-          </a-row>
+            </div>
+          </div>
         </a-form>
       </div>
       <div class="example-img">
@@ -990,6 +991,9 @@ export default {
   .ant-form-item label {
     color: #aaadb4;
   }
+  .h3.col-md-8.col-7 {
+    color: #d0d2d6;
+  }
   .content-form {
     padding: 1rem;
     margin-right: 2rem;
@@ -1018,7 +1022,7 @@ export default {
     width: 30%;
     float: left;
     img {
-      max-width: 100%;
+      width: 100%;
       height: auto;
       object-fit: cover;
     }
@@ -1041,6 +1045,64 @@ export default {
       background: rgba(234, 84, 85, 0.12) !important;
       color: #ea5455 !important;
     }
+  }
+}
+@media only screen and (max-width: 1024px) {
+  #form-balance .content-form {
+    width: 80%;
+  }
+  #form-balance .ant-radio-group {
+    justify-content: start;
+    .item.text-center {
+      margin-right: 20px;
+    }
+  }
+}
+@media only screen and (max-width: 900px) {
+  #form-balance .example-img {
+    width: 100% !important;
+    float: left;
+    margin-top: 20px;
+  }
+  #form-balance {
+    .d-flex.form {
+      display: block !important;
+      width: 100%;
+      margin-bottom: 2em;
+      .ant-input-number {
+        width: 60px;
+      }
+      .ant-form label {
+        margin: 0;
+      }
+    }
+    .content-form {
+      margin: 0;
+      width: 100%;
+    }
+  }
+}
+@media only screen and (max-width: 575px) {
+  #form-balance {
+    .d-flex.form {
+      display: block !important;
+      width: 100%;
+      margin-bottom: 2em;
+      .ant-input-number {
+        width: 60px;
+      }
+      .ant-form label {
+        margin: 0;
+      }
+    }
+    .content-form {
+      margin: 0;
+      width: 100%;
+    }
+  }
+
+  #form-balance .title .h2 {
+    display: none;
   }
 }
 </style>

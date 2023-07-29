@@ -36,7 +36,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12">
+        <div class="col-lg-3 col-sm-6 col-12 mb-4">
           <div class="card p-2">
             <div
               class="card-header h-100 d-flex align-items-center justify-content-between"
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12">
+        <div class="col-lg-3 col-sm-6 col-12 mb-4">
           <div class="card p-2">
             <div
               class="card-header h-100 d-flex align-items-center justify-content-between"
@@ -66,7 +66,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12">
+        <div class="col-lg-3 col-sm-6 col-12 mb-4">
           <div class="card p-2">
             <div
               class="card-header h-100 d-flex align-items-center justify-content-between"
@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6 col-12">
+        <div class="col-lg-3 col-sm-6 col-12 mb-4">
           <div class="card p-2">
             <div
               class="card-header h-100 d-flex align-items-center justify-content-between"
@@ -161,6 +161,15 @@ export default {}
         }
       }
     }
+  }
+}
+@media only screen and (max-width: 900px) {
+  #dashboard .notify .card {
+    height: 10rem;
+    font-size: 16px;
+  }
+  #dashboard .notify .item-notify .card-text {
+    line-height: 3rem;
   }
 }
 </style>

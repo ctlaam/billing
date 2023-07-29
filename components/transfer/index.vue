@@ -392,7 +392,7 @@
                   this.itemSelected.name
                 )
               "
-              class="mb-5 col-xl-4 col-md-6 col-12"
+              class="mb-5 col-md-6 col-12"
               :span="8"
             >
               <div class="title mb-4">Ảnh đại diện</div>
@@ -921,10 +921,13 @@ export default {
       width: 100%;
     }
   }
-}
-#form-balance .example-img {
-  width: 100%;
-  float: left;
-  margin-top: 20px;
+  #form-balance .example-img {
+    width: 100% !important;
+    float: left;
+    margin-top: 20px;
+  }
+  #form-balance .title .h2 {
+    display: none;
+  }
 }
 </style>
