@@ -210,7 +210,7 @@
                 label="Mã giao dịch (mã được tạo tự động) "
               >
                 <a-input
-                  :disabled="true"
+                  
                   v-decorator="[
                     'transfer_code',
 
@@ -261,7 +261,7 @@
                 label="Mã giao dịch (mã được tạo tự động) "
               >
                 <a-input
-                  :disabled="true"
+                  
                   v-decorator="[
                     'transfer_code',
 
