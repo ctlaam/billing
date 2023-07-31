@@ -615,14 +615,11 @@ export default {
           }
           break
         case 'Techcombank':
-          for (let i = 0; i < 2; i++) {
-            result += upperCaseLetters.charAt(
-              Math.floor(Math.random() * upperCaseLetters.length)
-            )
-          }
-
+          const currentDate = new Date()
+          const currentYear = currentDate.getFullYear().toString().slice(-2)
+          result = `FT${currentYear}`
           // Tạo 14 kí tự số sau
-          for (let i = 0; i < 14; i++) {
+          for (let i = 0; i < 12; i++) {
             result += characters.charAt(
               Math.floor(Math.random() * characters.length)
             )
