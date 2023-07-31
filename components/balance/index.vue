@@ -251,7 +251,7 @@
               <a-switch v-model="modeOTT" />
             </div>
             <div class="mb-5 col-md-6 mb-5 col-12">
-              <div class="title mb-4">Chế độ nguồn điện thấp</div>
+              <div class="title mb-4">Chế độ đang sạc</div>
               <a-switch v-model="modeBaterry" />
             </div>
             <div class="mb-5 col-md-6 mb-5 col-12">

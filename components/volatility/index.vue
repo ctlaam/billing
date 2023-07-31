@@ -505,7 +505,7 @@
             </div>
           </div>
           <!-- hình nền -->
-          <div class="row">
+          <!-- <div class="row">
             <div
               v-if="
                 !['ACB', 'Techcombank', 'Agribank', 'MSB'].includes(
@@ -520,7 +520,6 @@
               "
             >
               <div class="title mb-4">Hình nền</div>
-              <!-- <div class="list-item d-flex justify-content-evenly"> -->
               <a-radio-group v-model="background">
                 <div class="row w-100">
                   <div
@@ -546,15 +545,8 @@
                       >
                     </div>
                   </div>
-                  <!-- <div class="item text-center">
-                    <div class="img mb-2">
-                      <img style="max-width: 100px" src="" alt="" />
-                    </div>
-                    <a-radio value="hinhnen2">Hình nền 2</a-radio>
-                  </div> -->
                 </div>
               </a-radio-group>
-              <!-- </div> -->
             </div>
             <div
               v-if="
@@ -590,9 +582,9 @@
                 </a-radio-group>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="row">
-            <div
+            <!-- <div
               v-if="
                 !['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
@@ -619,7 +611,7 @@
                   </div>
                 </a-upload>
               </div>
-            </div>
+            </div> -->
             <div
               v-if="
                 ['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
@@ -642,7 +634,7 @@
               <a-switch v-model="modeOTT" />
             </div>
             <div class="mb-5 col-md-6 mb-5 col-12">
-              <div class="title mb-4">Chế độ nguồn điện thấp</div>
+              <div class="title mb-4">Chế độ đang sạc</div>
               <a-switch v-model="modeBaterry" />
             </div>
             <div class="mb-5 col-md-6 mb-5 col-12">
@@ -704,7 +696,7 @@
                       />
                     </div>
                   </div>
-                  <div class="item text-center">
+                  <!-- <div class="item text-center">
                     <div
                       class="d-flex align-items-center justify-content-right"
                     >
@@ -721,7 +713,7 @@
                         :disabled="modeSim === 'simone'"
                       />
                     </div>
-                  </div>
+                  </div> -->
                 </a-radio-group>
               </div>
             </div>

@@ -124,7 +124,7 @@
               <a-form-item label="Tên tài khoản nguồn">
                 <a-input
                   v-decorator="[
-                    'name_source',
+                    'name_sender',
                     {
                       rules: [
                         {
@@ -147,7 +147,7 @@
                 <a-input
                   @keydown="handleKeyDown"
                   v-decorator="[
-                    'bank_code_source',
+                    'bank_code_sender',
 
                     {
                       rules: [
@@ -249,8 +249,12 @@
                   ]"
                   placeholder="Chọn ngân hàng thụ hưởng"
                 >
-                  <a-select-option v-for="i in listBanks" :key="i">
-                    {{ i }}
+                  <a-select-option
+                    v-for="(i, index) in listBanks"
+                    :value="i.bank_name"
+                    :key="index"
+                  >
+                    {{ i.bank_name }}
                   </a-select-option>
                 </a-select>
               </a-form-item>
@@ -261,7 +265,6 @@
                 label="Mã giao dịch (mã được tạo tự động) "
               >
                 <a-input
-                  
                   v-decorator="[
                     'transfer_code',
 
@@ -299,7 +302,7 @@
               </a-form-item>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div
               v-if="
                 !['ACB', 'Techcombank', 'Agribank', 'MSB'].includes(
@@ -314,7 +317,6 @@
               "
             >
               <div class="title mb-4">Hình nền</div>
-              <!-- <div class="list-item d-flex justify-content-evenly"> -->
               <a-radio-group v-model="background">
                 <div class="row w-100">
                   <div
@@ -340,15 +342,8 @@
                       >
                     </div>
                   </div>
-                  <!-- <div class="item text-center">
-                    <div class="img mb-2">
-                      <img style="max-width: 100px" src="" alt="" />
-                    </div>
-                    <a-radio value="hinhnen2">Hình nền 2</a-radio>
-                  </div> -->
                 </div>
               </a-radio-group>
-              <!-- </div> -->
             </div>
             <div
               v-if="
@@ -384,9 +379,9 @@
                 </a-radio-group>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="row">
-            <div
+            <!-- <div
               v-if="
                 !['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
@@ -414,7 +409,7 @@
                   </div>
                 </a-upload>
               </div>
-            </div>
+            </div> -->
             <div
               v-if="
                 ['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
@@ -437,7 +432,7 @@
               <a-switch v-model="modeOTT" />
             </div>
             <div class="col-md-6 mb-5 col-12">
-              <div class="title mb-4">Chế độ nguồn điện thấp</div>
+              <div class="title mb-4">Chế độ đang sạc</div>
               <a-switch v-model="modeBaterry" />
             </div>
             <div class="mb-5 col-md-6 col-12">
@@ -466,7 +461,7 @@
                         id="inputNumber"
                         v-model="wifi"
                         :min="1"
-                        :max="4"
+                        :max="3"
                         @change="isNumber2"
                         @keydown="handleKeyDown"
                         :disabled="internetWifi === '4G'"
@@ -497,7 +492,7 @@
                       />
                     </div>
                   </div>
-                  <div class="item text-center">
+                  <!-- <div class="item text-center">
                     <a-radio style="line-height: 32px" value="simtwo"
                       >Sim 2</a-radio
                     >
@@ -510,7 +505,7 @@
                       v-model="sim2"
                       :disabled="modeSim === 'simone'"
                     />
-                  </div>
+                  </div> -->
                 </a-radio-group>
               </div>
             </div>
@@ -555,11 +550,6 @@ function getBase64(img, callback) {
 }
 export default {
   props: ['itemSelected'],
-  created() {
-    if (!this.itemSelected) {
-      this.$router.push('/transfer')
-    }
-  },
   data() {
     return {
       expand: false,
@@ -577,23 +567,22 @@ export default {
       url: null,
       dateNow: null,
       timeNow: null,
-      listBanks: [
-        'Ngân hàng Quân Đội (MB)',
-        'Vietcombank',
-        'Bidv',
-        'Vietinbank',
-      ],
       background: 'hinhnen1',
       lightness: 'light',
       avatar: null,
       modeBaterry: false,
       modeSim: 'simone',
       modeOTT: false,
+      listBanks: [],
     }
   },
   created() {
     this.dateNow = moment(new Date()).format('YYYY/MM/DD')
     this.timeNow = moment(new Date()).format('HH:mm')
+    this.getListBanks()
+    if (!this.itemSelected) {
+      this.$router.push('/transfer')
+    }
   },
   computed: {
     dynamicImagePath() {
@@ -651,6 +640,11 @@ export default {
           break
       }
       return result
+    },
+  },
+  watch: {
+    itemSelected() {
+      this.getListBanks()
     },
   },
   methods: {
@@ -758,55 +752,78 @@ export default {
       return isJpgOrPng && isLt2M
     },
     moment,
+    async getListBanks() {
+      console.log('getListBanks')
+      await transferAPi
+        .getListBank(this.itemSelected.name_api)
+        .then((res) => {
+          this.listBanks = res.list_bank
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     async handleSearch(e) {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
-        const dateMoment = moment(values.date, 'YYYY-MM-DD')
-        const dateTimeString = moment(values.time, 'HH:mm').format('HH:mm')
-        // Lấy ngày trong tuần (thứ mấy), trong đó 0 là Chủ nhật, 1 là Thứ 2, 2 là Thứ 3, và cứ tiếp tục
-        const dayOfWeek = dateMoment.day()
-        let dayOfWeekText
-        switch (dayOfWeek) {
-          case 0:
-            dayOfWeekText = 'Chủ Nhật'
-            break
-          case 1:
-            dayOfWeekText = 'Thứ Hai'
-            break
-          case 2:
-            dayOfWeekText = 'Thứ Ba'
-            break
-          case 3:
-            dayOfWeekText = 'Thứ Tư'
-            break
-          case 4:
-            dayOfWeekText = 'Thứ Năm'
-            break
-          case 5:
-            dayOfWeekText = 'Thứ Sáu'
-            break
-          case 6:
-            dayOfWeekText = 'Thứ Bảy'
-            break
-          default:
-            dayOfWeekText = 'Không xác định'
-        }
+        const dateMoment = moment(values.date)
+        // console.log(moment(values.date.toISOString()), 'values.date')
+        // const dateTimeString = moment(values.time, 'HH:mm').format('HH:mm')
+        const timeMoment = moment(values.time).add(7, 'hours')
+
+        // Gộp hai đối tượng moment lại với giờ, phút và giây từ đối tượng timeMoment
+        const combinedMoment = dateMoment.set({
+          hour: timeMoment.hour(),
+          minute: timeMoment.minute(),
+          second: timeMoment.second(),
+        })
+        const combinedISODate = combinedMoment.toISOString()
+        // let dayOfWeekText
+        // switch (dayOfWeek) {
+        //   case 0:
+        //     dayOfWeekText = 'Chủ Nhật'
+        //     break
+        //   case 1:
+        //     dayOfWeekText = 'Thứ Hai'
+        //     break
+        //   case 2:
+        //     dayOfWeekText = 'Thứ Ba'
+        //     break
+        //   case 3:
+        //     dayOfWeekText = 'Thứ Tư'
+        //     break
+        //   case 4:
+        //     dayOfWeekText = 'Thứ Năm'
+        //     break
+        //   case 5:
+        //     dayOfWeekText = 'Thứ Sáu'
+        //     break
+        //   case 6:
+        //     dayOfWeekText = 'Thứ Bảy'
+        //     break
+        //   default:
+        //     dayOfWeekText = 'Không xác định'
+        // }
         let formData = {
-          sms: '3',
-          wifi: this.wifi.toString(),
-          time: dateTimeString,
-          value_money: values.value_money,
-          date: values.date,
-          day_name: dayOfWeekText,
-          name: values.name,
-          bank_code: values.bank_code,
-          bank_name: values.bank_name,
-          transfer_code: values.transfer_code,
-          description: values.description,
+          type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
+          pin_code: Math.floor(this.percentBaterry / 10.01) || null,
+          sms: this.sim1 || null,
+          wifi: this.internetWifi == 'wifi' ? this.wifi.toString() : 'LTE',
+          value_money: values.value_money || null,
+          date: combinedISODate,
+          name_sender: values.name_sender || null,
+          // time: dateTimeString,
+          // day_name: dayOfWeekText,
+          bank_code_sender: values.bank_code_sender || null,
+          bank_code: values.bank_code || null,
+          name: values.name || null,
+          bank_name: values.bank_name || null,
+          transfer_code: values.transfer_code || null,
+          description: values.description || null,
         }
         this.$store.dispatch('loading/setModalLoading', true)
         await transferAPi
-          .getPhoto(formData)
+          .getPhoto(this.itemSelected.name_api, formData)
           .then((res) => {
             let downloadUrl = res.link
             var a = document.createElement('a')

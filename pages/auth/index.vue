@@ -153,7 +153,11 @@ export default {
             })
             .catch((err) => {
               this.$store.dispatch('loading/setModalLoading', false)
-              this.$message.error('Có lỗi xảy ra vui lòng thử lại sau')
+              if(err.message){
+                this.$message.error('Sai tài khoản hoặc mật khẩu')
+              } else {
+                this.$message.error('Có lỗi xảy ra vui lòng thử lại sau')
+              }
             })
         }
       })

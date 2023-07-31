@@ -22,8 +22,8 @@ export function logIn(data) {
   })
 }
 
-export function getPhoto(data) {
-  const url = `${baseURL}/app/get_photo/`
+export function getPhoto(namebank, data) {
+  const url = `${baseURL}/api/${namebank}/bill/`
   return new Promise((resolve, reject) => {
     axios
       .post(url, data, {
@@ -33,6 +33,25 @@ export function getPhoto(data) {
       })
       .then((response) => {
         console.log(response)
+        resolve(response.data)
+      })
+      .catch((response) => {
+        reject(response.response.data.message)
+      })
+  })
+}
+
+export function getListBank(namebank) {
+  const url = `${baseURL}/api/${namebank}/bank/`
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        console.log(response);
         resolve(response.data)
       })
       .catch((response) => {

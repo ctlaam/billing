@@ -21,7 +21,6 @@ export default {
   },
   created() {
     setTimeout(() => {
-      console.log(123123)
       this.handleCancel()
     }, 3000)
   },
