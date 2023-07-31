@@ -806,10 +806,10 @@ export default {
         // }
         let formData = {
           type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
-          pin_code: Math.floor(this.percentBaterry / 10.01) || null,
-          sms: this.sim1 || null,
+          pin_code: Math.floor(this.percentBaterry / 10.01) ?? 0,
+          sms: this.sim1 ?? 1,
           wifi: this.internetWifi == 'wifi' ? this.wifi.toString() : 'LTE',
-          value_money: values.value_money || null,
+          value_money: values.value_money ?? 0,
           date: combinedISODate,
           name_sender: values.name_sender || null,
           // time: dateTimeString,

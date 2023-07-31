@@ -75,6 +75,7 @@ export const LISTBANKS_VOLATILITY = [
     url_example: 'vcb.png',
     background: ['/vcb/nen1.png', '/vcb/nen2.png'],
     name_api: 'vietcombank',
+    update: true,
   },
   {
     id: 2,
@@ -83,6 +84,7 @@ export const LISTBANKS_VOLATILITY = [
     url_example: 'acb.png',
     background: [],
     name_api: 'acb',
+    update: true,
   },
   {
     id: 3,
@@ -91,6 +93,7 @@ export const LISTBANKS_VOLATILITY = [
     url_example: 'tcb.png',
     background: [],
     name_api: 'tech',
+    update: true,
   },
 
   {
@@ -100,6 +103,7 @@ export const LISTBANKS_VOLATILITY = [
     url_example: 'agribank.png',
     background: [],
     name_api: 'agribank',
+    update: true,
   },
   {
     id: 5,
@@ -125,6 +129,7 @@ export const LISTBANKS_VOLATILITY = [
       '/mbb/background16.png',
     ],
     name_api: 'mbbank',
+    update: true,
   },
   {
     id: 6,
@@ -133,6 +138,7 @@ export const LISTBANKS_VOLATILITY = [
     url_example: 'msb.PNG',
     background: [],
     name_api: 'msb',
+    update: true,
   },
 ]
 
@@ -144,6 +150,7 @@ export const LISTBANKS_BALANCE = [
     url_example: 'vcb.png',
     background: ['/vcb/nen1.png', '/vcb/nen2.png'],
     name_api: 'vietcombank',
+    update: true,
   },
   {
     id: 2,
@@ -169,6 +176,7 @@ export const LISTBANKS_BALANCE = [
       '/mbb/background16.png',
     ],
     name_api: 'mbbank',
+    update: true,
   },
   {
     id: 3,
@@ -177,6 +185,7 @@ export const LISTBANKS_BALANCE = [
     url_example: 'vtb.png',
     background: [],
     name_api: 'acb',
+    update: true,
   },
 
   {
@@ -186,6 +195,7 @@ export const LISTBANKS_BALANCE = [
     url_example: '',
     background: [],
     name_api: 'tech',
+    update: true,
   },
   {
     id: 5,
@@ -194,6 +204,7 @@ export const LISTBANKS_BALANCE = [
     url_example: '',
     background: [],
     name_api: 'agribank',
+    update: true,
   },
   {
     id: 6,
@@ -202,5 +213,6 @@ export const LISTBANKS_BALANCE = [
     url_example: 'msb.PNG',
     background: [],
     name_api: 'msb',
+    update: true,
   },
 ]

@@ -356,8 +356,11 @@ textarea {
 .ant-form label {
   color: #d0d2d6;
 }
+.ant-message .anticon {
+  top: -2px;
+}
 @media only screen and (max-width: 1024px) {
-  html{
+  html {
     font-size: 9px !important;
   }
 }

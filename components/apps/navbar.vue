@@ -31,7 +31,12 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/volatility" exact active-class="active">
+          <nuxt-link
+            class="update"
+            to="/volatility"
+            exact
+            active-class="active"
+          >
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
                 <a-icon type="bank" />
@@ -39,7 +44,7 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/balance" exact active-class="active">
+          <nuxt-link class="update" to="/balance" exact active-class="active">
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
                 <a-icon type="bank" />
@@ -107,6 +112,25 @@ export default {
         a {
           color: #d0d2d6;
         }
+        a.update {
+          position: relative;
+          &::after{
+            content: 'Coming soon';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #ff4d4f;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            transform: translate(50%, -50%);
+            transition: all 0.3s ease;
+            z-index: 999;
+          }
+        }
+
         .item {
           height: 3em;
           font-size: 1.6em;
