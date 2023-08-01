@@ -95,7 +95,50 @@
             Hoặc
             <a @click="singUp" style="color: #008dff"> Đăng kí ngay </a>
           </a-form-item>
+          <!-- <a-form-item class="w-100">
+            <div>
+              FREE TEST MỞ ĐẾN X GIỜ NGÀY XX/XX
+              <br />
+              ANH EM NÀO CẦN MUA TÀI KHOẢN, HỖ TRỢ HOẶC CẦN TEST THÊM BẤM VÀO
+              ĐÂY: (t.me/fakebill8888) CÁC TÍNH NĂNG BILL MỚI SẼ ĐƯỢC UPDATE
+              LIÊN TỤC TỪ HÔM NAY, MỜI ANH EM THEO DÕI UPDATE MỚI TẠI ĐÂY:
+              (t.me/fakebillonlineOfficial)
+            </div>
+          </a-form-item> -->
         </a-form>
+      </div>
+      <div class="w-70 intro">
+        <h2 class="text-center p-2">
+          FREE TEST MỞ ĐẾN X GIỜ NGÀY
+          <span
+            style="
+              background: -webkit-linear-gradient(#e90000, #faa6ff);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            "
+            >30/02/2023</span
+          >
+        </h2>
+        <h3 class="p-2 text-justify">
+          ANH EM NÀO CẦN MUA TÀI KHOẢN, HỖ TRỢ HOẶC CẦN TEST THÊM BẤM VÀO ĐÂY:
+
+          <a
+            style="color: #fff"
+            class="badge rounded-pill bg-warning draggable"
+            href="https://t.me/fakebill8888"
+            >telegram</a
+          >
+        </h3>
+        <h3 class="p-2 text-justify">
+          CÁC TÍNH NĂNG BILL MỚI SẼ ĐƯỢC UPDATE LIÊN TỤC TỪ HÔM NAY, MỜI ANH EM
+          THEO DÕI UPDATE MỚI TẠI ĐÂY:
+          <a
+            style="color: #fff"
+            class="badge rounded-pill bg-warning draggable"
+            href="https://t.me/fakebillonlineOfficial"
+            >kênh telegram</a
+          >
+        </h3>
       </div>
     </div>
   </div>
@@ -153,7 +196,7 @@ export default {
             })
             .catch((err) => {
               this.$store.dispatch('loading/setModalLoading', false)
-              if(err.message){
+              if (err.message) {
                 this.$message.error('Sai tài khoản hoặc mật khẩu')
               } else {
                 this.$message.error('Có lỗi xảy ra vui lòng thử lại sau')
@@ -184,6 +227,15 @@ export default {
     .logo {
       display: none;
     }
+    .intro {
+      background: -webkit-linear-gradient(#18a57a, #bfffc7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      a {
+        -webkit-text-fill-color: #fff;
+      }
+    }
+    flex-direction: column;
   }
   .ant-checkbox-wrapper {
     color: #d0d2d6;
