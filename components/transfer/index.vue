@@ -773,7 +773,7 @@ export default {
           hour: timeMoment.hour(),
           minute: timeMoment.minute(),
           second: timeMoment.second(),
-        })
+        }).add(1,'day')
         const combinedISODate = combinedMoment.toISOString()
         // let dayOfWeekText
         // switch (dayOfWeek) {
