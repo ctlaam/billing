@@ -10,8 +10,8 @@
       </div>
     </div>
     <div @click="$emit('showOrHideForm', false)" class="p-3 h2 title">
-      <a-button class="d-flex align-items-center">
-        <a-icon type="arrow-left" /> Quay lại</a-button
+      <a-button class="d-flex align-items-center button-56">
+        <a-icon type="arrow-left" /> Đổi ngân hàng</a-button
       >
     </div>
     <div class="d-flex form">
@@ -412,9 +412,14 @@
             </div> -->
             <div
               v-if="
-                ['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
-                  this.itemSelected.name
-                )
+                [
+                  'ACB',
+                  'Vietcombank',
+                  'Techcombank',
+                  'Agribank',
+                  'MBBank',
+                  'MSB',
+                ].includes(this.itemSelected.name)
               "
               class="col-md-6 mb-5 col-12"
             >
@@ -750,7 +755,6 @@ export default {
     },
     moment,
     async getListBanks() {
-      console.log('getListBanks')
       await transferAPi
         .getListBank(this.itemSelected.name_api)
         .then((res) => {
@@ -764,8 +768,6 @@ export default {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
         const dateMoment = moment(values.date)
-        // console.log(moment(values.date.toISOString()), 'values.date')
-        // const dateTimeString = moment(values.time, 'HH:mm').format('HH:mm')
         const timeMoment = moment(values.time).add(7, 'hours')
 
         // Gộp hai đối tượng moment lại với giờ, phút và giây từ đối tượng timeMoment
@@ -773,34 +775,8 @@ export default {
           hour: timeMoment.hour(),
           minute: timeMoment.minute(),
           second: timeMoment.second(),
-        }).add(1,'day')
-        const combinedISODate = combinedMoment.toISOString()
-        // let dayOfWeekText
-        // switch (dayOfWeek) {
-        //   case 0:
-        //     dayOfWeekText = 'Chủ Nhật'
-        //     break
-        //   case 1:
-        //     dayOfWeekText = 'Thứ Hai'
-        //     break
-        //   case 2:
-        //     dayOfWeekText = 'Thứ Ba'
-        //     break
-        //   case 3:
-        //     dayOfWeekText = 'Thứ Tư'
-        //     break
-        //   case 4:
-        //     dayOfWeekText = 'Thứ Năm'
-        //     break
-        //   case 5:
-        //     dayOfWeekText = 'Thứ Sáu'
-        //     break
-        //   case 6:
-        //     dayOfWeekText = 'Thứ Bảy'
-        //     break
-        //   default:
-        //     dayOfWeekText = 'Không xác định'
-        // }
+        })
+        const combinedISODate = combinedMoment.add(1, 'day').toISOString()
         let formData = {
           type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
           pin_code: Math.floor(this.percentBaterry / 10.01) ?? 0,
@@ -903,6 +879,57 @@ export default {
       height: auto;
       object-fit: cover;
     }
+  }
+  .button-56 {
+    align-items: center;
+    background-color: #ffdbd6;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    height: 36px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 10px 10px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .button-56:after {
+    background-color: #dddddd;
+    border-radius: 8px;
+    content: '';
+    display: block;
+    height: 36px;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    top: -2px;
+    transform: translate(8px, 8px);
+    transition: transform 0.2s ease-out;
+    z-index: -1;
+  }
+
+  .button-56:hover:after {
+    transform: translate(0, 0);
+  }
+
+  .button-56:active {
+    background-color: #ffdeda;
+    outline: 0;
+  }
+
+  .button-56:hover {
+    outline: 0;
   }
 }
 

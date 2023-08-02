@@ -48,6 +48,7 @@ export default {
       Cookies.remove('access_token')
       Cookies.remove('refresh_token')
       Cookies.remove('user_id')
+      Cookies.remove('time_valid')
       this.$store.dispatch('auth/logout')
       this.$router.push('/auth')
     },

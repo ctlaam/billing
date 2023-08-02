@@ -4,6 +4,7 @@ export const state = () => ({
   accessToken: null,
   refreshToken: null,
   userId: null,
+  timeValid: null,
 })
 
 
@@ -22,19 +23,30 @@ export const mutations = {
   setUserId(state, userId) {
     state.userId = userId
   },
+  setTimeValid(state, timeValid) {
+    state.timeValid = timeValid
+  },
 }
 
 export const actions = {
-  login({ commit }, { accessToken, refreshToken, userId }) {
+  login({ commit }, { accessToken, refreshToken, userId, timeValid }) {
     // Set authentication status and tokens
     commit('setAuthentication', true)
     commit('setTokens', { accessToken, refreshToken })
     commit('setUserId', userId)
+    commit('setTimeValid', timeValid)
+
+
   },
   logout({ commit }) {
     // Clear authentication status and tokens
     commit('setAuthentication', false)
     commit('setTokens', { accessToken: null, refreshToken: null })
     commit('setUserId', null)
+    commit('setTimeValid', null)
   },
+  refreshToken({ commit }, accessToken) {
+    // Set authentication status and tokens
+    commit('setTokens', { accessToken })
+  }
 }

@@ -31,6 +31,7 @@ export const LISTBANKS_TRANFER = [
     url_example: 'agribank.png',
     background: [],
     name_api: 'agribank',
+    update: true,
   },
   {
     id: 5,
@@ -56,6 +57,7 @@ export const LISTBANKS_TRANFER = [
       '/mbb/background16.png',
     ],
     name_api: 'mbbank',
+    update: true,
   },
   {
     id: 6,

@@ -168,14 +168,8 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          // call api here
-          // login api
           this.$store.dispatch('loading/setModalLoading', true)
-          this.$store.dispatch('auth/login', {
-            accessToken: 'res.tokens.acces',
-            refreshToken: 'res.tokens.refres',
-            userId: 'res.id',
-          })
+
           authApi
             .logIn({
               email: values.email,
@@ -188,10 +182,12 @@ export default {
                 accessToken: res.tokens.access,
                 refreshToken: res.tokens.refresh,
                 userId: res.id,
+                time_valid: res.time_valid,
               })
               Cookies.set('access_token', res.tokens.access, { expires: 1 })
               Cookies.set('refresh_token', res.tokens.refresh, { expires: 1 })
               Cookies.set('user_id', res.id, { expires: 1 })
+              Cookies.set('time_valid', res.time_valid, { expires: 1 })
               this.$router.push('/')
             })
             .catch((err) => {

@@ -32,7 +32,6 @@ export function getPhoto(namebank, data) {
         },
       })
       .then((response) => {
-        console.log(response)
         resolve(response.data)
       })
       .catch((response) => {
@@ -51,7 +50,6 @@ export function getListBank(namebank) {
         },
       })
       .then((response) => {
-        console.log(response);
         resolve(response.data)
       })
       .catch((response) => {
