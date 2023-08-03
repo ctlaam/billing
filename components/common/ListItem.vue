@@ -52,6 +52,49 @@ export default {
       this.$emit('selectItem', item)
     },
   },
+  watch: {
+    itemBanks(newValue) {},
+  },
+  created() {
+    this.itemBanks.sort((a, b) => {
+      console.log(a.name, b.name);
+      const nameA = a.name.toUpperCase() // Chuyển đổi tên thành chữ in hoa để so sánh không phân biệt chữ hoa chữ thường
+      const nameB = b.name.toUpperCase()
+
+      // So sánh theo thuộc tính "name" nếu cả hai không có thuộc tính "update" bằng true
+      if (!a.update && !b.update) {
+        if (nameA < nameB) {
+          console.log(nameA, nameB,'123');
+          return -1
+        }
+        if (nameA > nameB) {
+          return 1
+        }
+        return 0
+      }
+
+      // Xử lý các phần tử có thuộc tính "update" bằng true đứng ở cuối cùng
+      if (a.update && !b.update) {
+        return 1
+      }
+      if (!a.update && b.update) {
+        return -1
+      }
+
+      // Xử lý trường hợp cả hai phần tử đều có thuộc tính "update" bằng true hoặc cả hai đều không có
+      // Sắp xếp theo thuộc tính "name" nếu cả hai đều không có thuộc tính "update" bằng true
+      if (nameA < nameB) {
+        return -1
+      }
+      if (nameA > nameB) {
+        return 1
+      }
+      return 0
+    })
+
+    // Kết quả đã được sắp xếp
+    console.log(this.itemBanks);
+  },
 }
 </script>
 

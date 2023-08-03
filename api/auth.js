@@ -17,7 +17,8 @@ export function logIn(data) {
         }
       })
       .catch((response) => {
-        reject(response.response.data)
+        console.log(response);
+        reject(response)
       })
   })
 }

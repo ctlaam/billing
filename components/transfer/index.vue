@@ -139,7 +139,7 @@
               </a-form-item>
             </div>
             <div
-              v-if="['MBBank', 'ACB', 'MSB'].includes(itemSelected.name)"
+              v-if="['MBBank', 'ACB', 'MSB','Sacombank'].includes(itemSelected.name)"
               class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
@@ -631,8 +631,16 @@ export default {
           }
           break
         case 'Agribank':
-          // Tạo 14 kí tự số sau
+          // Tạo 6 kí tự số sau
           for (let i = 0; i < 6; i++) {
+            result += characters.charAt(
+              Math.floor(Math.random() * characters.length)
+            )
+          }
+          break
+        case 'Sacombank':
+          // Tạo 9 kí tự số sau
+          for (let i = 0; i < 9; i++) {
             result += characters.charAt(
               Math.floor(Math.random() * characters.length)
             )

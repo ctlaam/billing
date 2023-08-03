@@ -1,8 +1,10 @@
 <template>
   <div v-click-outside="hide" id="navbar" class="navbar-mobile">
-    <div class="image mb-4">
-      <img src="../../static/ICON.png" width="50" alt="" />
-    </div>
+    <nuxt-link to="/" exact active-class="active">
+      <div class="image mb-4">
+        <img src="../../static/ICON.png" width="50" alt="" />
+      </div>
+    </nuxt-link>
     <div class="walet mb-5">
       <p class="h3">Số dư ví: 0đ</p>
     </div>
@@ -57,22 +59,22 @@
       <div class="item-menu mb-5">
         <div class="title-item h4 mb-4">Menu khác</div>
         <div class="list-items">
-          <nuxt-link to="/link" exact active-class="active">
+          <div class="update" to="/link" exact active-class="active">
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
                 <a-icon type="link" />
                 <span class="name-item">Liên kết giới thiệu</span>
               </div>
             </div>
-          </nuxt-link>
-          <nuxt-link to="/question" exact active-class="active">
+          </div>
+          <div class="update" to="/question" exact active-class="active">
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
                 <a-icon type="info-circle" />
                 <span class="name-item">Câu hỏi thường gặp</span>
               </div>
             </div>
-          </nuxt-link>
+          </div>
         </div>
       </div>
     </div>
@@ -112,9 +114,10 @@ export default {
         a {
           color: #d0d2d6;
         }
-        a.update {
+        .update {
           position: relative;
-          &::after{
+          cursor: pointer;
+          &::after {
             content: 'Coming soon';
             position: absolute;
             top: 0;

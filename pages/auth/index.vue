@@ -188,6 +188,7 @@ export default {
               Cookies.set('refresh_token', res.tokens.refresh, { expires: 1 })
               Cookies.set('user_id', res.id, { expires: 1 })
               Cookies.set('time_valid', res.time_valid, { expires: 1 })
+              Cookies.set('test', true, { expires: 1 })
               this.$router.push('/')
             })
             .catch((err) => {
