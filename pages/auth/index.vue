@@ -215,6 +215,9 @@ export default {
     background-color: #161d31;
     float: left;
     padding: 2em;
+    img {
+      width: 80%;
+    }
   }
   .right {
     width: 40%;
