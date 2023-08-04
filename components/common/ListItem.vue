@@ -45,7 +45,6 @@ export default {
         this.$message.warning({
           content: 'Chức năng đang được phát triển',
           key: 'update',
-          duration: 200,
         })
         return
       }
@@ -57,14 +56,14 @@ export default {
   },
   created() {
     this.itemBanks.sort((a, b) => {
-      console.log(a.name, b.name);
+      console.log(a.name, b.name)
       const nameA = a.name.toUpperCase() // Chuyển đổi tên thành chữ in hoa để so sánh không phân biệt chữ hoa chữ thường
       const nameB = b.name.toUpperCase()
 
       // So sánh theo thuộc tính "name" nếu cả hai không có thuộc tính "update" bằng true
       if (!a.update && !b.update) {
         if (nameA < nameB) {
-          console.log(nameA, nameB,'123');
+          console.log(nameA, nameB, '123')
           return -1
         }
         if (nameA > nameB) {
@@ -93,7 +92,7 @@ export default {
     })
 
     // Kết quả đã được sắp xếp
-    console.log(this.itemBanks);
+    console.log(this.itemBanks)
   },
 }
 </script>

@@ -784,7 +784,7 @@ export default {
           minute: timeMoment.minute(),
           second: timeMoment.second(),
         })
-        const combinedISODate = combinedMoment.add(1, 'day').toISOString()
+        const combinedISODate = combinedMoment.toISOString()
         let formData = {
           type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
           pin_code: Math.floor(this.percentBaterry / 10.01) ?? 0,
