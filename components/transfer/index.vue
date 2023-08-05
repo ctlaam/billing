@@ -139,7 +139,11 @@
               </a-form-item>
             </div>
             <div
-              v-if="['MBBank', 'ACB', 'MSB','Sacombank'].includes(itemSelected.name)"
+              v-if="
+                ['MBBank', 'ACB', 'MSB', 'Sacombank'].includes(
+                  itemSelected.name
+                )
+              "
               class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
@@ -425,7 +429,11 @@
             >
               <div class="title mb-4 col-12">Giao diện</div>
               <div class="item">
-                <a-radio :checked="true">Iphone 14 pro max</a-radio>
+                <a-radio :checked="true">{{
+                  itemSelected.name == 'Vietcombank'
+                    ? 'Iphone 14 pro max'
+                    : 'Iphone 11 promax'
+                }}</a-radio>
               </div>
             </div>
 
@@ -582,8 +590,8 @@ export default {
     }
   },
   created() {
-    this.dateNow = moment(new Date()).format('YYYY/MM/DD')
-    this.timeNow = moment(new Date()).format('HH:mm')
+    this.dateNow = moment().format('YYYY/MM/DD')
+    this.timeNow = moment().format('HH:mm')
     this.getListBanks()
     if (!this.itemSelected) {
       this.$router.push('/transfer')
@@ -775,16 +783,9 @@ export default {
     async handleSearch(e) {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
-        const dateMoment = moment(values.date)
-        const timeMoment = moment(values.time).add(7, 'hours')
-
-        // Gộp hai đối tượng moment lại với giờ, phút và giây từ đối tượng timeMoment
-        const combinedMoment = dateMoment.set({
-          hour: timeMoment.hour(),
-          minute: timeMoment.minute(),
-          second: timeMoment.second(),
-        })
-        const combinedISODate = combinedMoment.toISOString()
+        const dateMoment = moment(values.date).format('YYYY-MM-DD')
+        const timeMoment = moment(values.time).format('HH:mm:ss')
+        const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
         let formData = {
           type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
           pin_code: Math.floor(this.percentBaterry / 10.01) ?? 0,
