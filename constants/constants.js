@@ -124,7 +124,7 @@ export const LISTBANKS_VOLATILITY = [
     url_example: 'vcb.png',
     background: ['/vcb/nen1.png', '/vcb/nen2.png'],
     name_api: 'vietcombank',
-    update: true,
+    // update: true,
   },
   {
     id: 2,

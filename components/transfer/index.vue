@@ -239,6 +239,7 @@
             >
               <a-form-item label="Ngân hàng thụ hưởng">
                 <a-select
+                  :getPopupContainer="(trigger) => trigger.parentElement"
                   v-decorator="[
                     'bank_name',
 

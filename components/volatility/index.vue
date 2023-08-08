@@ -61,12 +61,16 @@
                 />
               </a-form-item>
             </div>
-            <div class="col-xl-6" :style="{ display: true ? 'block' : 'none' }">
+            <div
+              class="col-8 col-xl-6"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Số dư cuối kì">
                 <a-input
                   @keydown="handleKeyDown"
+                  @change="changeMoneySource"
                   v-decorator="[
-                    'money',
+                    'money_source',
                     {
                       rules: [
                         {
@@ -80,7 +84,10 @@
                 />
               </a-form-item>
             </div>
-            <div class="col-xl-6" :style="{ display: true ? 'block' : 'none' }">
+            <div
+              class="col-3 col-xl-6"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Giờ">
                 <a-time-picker
                   v-decorator="[
@@ -191,7 +198,7 @@
                             <span>Xoá biến động</span>
                           </button>
                         </div>
-                        <div class="col-xl-6">
+                        <div class="col-12 col-md-6">
                           <a-form-item label="Số tiền">
                             <a-input
                               @keydown="handleKeyDown"
@@ -210,27 +217,39 @@
                             />
                           </a-form-item>
                         </div>
-                        <div class="col-xl-6">
-                          <a-form-item label="Số dư hiện tại">
-                            <a-input
-                              @keydown="handleKeyDown"
-                              v-decorator="[
-                                `current-balance${index}`,
-                                {
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập số dư hiện tại !',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Nhập số dư hiện tại"
-                            />
-                          </a-form-item>
+                        <div class="col-12 col-md-6">
+                          <a-tooltip placement="topLeft">
+                            <template slot="title">
+                              <span v-if="index > 0"
+                                >Số dư từ biến động 2 sẽ tự động tính toán</span
+                              >
+                            </template>
+                            <a-form-item label="Số dư hiện tại">
+                              <a-input
+                                :disabled="index > 0"
+                                @keydown="handleKeyDown"
+                                v-decorator="[
+                                  `current-balance${index}`,
+                                  {
+                                    initialValue:
+                                      index == 0
+                                        ? moneySource
+                                        : caculateMoneySource[index] || 0,
+                                    rules: [
+                                      {
+                                        required: true,
+                                        message: 'Nhập số dư hiện tại !',
+                                      },
+                                    ],
+                                  },
+                                ]"
+                                placeholder="Nhập số dư hiện tại"
+                              />
+                            </a-form-item>
+                          </a-tooltip>
                         </div>
                         <div
-                          class="col-xl-3 col-6"
+                          class="col-md-3 col-6"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Giờ">
@@ -253,7 +272,7 @@
                           </a-form-item>
                         </div>
                         <div
-                          class="col-xl-3 col-6"
+                          class="col-md-3 col-6"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Ngày">
@@ -276,7 +295,7 @@
                           </a-form-item>
                         </div>
                         <div
-                          class="col-xl-6"
+                          class="col-12 col-md-6"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Nôi dung giao dịch">
@@ -303,7 +322,9 @@
                   <a-tab-pane key="2" tab="Trừ tiền" force-render>
                     <div v-if="item.keyTab == 2">
                       <div class="row">
-                        <div class="h3 col-8">Biến động {{ index + 1 }}</div>
+                        <div class="h3 col-md-8 col-7">
+                          Biến động {{ index + 1 }}
+                        </div>
                         <div class="text-end col-4">
                           <button
                             v-if="index >= 1"
@@ -334,12 +355,15 @@
                         <div class="col-12">
                           <a-form-item label="Chọn bill đã tạo">
                             <a-select
+                              :getPopupContainer="
+                                (trigger) => trigger.parentElement
+                              "
                               class="w-100"
                               style="width: 120px"
                               v-decorator="[
                                 `bill-volatility${index}`,
                                 {
-                                  initialValue: 'bill1',
+                                  placeholder: 'Chọn bill đã tạo !',
                                   rules: [
                                     {
                                       required: true,
@@ -350,19 +374,19 @@
                               ]"
                               placeholder="Chọn bill đã tạo"
                             >
-                              <a-select-option value="bill1">
-                                Bill 1
-                              </a-select-option>
-                              <a-select-option value="bill2">
-                                Bill 2
-                              </a-select-option>
-                              <a-select-option value="bill3">
-                                Bill 3
+                              <a-select-option
+                                v-for="item in billInfo"
+                                :key="item.id"
+                                :value="item.id"
+                              >
+                                {{
+                                  `${item.name} | ${item.bank_name} | ${item.value_money}`
+                                }}
                               </a-select-option>
                             </a-select>
                           </a-form-item>
                         </div>
-                        <div class="col-xl-6">
+                        <div class="col-12 col-md-6">
                           <a-form-item label="Số tiền">
                             <a-input
                               @keydown="handleKeyDown"
@@ -381,27 +405,136 @@
                             />
                           </a-form-item>
                         </div>
-                        <div class="col-xl-6">
-                          <a-form-item label="Số dư hiện tại">
+                        <div class="col-12 col-md-6">
+                          <a-tooltip placement="topLeft">
+                            <template slot="title">
+                              <span v-if="index > 0"
+                                >Số dư từ biến động 2 sẽ tự động tính toán</span
+                              >
+                            </template>
+                            <a-form-item label="Số dư hiện tại">
+                              <a-input
+                                :disabled="index > 0"
+                                @keydown="handleKeyDown"
+                                v-decorator="[
+                                  `current-balance${index}`,
+                                  {
+                                    rules: [
+                                      {
+                                        required: true,
+                                        message: 'Nhập số dư hiện tại !',
+                                      },
+                                    ],
+                                  },
+                                ]"
+                                placeholder="Nhập số dư hiện tại"
+                              />
+                            </a-form-item>
+                          </a-tooltip>
+                        </div>
+                        <div
+                          class="col-12 col-md-6"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Tên người nhận">
                             <a-input
-                              @keydown="handleKeyDown"
                               v-decorator="[
-                                `current-balance${index}`,
+                                `name-recived${index}`,
                                 {
                                   rules: [
                                     {
                                       required: true,
-                                      message: 'Nhập số dư hiện tại !',
+                                      message: 'Nhập tên người nhận',
                                     },
                                   ],
                                 },
                               ]"
-                              placeholder="Nhập số dư hiện tại"
+                              placeholder="Nhập tên người nhận"
                             />
                           </a-form-item>
                         </div>
                         <div
-                          class="col-3"
+                          class="col-12 col-md-6"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Số tài khoản người nhận">
+                            <a-input
+                              v-decorator="[
+                                `number-recived${index}`,
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập số tài khoản người nhận',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập số tài khoản người nhận"
+                            />
+                          </a-form-item>
+                        </div>
+                        <div
+                          v-if="!['MSB'].includes(itemSelected.name)"
+                          class="col-12 col-md-6"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item label="Ngân hàng thụ hưởng">
+                            <a-select
+                              :getPopupContainer="
+                                (trigger) => trigger.parentElement
+                              "
+                              v-decorator="[
+                                `bank_name${index}`,
+
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Chọn ngân hàng thụ hưởng',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Chọn ngân hàng thụ hưởng"
+                            >
+                              <a-select-option
+                                v-for="(i, index) in listBanks"
+                                :value="i.bank_name"
+                                :key="index"
+                              >
+                                {{ i.bank_name }}
+                              </a-select-option>
+                            </a-select>
+                          </a-form-item>
+                        </div>
+                        <div
+                          class="col-12 col-md-6"
+                          :style="{ display: true ? 'block' : 'none' }"
+                        >
+                          <a-form-item
+                            v-if="!['ACB', 'MSB'].includes(itemSelected.name)"
+                            label="Mã giao dịch (mã được tạo tự động) "
+                          >
+                            <a-input
+                              v-decorator="[
+                                `transfer_code${index}`,
+
+                                {
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập mã giao dịch',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập mã giao dịch"
+                            />
+                          </a-form-item>
+                        </div>
+                        <div
+                          class="col-6 col-md-3"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Giờ">
@@ -424,7 +557,7 @@
                           </a-form-item>
                         </div>
                         <div
-                          class="col-3"
+                          class="col-6 col-md-3"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Ngày">
@@ -447,7 +580,7 @@
                           </a-form-item>
                         </div>
                         <div
-                          class="col-xl-6"
+                          class="col-12 col-md-6"
                           :style="{ display: true ? 'block' : 'none' }"
                         >
                           <a-form-item label="Nôi dung giao dịch">
@@ -748,6 +881,7 @@
 
 <script>
 import moment from 'moment'
+import * as volatilityApi from '../../api/volatility.js'
 function getBase64(img, callback) {
   const reader = new FileReader()
   reader.addEventListener('load', () => callback(reader.result))
@@ -785,9 +919,14 @@ export default {
       modeBaterry: false,
       modeSim: 'simone',
       modeOTT: false,
+      billInfo: null,
+      moneySource: null,
+      caculateMoneySource: [],
     }
   },
   created() {
+    this.getBillInfo()
+    this.getBankChange()
     this.dateNow = moment(new Date()).format('YYYY/MM/DD')
     this.timeNow = moment(new Date()).format('HH:mm')
   },
@@ -796,18 +935,64 @@ export default {
       return this.itemSelected.url_example
     },
   },
-  test() {},
+  watch: {
+    numberVolatility(newVal, oldVal) {
+      console.log('newVal', newVal)
+      console.log('oldVal', oldVal)
+    },
+  },
   methods: {
+    changeMoneySource(event) {
+      this.moneySource = event.target.value
+      console.log(event.target.value)
+    },
+    async getBankChange() {
+      await volatilityApi
+        .listBankChange(this.itemSelected.name_api)
+        .then((res) => {
+          this.listBanks = res.list_bank
+          console.log(this.listBanks)
+        })
+        .catch((err) => {
+          console.log('err', err)
+        })
+    },
+    async getBillInfo() {
+      await volatilityApi
+        .getBillInfo(this.itemSelected.name_api)
+        .then((res) => {
+          this.billInfo = res.bill_info
+        })
+        .catch((err) => {
+          console.log('err', err)
+        })
+    },
     deleteVolatile(id) {
       this.numberVolatility = this.numberVolatility.filter(
         (item) => item.id !== id
       )
     },
     addVolatile() {
-      this.numberVolatility.push({
-        id: this.numberVolatility.length + 1,
-        name: this.numberVolatility.length + 1,
-        keyTab: 1,
+      this.form.validateFields((valid) => {
+        if (valid) {
+          console.log('error submit!!')
+          this.$message.warning({
+            content:
+              'Vui lòng nhập đầy đủ thông tin trước khi thêm biến động mới',
+            key: 'warning',
+          })
+        } else {
+          this.numberVolatility.push({
+            id: this.numberVolatility.length + 1,
+            name: this.numberVolatility.length + 1,
+            keyTab: 1,
+          })
+          let values = this.form.getFieldsValue()
+          this.form.setFieldsValue({
+            'money-volatility0': 10000,
+          })
+          console.log('values', values)
+        }
       })
     },
     changeTab(key, index) {
