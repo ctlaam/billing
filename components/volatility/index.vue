@@ -97,7 +97,7 @@
                       rules: [
                         {
                           required: true,
-                          message: 'Nhập giờ chuyển khoản',
+                          message: 'Chọn giờ tạo biến động',
                         },
                       ],
                     },
@@ -159,451 +159,472 @@
           <div class="row">
             <div class="col-12" :style="{ display: true ? 'block' : 'none' }">
               <a-form-item label="Thể loại">
-                <a-tabs
+                <a-row
                   v-for="(item, index) in numberVolatility"
                   :key="index"
-                  default-active-key="1"
+                  :default-active-key="item.keyTab"
                   @change="changeTab($event, index)"
                 >
-                  <a-tab-pane key="1" tab="Nhận tiền">
-                    <div v-if="item.keyTab == 1">
-                      <div class="row">
-                        <div class="h3 col-md-8 col-7">
-                          Biến động {{ index + 1 }}
-                        </div>
-                        <div class="text-end col-4">
-                          <button
-                            v-if="index >= 1"
-                            class="delete-item btn btn-outline-danger text-nowrap px-1 waves-effect"
-                            data-repeater-delete=""
-                            type="button"
-                            style="font-size: 1.4rem"
-                            @click="deleteVolatile(item.id)"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="14"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-x me-25"
-                            >
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                            <span>Xoá biến động</span>
-                          </button>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <a-form-item label="Số tiền">
-                            <a-input
-                              @keydown="handleKeyDown"
-                              v-decorator="[
-                                `money-volatility${index}`,
-                                {
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập số tiền !',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Nhập số tiền"
-                            />
-                          </a-form-item>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <a-tooltip placement="topLeft">
-                            <template slot="title">
-                              <span v-if="index > 0"
-                                >Số dư từ biến động 2 sẽ tự động tính toán</span
-                              >
-                            </template>
-                            <a-form-item label="Số dư hiện tại">
-                              <a-input
-                                :disabled="index > 0"
-                                @keydown="handleKeyDown"
-                                v-decorator="[
-                                  `current-balance${index}`,
-                                  {
-                                    initialValue:
-                                      index == 0
-                                        ? moneySource
-                                        : caculateMoneySource[index] || 0,
-                                    rules: [
-                                      {
-                                        required: true,
-                                        message: 'Nhập số dư hiện tại !',
-                                      },
-                                    ],
-                                  },
-                                ]"
-                                placeholder="Nhập số dư hiện tại"
-                              />
-                            </a-form-item>
-                          </a-tooltip>
-                        </div>
-                        <div
-                          class="col-md-3 col-6"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Giờ">
-                            <a-time-picker
-                              v-decorator="[
-                                `timer-volatility${index}`,
-                                {
-                                  initialValue: moment(timeNow, 'HH:mm'),
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập giờ chuyển khoản',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              format="hh:mm a"
-                              placeholder="Chọn giờ"
-                            />
-                          </a-form-item>
-                        </div>
-                        <div
-                          class="col-md-3 col-6"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Ngày">
-                            <a-date-picker
-                              :disabled-date="disabledDate"
-                              v-decorator="[
-                                `date-volatility${index}`,
-                                {
-                                  initialValue: moment(dateNow, 'YYYY/MM/DD'),
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập ngày chuyển khoản',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Chọn ngày"
-                            />
-                          </a-form-item>
-                        </div>
-                        <div
-                          class="col-12 col-md-6"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Nôi dung giao dịch">
-                            <a-textarea
-                              v-decorator="[
-                                `text-volatility${index}`,
-                                {
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập nội dung chuyển khoản',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Nhập nội dung chuyển khoản"
-                            />
-                          </a-form-item>
-                        </div>
+                  <a-row class="mb-4">
+                    <a-radio-group v-model="item.keyTab">
+                      <a-radio :checked="item.keyTab == 0" :value="0">
+                        Nhận tiền
+                      </a-radio>
+                      <a-radio :checked="item.keyTab == '1'" :value="1">
+                        Trừ tiền
+                      </a-radio>
+                    </a-radio-group>
+                  </a-row>
+                  <div v-if="item.keyTab == 0">
+                    <div class="row">
+                      <div class="h3 col-md-8 col-7" @click="caculatedValue">
+                        Biến động {{ index + 1 }}
                       </div>
-                      <div class="col-12"></div>
-                    </div>
-                  </a-tab-pane>
-                  <a-tab-pane key="2" tab="Trừ tiền" force-render>
-                    <div v-if="item.keyTab == 2">
-                      <div class="row">
-                        <div class="h3 col-md-8 col-7">
-                          Biến động {{ index + 1 }}
-                        </div>
-                        <div class="text-end col-4">
-                          <button
-                            v-if="index >= 1"
-                            class="delete-item btn btn-outline-danger text-nowrap px-1 waves-effect"
-                            data-repeater-delete=""
-                            type="button"
-                            style="font-size: 1.4rem"
-                            @click="deleteVolatile(item.id)"
+                      <div class="text-end col-4">
+                        <button
+                          v-if="index >= 1"
+                          class="delete-item btn btn-outline-danger text-nowrap px-1 waves-effect"
+                          data-repeater-delete=""
+                          type="button"
+                          style="font-size: 1.4rem"
+                          @click="deleteVolatile(item.id)"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-x me-25"
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="14"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-x me-25"
-                            >
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                            <span>Xoá biến động</span>
-                          </button>
-                        </div>
-                        <div class="col-12">
-                          <a-form-item label="Chọn bill đã tạo">
-                            <a-select
-                              :getPopupContainer="
-                                (trigger) => trigger.parentElement
-                              "
-                              class="w-100"
-                              style="width: 120px"
-                              v-decorator="[
-                                `bill-volatility${index}`,
-                                {
-                                  placeholder: 'Chọn bill đã tạo !',
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Chọn bill đã tạo !',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Chọn bill đã tạo"
-                            >
-                              <a-select-option
-                                v-for="item in billInfo"
-                                :key="item.id"
-                                :value="item.id"
-                              >
-                                {{
-                                  `${item.name} | ${item.bank_name} | ${item.value_money}`
-                                }}
-                              </a-select-option>
-                            </a-select>
-                          </a-form-item>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <a-form-item label="Số tiền">
-                            <a-input
-                              @keydown="handleKeyDown"
-                              v-decorator="[
-                                `money-volatility${index}`,
-                                {
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập số tiền !',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Nhập số tiền"
-                            />
-                          </a-form-item>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <a-tooltip placement="topLeft">
-                            <template slot="title">
-                              <span v-if="index > 0"
-                                >Số dư từ biến động 2 sẽ tự động tính toán</span
-                              >
-                            </template>
-                            <a-form-item label="Số dư hiện tại">
-                              <a-input
-                                :disabled="index > 0"
-                                @keydown="handleKeyDown"
-                                v-decorator="[
-                                  `current-balance${index}`,
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                          <span>Xoá biến động</span>
+                        </button>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <a-form-item label="Số tiền">
+                          <a-input
+                            @keydown="handleKeyDown"
+                            @change="changeMoneyVolatility"
+                            v-decorator="[
+                              `money-volatility[${index}]`,
+                              {
+                                rules: [
                                   {
-                                    rules: [
-                                      {
-                                        required: true,
-                                        message: 'Nhập số dư hiện tại !',
-                                      },
-                                    ],
+                                    required: true,
+                                    message: 'Nhập số tiền !',
                                   },
-                                ]"
-                                placeholder="Nhập số dư hiện tại"
-                              />
-                            </a-form-item>
-                          </a-tooltip>
-                        </div>
-                        <div
-                          class="col-12 col-md-6"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Tên người nhận">
-                            <a-input
-                              v-decorator="[
-                                `name-recived${index}`,
-                                {
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập tên người nhận',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Nhập tên người nhận"
-                            />
-                          </a-form-item>
-                        </div>
-                        <div
-                          class="col-12 col-md-6"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Số tài khoản người nhận">
-                            <a-input
-                              v-decorator="[
-                                `number-recived${index}`,
-                                {
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập số tài khoản người nhận',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Nhập số tài khoản người nhận"
-                            />
-                          </a-form-item>
-                        </div>
-                        <div
-                          v-if="!['MSB'].includes(itemSelected.name)"
-                          class="col-12 col-md-6"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Ngân hàng thụ hưởng">
-                            <a-select
-                              :getPopupContainer="
-                                (trigger) => trigger.parentElement
-                              "
-                              v-decorator="[
-                                `bank_name${index}`,
-
-                                {
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Chọn ngân hàng thụ hưởng',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Chọn ngân hàng thụ hưởng"
+                                ],
+                              },
+                            ]"
+                            placeholder="Nhập số tiền"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <a-tooltip placement="topLeft">
+                          <template slot="title">
+                            <span v-if="index > 0"
+                              >Số dư từ biến động 2 sẽ tự động tính toán</span
                             >
-                              <a-select-option
-                                v-for="(i, index) in listBanks"
-                                :value="i.bank_name"
-                                :key="index"
-                              >
-                                {{ i.bank_name }}
-                              </a-select-option>
-                            </a-select>
-                          </a-form-item>
-                        </div>
-                        <div
-                          class="col-12 col-md-6"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item
-                            v-if="!['ACB', 'MSB'].includes(itemSelected.name)"
-                            label="Mã giao dịch (mã được tạo tự động) "
-                          >
+                          </template>
+                          <a-form-item label="Số dư hiện tại">
+                            <!-- :disabled="index > 0" -->
                             <a-input
+                              :disabled="index > 0"
+                              @keydown="handleKeyDown"
+                              @change="changeMoneyVolatility"
                               v-decorator="[
-                                `transfer_code${index}`,
-
+                                `current-balance[${index}]`,
                                 {
+                                  initialValue:
+                                    index == 0
+                                      ? moneySource
+                                      : caculateMoneySource[index] || 0,
                                   rules: [
                                     {
                                       required: true,
-                                      message: 'Nhập mã giao dịch',
+                                      message: 'Nhập số dư hiện tại !',
                                     },
                                   ],
                                 },
                               ]"
-                              placeholder="Nhập mã giao dịch"
+                              placeholder="Nhập số dư hiện tại"
                             />
                           </a-form-item>
-                        </div>
-                        <div
-                          class="col-6 col-md-3"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Giờ">
-                            <a-time-picker
-                              v-decorator="[
-                                `timer-volatility${index}`,
-                                {
-                                  initialValue: moment(timeNow, 'HH:mm'),
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập giờ chuyển khoản',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              format="hh:mm a"
-                              placeholder="Chọn giờ"
-                            />
-                          </a-form-item>
-                        </div>
-                        <div
-                          class="col-6 col-md-3"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Ngày">
-                            <a-date-picker
-                              :disabled-date="disabledDate"
-                              v-decorator="[
-                                `date-volatility${index}`,
-                                {
-                                  initialValue: moment(dateNow, 'YYYY/MM/DD'),
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập ngày chuyển khoản',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Chọn ngày"
-                            />
-                          </a-form-item>
-                        </div>
-                        <div
-                          class="col-12 col-md-6"
-                          :style="{ display: true ? 'block' : 'none' }"
-                        >
-                          <a-form-item label="Nôi dung giao dịch">
-                            <a-textarea
-                              v-decorator="[
-                                `text-volatility${index}`,
-                                {
-                                  rules: [
-                                    {
-                                      required: true,
-                                      message: 'Nhập nội dung chuyển khoản',
-                                    },
-                                  ],
-                                },
-                              ]"
-                              placeholder="Nhập nội dung chuyển khoản"
-                            />
-                          </a-form-item>
-                        </div>
+                        </a-tooltip>
+                      </div>
+                      <div
+                        class="col-md-3 col-6"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Giờ">
+                          <a-time-picker
+                            v-decorator="[
+                              `timer-volatility[${index}]`,
+                              {
+                                initialValue:
+                                  index == 0 ? moment(timeNow, 'HH:mm') : null,
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập giờ chuyển khoản',
+                                  },
+                                ],
+                              },
+                            ]"
+                            format="hh:mm a"
+                            placeholder="Chọn giờ"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div
+                        class="col-md-3 col-6"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Ngày">
+                          <a-date-picker
+                            :disabled-date="disabledDate"
+                            v-decorator="[
+                              `date-volatility[${index}]`,
+                              {
+                                initialValue:
+                                  index == 0
+                                    ? moment(dateNow, 'YYYY/MM/DD')
+                                    : null,
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập ngày chuyển khoản',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Chọn ngày"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div
+                        class="col-12 col-md-6"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Nôi dung giao dịch">
+                          <a-textarea
+                            v-decorator="[
+                              `text-volatility[${index}]`,
+                              {
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập nội dung chuyển khoản',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Nhập nội dung chuyển khoản"
+                          />
+                        </a-form-item>
                       </div>
                     </div>
-                  </a-tab-pane>
-                </a-tabs>
+                    <div class="col-12"></div>
+                  </div>
+                  <div v-if="item.keyTab == 1">
+                    <div class="row">
+                      <div class="h3 col-md-8 col-7" @click="caculatedValue">
+                        Biến động {{ index + 1 }}
+                      </div>
+                      <div class="text-end col-4">
+                        <button
+                          v-if="index >= 1"
+                          class="delete-item btn btn-outline-danger text-nowrap px-1 waves-effect"
+                          data-repeater-delete=""
+                          type="button"
+                          style="font-size: 1.4rem"
+                          @click="deleteVolatile(item.id)"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-x me-25"
+                          >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                          <span>Xoá biến động</span>
+                        </button>
+                      </div>
+                      <div class="col-12">
+                        <a-form-item label="Chọn bill đã tạo">
+                          <a-select
+                            @change="selectBill($event, index)"
+                            :getPopupContainer="
+                              (trigger) => trigger.parentElement
+                            "
+                            class="w-100"
+                            style="width: 120px"
+                            v-decorator="[
+                              `bill-volatility[${index}]`,
+                              {
+                                placeholder: 'Chọn bill đã tạo !',
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Chọn bill đã tạo !',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Chọn bill đã tạo"
+                          >
+                            <a-select-option
+                              v-for="item in billInfo"
+                              :key="item.id"
+                              :value="item.id"
+                              :disabled="billSelected.includes(item.id)"
+                            >
+                              {{
+                                `${item.name} | ${item.bank_name} | ${item.value_money}`
+                              }}
+                            </a-select-option>
+                          </a-select>
+                        </a-form-item>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <a-form-item label="Số tiền">
+                          <a-input
+                            @keydown="handleKeyDown"
+                            @change="changeMoneyVolatility"
+                            v-decorator="[
+                              `money-volatility[${index}]`,
+                              {
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập số tiền !',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Nhập số tiền"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <a-tooltip placement="topLeft">
+                          <template slot="title">
+                            <span v-if="index > 0"
+                              >Số dư từ biến động 2 sẽ tự động tính toán</span
+                            >
+                          </template>
+                          <a-form-item label="Số dư hiện tại">
+                            <a-input
+                              :disabled="index > 0"
+                              @keydown="handleKeyDown"
+                              @change="changeMoneyVolatility"
+                              v-decorator="[
+                                `current-balance[${index}]`,
+                                {
+                                  initialValue:
+                                    index == 0
+                                      ? moneySource
+                                      : caculateMoneySource[index] || 0,
+                                  rules: [
+                                    {
+                                      required: true,
+                                      message: 'Nhập số dư hiện tại !',
+                                    },
+                                  ],
+                                },
+                              ]"
+                              placeholder="Nhập số dư hiện tại"
+                            />
+                          </a-form-item>
+                        </a-tooltip>
+                      </div>
+                      <div
+                        class="col-12 col-md-6"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Tên người nhận">
+                          <a-input
+                            v-decorator="[
+                              `name-recived[${index}]`,
+                              {
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập tên người nhận',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Nhập tên người nhận"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div
+                        class="col-12 col-md-6"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Số tài khoản người nhận">
+                          <a-input
+                            v-decorator="[
+                              `number-recived[${index}]`,
+                              {
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập số tài khoản người nhận',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Nhập số tài khoản người nhận"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div
+                        v-if="!['MSB'].includes(itemSelected.name)"
+                        class="col-12 col-md-6"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Ngân hàng thụ hưởng">
+                          <a-select
+                            :getPopupContainer="
+                              (trigger) => trigger.parentElement
+                            "
+                            v-decorator="[
+                              `bank_name[${index}]`,
+
+                              {
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Chọn ngân hàng thụ hưởng',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Chọn ngân hàng thụ hưởng"
+                          >
+                            <a-select-option
+                              v-for="(i, index) in listBanks"
+                              :value="i.bank_name"
+                              :key="index"
+                            >
+                              {{ i.bank_name }}
+                            </a-select-option>
+                          </a-select>
+                        </a-form-item>
+                      </div>
+                      <div
+                        class="col-12 col-md-6"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item
+                          v-if="!['ACB', 'MSB'].includes(itemSelected.name)"
+                          label="Mã giao dịch (mã được tạo tự động) "
+                        >
+                          <a-input
+                            v-decorator="[
+                              `transfer_code[${index}]`,
+
+                              {
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập mã giao dịch',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Nhập mã giao dịch"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div
+                        class="col-6 col-md-3"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Giờ">
+                          <a-time-picker
+                            v-decorator="[
+                              `timer-volatility[${index}]`,
+                              {
+                                initialValue: moment(timeNow, 'HH:mm'),
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập giờ chuyển khoản',
+                                  },
+                                ],
+                              },
+                            ]"
+                            format="hh:mm a"
+                            placeholder="Chọn giờ"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div
+                        class="col-6 col-md-3"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Ngày">
+                          <a-date-picker
+                            :disabled-date="disabledDate"
+                            v-decorator="[
+                              `date-volatility[${index}]`,
+                              {
+                                initialValue: moment(dateNow, 'YYYY/MM/DD'),
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập ngày chuyển khoản',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Chọn ngày"
+                          />
+                        </a-form-item>
+                      </div>
+                      <div
+                        class="col-12 col-md-6"
+                        :style="{ display: true ? 'block' : 'none' }"
+                      >
+                        <a-form-item label="Nôi dung giao dịch">
+                          <a-textarea
+                            v-decorator="[
+                              `text-volatility[${index}]`,
+                              {
+                                rules: [
+                                  {
+                                    required: true,
+                                    message: 'Nhập nội dung chuyển khoản',
+                                  },
+                                ],
+                              },
+                            ]"
+                            placeholder="Nhập nội dung chuyển khoản"
+                          />
+                        </a-form-item>
+                      </div>
+                    </div>
+                  </div>
+                </a-row>
                 <div class="row">
                   <div class="col-12">
                     <div class="col-12 mb-2">
@@ -912,7 +933,7 @@ export default {
       timeNow: null,
       dateNow: null,
       keyTab: 1,
-      numberVolatility: [{ id: 1, name: '1', keyTab: 1 }],
+      numberVolatility: [{ id: 1, name: '1', keyTab: 0 }],
       background: 'hinhnen1',
       lightness: 'light',
       avatar: null,
@@ -921,7 +942,9 @@ export default {
       modeOTT: false,
       billInfo: null,
       moneySource: null,
-      caculateMoneySource: [],
+      listBanks: null,
+      caculateMoneySource: [0, 0, 0, 0],
+      billSelected: [],
     }
   },
   created() {
@@ -936,15 +959,43 @@ export default {
     },
   },
   watch: {
-    numberVolatility(newVal, oldVal) {
-      console.log('newVal', newVal)
-      console.log('oldVal', oldVal)
-    },
+    numberVolatility(newVal, oldVal) {},
   },
   methods: {
+    selectBill(item, index) {
+      this.billSelected[index] = item
+      const bill = this.billInfo.find((i) => i.id === item)
+      console.log(bill)
+      this.form.setFieldsValue({
+        'money-volatility': [...this.form.getFieldsValue()['money-volatility']],
+      })
+    },
+    changeMoneyVolatility() {
+      this.caculatedValue()
+    },
+    caculatedValue() {
+      console.log(12333)
+      let money = this.form.getFieldsValue()['money-volatility']
+      this.caculateMoneySource = this.form.getFieldsValue()['current-balance']
+      for (let i = 0; i < this.numberVolatility.length; i++) {
+        const element = this.numberVolatility[i]
+        if (element.keyTab == 1) {
+          this.caculateMoneySource[i + 1] =
+            parseInt(this.caculateMoneySource[i]) + parseInt(money[i])
+        } else if (element.keyTab == 0) {
+          this.caculateMoneySource[i + 1] =
+            parseInt(this.caculateMoneySource[i]) - parseInt(money[i])
+        }
+      }
+      this.form.setFieldsValue({
+        'current-balance': [...this.caculateMoneySource].slice(
+          0,
+          this.numberVolatility.length
+        ),
+      })
+    },
     changeMoneySource(event) {
       this.moneySource = event.target.value
-      console.log(event.target.value)
     },
     async getBankChange() {
       await volatilityApi
@@ -967,13 +1018,27 @@ export default {
           console.log('err', err)
         })
     },
-    deleteVolatile(id) {
-      this.numberVolatility = this.numberVolatility.filter(
-        (item) => item.id !== id
-      )
+    async deleteVolatile(id) {
+      // this.numberVolatility = this.numberVolatility.filter(
+      //   (item) => item.id !== id
+      // )
+      const index = this.numberVolatility.findIndex((item) => item.id === id)
+      this.numberVolatility.splice(index, 1)
+      console.log(this.numberVolatility)
+      let dataObject = await this.form.getFieldsValue()
+      const arrayKeysObject = {}
+      for (const key in dataObject) {
+        if (dataObject.hasOwnProperty(key) && Array.isArray(dataObject[key])) {
+          dataObject[key].splice(index, 1)
+          arrayKeysObject[key] = dataObject[key]
+        }
+      }
+      await this.form.setFieldsValue(arrayKeysObject)
+      await this.caculatedValue()
+      console.log(this.numberVolatility)
     },
-    addVolatile() {
-      this.form.validateFields((valid) => {
+    async addVolatile() {
+      this.form.validateFields(async (valid) => {
         if (valid) {
           console.log('error submit!!')
           this.$message.warning({
@@ -982,16 +1047,12 @@ export default {
             key: 'warning',
           })
         } else {
+          await this.caculatedValue()
           this.numberVolatility.push({
             id: this.numberVolatility.length + 1,
             name: this.numberVolatility.length + 1,
-            keyTab: 1,
+            keyTab: 0,
           })
-          let values = this.form.getFieldsValue()
-          this.form.setFieldsValue({
-            'money-volatility0': 10000,
-          })
-          console.log('values', values)
         }
       })
     },
@@ -1104,49 +1165,40 @@ export default {
     handleSearch(e) {
       e.preventDefault()
       this.form.validateFields((error, values) => {
-        console.log('error', error)
-        console.log('Received values of form: ', values)
         const arrayVolatility = []
-
-        // Lấy thông tin money-volatility, timer-volatility, date-volatility và current-balance và đẩy vào mảng arrayVolatility
-        let index = 0
-        while (
-          values.hasOwnProperty(`money-volatility${index}`) &&
-          values.hasOwnProperty(`timer-volatility${index}`) &&
-          values.hasOwnProperty(`date-volatility${index}`) &&
-          values.hasOwnProperty(`current-balance${index}`) &&
-          values.hasOwnProperty(`text-volatility${index}`) &&
-          !values.hasOwnProperty(`bill-volatility${index}`)
-        ) {
-          arrayVolatility.push({
-            money_volatility: values[`money-volatility${index}`],
-            timer_volatility: values[`timer-volatility${index}`],
-            date_volatility: values[`date-volatility${index}`],
-            current_balance: values[`current-balance${index}`],
-            text_volatility: values[`text-volatility${index}`],
-          })
-          index++
+        for (let i = 0; i < this.numberVolatility.length; i++) {
+          const item = this.numberVolatility[i]
+          const dateMoment = moment(values[`date-volatility`][i]).format(
+            'YYYY-MM-DD'
+          )
+          const timeMoment = moment(values[`timer-volatility`][i]).format(
+            'HH:mm:ss'
+          )
+          const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
+          if (item.keyTab == 1) {
+            const volatility = {
+              type: '1',
+              value_money: values[`money-volatility`][i],
+              balance: values[`current-balance`][i],
+              name: values[`name-recived`][i],
+              bank_cod: values[`number-recived`][i],
+              bank_name: values[`bank_name`][i],
+              transfer_code: values[`transfer_code`][i],
+              date_time: combinedISODate,
+              content: values[`text-volatility`][i],
+            }
+            arrayVolatility.push(volatility)
+          } else {
+            const volatility = {
+              type: '0',
+              value_money: values[`money-volatility`][i],
+              balance: values[`current-balance`][i],
+              date_time: combinedISODate,
+              content: values[`text-volatility`][i],
+            }
+            arrayVolatility.push(volatility)
+          }
         }
-        while (
-          values.hasOwnProperty(`money-volatility${index}`) &&
-          values.hasOwnProperty(`timer-volatility${index}`) &&
-          values.hasOwnProperty(`date-volatility${index}`) &&
-          values.hasOwnProperty(`current-balance${index}`) &&
-          values.hasOwnProperty(`text-volatility${index}`) &&
-          values.hasOwnProperty(`bill-volatility${index}`)
-        ) {
-          arrayVolatility.push({
-            money_volatility: values[`money-volatility${index}`],
-            timer_volatility: values[`timer-volatility${index}`],
-            date_volatility: values[`date-volatility${index}`],
-            current_balance: values[`current-balance${index}`],
-            text_volatility: values[`text-volatility${index}`],
-            bill_volatility: values[`bill-volatility${index}`],
-          })
-          index++
-        }
-
-        console.log(arrayVolatility)
       })
     },
   },

@@ -56,7 +56,6 @@ export default {
   },
   created() {
     this.itemBanks.sort((a, b) => {
-      console.log(a.name, b.name)
       const nameA = a.name.toUpperCase() // Chuyển đổi tên thành chữ in hoa để so sánh không phân biệt chữ hoa chữ thường
       const nameB = b.name.toUpperCase()
 
