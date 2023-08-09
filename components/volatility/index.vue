@@ -158,10 +158,12 @@
 
           <div class="row">
             <div class="col-12" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item label="Thể loại">
+              <a-form-item
+                v-for="(item, index) in numberVolatility"
+                :key="index"
+                label="Thể loại"
+              >
                 <a-row
-                  v-for="(item, index) in numberVolatility"
-                  :key="index"
                   :default-active-key="item.keyTab"
                   @change="changeTab($event, index)"
                 >
