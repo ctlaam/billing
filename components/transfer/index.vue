@@ -463,7 +463,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-5 mb-5 col-12">
+            <div class="col-xl-5 mb-5 col-12">
               <div class="title mb-4">Chế độ mạng</div>
               <div class="list-item d-flex">
                 <a-radio-group v-model="internetWifi">
@@ -488,7 +488,7 @@
                 </a-radio-group>
               </div>
             </div>
-            <div class="col-md-7 mb-5 col-12">
+            <div class="col-xl-7 mb-5 col-12">
               <div class="title mb-4">Sim</div>
               <div class="list-item d-flex">
                 <a-radio-group v-model="modeSim">
@@ -785,7 +785,7 @@ export default {
     async handleSearch(e) {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
-        const dateMoment = moment(values.date).format('YYYY-MM-DD')
+        const dateMoment = moment().format('YYYY-MM-DD')
         const timeMoment = moment(values.time).format('HH:mm:ss')
         const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
         let formData = {

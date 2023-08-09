@@ -177,7 +177,7 @@
                   </a-row>
                   <div v-if="item.keyTab == 0">
                     <div class="row">
-                      <div class="h3 col-md-8 col-7" @click="caculatedValue">
+                      <div class="h3 col-md-8 col-7" @click="test">
                         Biến động {{ index + 1 }}
                       </div>
                       <div class="text-end col-4">
@@ -261,7 +261,7 @@
                         </a-tooltip>
                       </div>
                       <div
-                        class="col-md-3 col-6"
+                        class="col-xl-3 col-6"
                         :style="{ display: true ? 'block' : 'none' }"
                       >
                         <a-form-item label="Giờ">
@@ -285,7 +285,7 @@
                         </a-form-item>
                       </div>
                       <div
-                        class="col-md-3 col-6"
+                        class="col-xl-3 col-6"
                         :style="{ display: true ? 'block' : 'none' }"
                       >
                         <a-form-item label="Ngày">
@@ -311,7 +311,7 @@
                         </a-form-item>
                       </div>
                       <div
-                        class="col-12 col-md-6"
+                        class="col-12 col-xl-6"
                         :style="{ display: true ? 'block' : 'none' }"
                       >
                         <a-form-item label="Nôi dung giao dịch">
@@ -336,7 +336,7 @@
                   </div>
                   <div v-if="item.keyTab == 1">
                     <div class="row">
-                      <div class="h3 col-md-8 col-7" @click="caculatedValue">
+                      <div class="h3 col-md-8 col-7" @click="test">
                         Biến động {{ index + 1 }}
                       </div>
                       <div class="text-end col-4">
@@ -381,7 +381,6 @@
                                 placeholder: 'Chọn bill đã tạo !',
                                 rules: [
                                   {
-                                    required: true,
                                     message: 'Chọn bill đã tạo !',
                                   },
                                 ],
@@ -393,7 +392,11 @@
                               v-for="item in billInfo"
                               :key="item.id"
                               :value="item.id"
-                              :disabled="billSelected.includes(item.id)"
+                              :disabled="
+                                form
+                                  .getFieldsValue()
+                                  ['bill-volatility']?.includes(item.id)
+                              "
                             >
                               {{
                                 `${item.name} | ${item.bank_name} | ${item.value_money}`
@@ -556,7 +559,7 @@
                         </a-form-item>
                       </div>
                       <div
-                        class="col-6 col-md-3"
+                        class="col-6 col-xl-3"
                         :style="{ display: true ? 'block' : 'none' }"
                       >
                         <a-form-item label="Giờ">
@@ -579,7 +582,7 @@
                         </a-form-item>
                       </div>
                       <div
-                        class="col-6 col-md-3"
+                        class="col-6 col-xl-3"
                         :style="{ display: true ? 'block' : 'none' }"
                       >
                         <a-form-item label="Ngày">
@@ -787,11 +790,11 @@
               <div class="title mb-4">Đăng ký OTT biến động số dư</div>
               <a-switch v-model="modeOTT" />
             </div>
-            <div class="mb-5 col-md-6 mb-5 col-12">
+            <div class="col-md-6 mb-5 col-12">
               <div class="title mb-4">Chế độ đang sạc</div>
               <a-switch v-model="modeBaterry" />
             </div>
-            <div class="mb-5 col-md-6 mb-5 col-12">
+            <div class="mb-5 col-md-6 col-12">
               <div class="title mb-4">Phần trăm pin</div>
               <a-input-number
                 id="inputNumber"
@@ -805,9 +808,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-5 col-12 mb-5">
+            <div class="col-xl-5 mb-5 col-12">
               <div class="title mb-4">Chế độ mạng</div>
-              <div class="list-item d-flex justify-content-evenly">
+              <div class="list-item d-flex">
                 <a-radio-group v-model="internetWifi">
                   <div class="item text-center">
                     <div>
@@ -817,7 +820,7 @@
                         id="inputNumber"
                         v-model="wifi"
                         :min="1"
-                        :max="4"
+                        :max="3"
                         @change="isNumber2"
                         @keydown="handleKeyDown"
                         :disabled="internetWifi === '4G'"
@@ -830,14 +833,12 @@
                 </a-radio-group>
               </div>
             </div>
-            <div class="col-md-7 col-12 mb-5">
+            <div class="col-xl-7 mb-5 col-12">
               <div class="title mb-4">Sim</div>
-              <div class="list-item d-flex justify-content-evenly">
+              <div class="list-item d-flex">
                 <a-radio-group v-model="modeSim">
                   <div class="item text-center">
-                    <div
-                      class="d-flex align-items-center justify-content-right"
-                    >
+                    <div>
                       <a-radio value="simone">Sim 1</a-radio>
                       <a-input-number
                         id="sim1"
@@ -851,22 +852,18 @@
                     </div>
                   </div>
                   <!-- <div class="item text-center">
-                    <div
-                      class="d-flex align-items-center justify-content-right"
+                    <a-radio style="line-height: 32px" value="simtwo"
+                      >Sim 2</a-radio
                     >
-                      <a-radio style="line-height: 32px" value="simtwo"
-                        >Sim 2</a-radio
-                      >
-                      <a-input-number
-                        id="sim2"
-                        :min="1"
-                        :max="4"
-                        @change="isNumber4"
-                        @keydown="handleKeyDown"
-                        v-model="sim2"
-                        :disabled="modeSim === 'simone'"
-                      />
-                    </div>
+                    <a-input-number
+                      id="sim2"
+                      :min="1"
+                      :max="4"
+                      @change="isNumber4"
+                      @keydown="handleKeyDown"
+                      v-model="sim2"
+                      :disabled="modeSim === 'simone'"
+                    />
                   </div> -->
                 </a-radio-group>
               </div>
@@ -903,6 +900,8 @@
 <script>
 import moment from 'moment'
 import * as volatilityApi from '../../api/volatility.js'
+import _ from 'lodash'
+
 function getBase64(img, callback) {
   const reader = new FileReader()
   reader.addEventListener('load', () => callback(reader.result))
@@ -962,29 +961,53 @@ export default {
     numberVolatility(newVal, oldVal) {},
   },
   methods: {
+    test() {
+      console.log(moment('2023-08-05T08:46:00.000Z').format('HH:mm:ss'))
+      let object = {}
+      object['timer-volatility'] = [moment('8:13:00', 'HH:mm:ss')]
+      this.form.setFieldsValue(object)
+    },
     selectBill(item, index) {
       this.billSelected[index] = item
       const bill = this.billInfo.find((i) => i.id === item)
-      console.log(bill)
-      this.form.setFieldsValue({
+      let object = {
         'money-volatility': [...this.form.getFieldsValue()['money-volatility']],
-      })
+        'name-recived': [...this.form.getFieldsValue()['name-recived']],
+        'number-recived': [...this.form.getFieldsValue()['number-recived']],
+        bank_name: [...this.form.getFieldsValue()['bank_name']],
+        transfer_code: [...this.form.getFieldsValue()['transfer_code']],
+        'text-volatility': [...this.form.getFieldsValue()['text-volatility']],
+        'date-volatility': [...this.form.getFieldsValue()['date-volatility']],
+        'timer-volatility': [...this.form.getFieldsValue()['timer-volatility']],
+      }
+      object['money-volatility'][index] = bill.value_money
+      object['name-recived'][index] = bill.name
+      object['number-recived'][index] = bill.bank_code
+      object['bank_name'][index] = 'Mb Bank'
+      object['transfer_code'][index] = bill.transfer_code
+      object['text-volatility'][index] = bill.description
+      object['date-volatility'][index] = moment(bill.date).format('YYYY/MM/DD')
+      object['timer-volatility'][index] = moment(
+        moment(bill.date).format('HH:mm:ss'),
+        'HH:mm:ss'
+      )
+      this.form.setFieldsValue(object)
     },
-    changeMoneyVolatility() {
+    changeMoneyVolatility: _.debounce(function () {
+      console.log(123123)
       this.caculatedValue()
-    },
+    }, 500),
     caculatedValue() {
       let money = this.form.getFieldsValue()['money-volatility']
       this.caculateMoneySource = this.form.getFieldsValue()['current-balance']
-      console.log('this.caculateMoneySource', this.caculateMoneySource)
       for (let i = 0; i < this.numberVolatility.length; i++) {
         const element = this.numberVolatility[i]
         if (element.keyTab == 1) {
           this.caculateMoneySource[i + 1] =
-            parseInt(this.caculateMoneySource[i]) + parseInt(money[i])
+            parseInt(this.caculateMoneySource[i]) + parseInt(money[i]) || 0
         } else if (element.keyTab == 0) {
           this.caculateMoneySource[i + 1] =
-            parseInt(this.caculateMoneySource[i]) - parseInt(money[i])
+            parseInt(this.caculateMoneySource[i]) - parseInt(money[i]) || 0
         }
       }
       this.form.setFieldsValue({
@@ -1002,7 +1025,6 @@ export default {
         .listBankChange(this.itemSelected.name_api)
         .then((res) => {
           this.listBanks = res.list_bank
-          console.log(this.listBanks)
         })
         .catch((err) => {
           console.log('err', err)
@@ -1035,12 +1057,10 @@ export default {
       }
       await this.form.setFieldsValue(arrayKeysObject)
       await this.caculatedValue()
-      console.log(this.numberVolatility)
     },
     async addVolatile() {
       this.form.validateFields(async (valid) => {
         if (valid) {
-          console.log('error submit!!')
           this.$message.warning({
             content:
               'Vui lòng nhập đầy đủ thông tin trước khi thêm biến động mới',
@@ -1164,7 +1184,7 @@ export default {
     moment,
     handleSearch(e) {
       e.preventDefault()
-      this.form.validateFields((error, values) => {
+      this.form.validateFields(async (error, values) => {
         const arrayVolatility = []
         for (let i = 0; i < this.numberVolatility.length; i++) {
           const item = this.numberVolatility[i]
@@ -1199,6 +1219,47 @@ export default {
             arrayVolatility.push(volatility)
           }
         }
+        const dateMoment = moment().format('YYYY-MM-DD')
+        const timeMoment = moment(values.timer).format('HH:mm:ss')
+        const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
+        let formData = {
+          type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
+          pin_code: Math.floor(this.percentBaterry / 10.01) ?? 0,
+          sms: this.sim1 ?? 1,
+          wifi: this.internetWifi == 'wifi' ? this.wifi.toString() : 'LTE',
+          date: combinedISODate,
+          name_source: values.nameAccount,
+          bank_code_source: values.accountNumber,
+          money_source: values.money_source,
+          data: arrayVolatility,
+        }
+        console.log(formData, 'formData')
+        this.$store.dispatch('loading/setModalLoading', true)
+        await volatilityApi
+          .getPhoto(this.itemSelected.name_api, formData)
+          .then((res) => {
+            let downloadUrl = res.link
+            var a = document.createElement('a')
+            a.href = downloadUrl //make the link of image
+            a.download = 'autobill'
+            a.target = '_blank' // Mở trong tab mới
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+            this.$message.success({
+              content: 'Tạo ảnh thành công',
+              key: 'success',
+            })
+            this.$store.dispatch('loading/setModalLoading', false)
+          })
+          .catch((error) => {
+            console.log(error)
+            this.$message.error({
+              content: 'Có lỗi xảy ra, vui lòng thử lại',
+              key: 'error',
+            })
+            this.$store.dispatch('loading/setModalLoading', false)
+          })
       })
     },
   },

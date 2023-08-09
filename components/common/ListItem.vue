@@ -91,7 +91,6 @@ export default {
     })
 
     // Kết quả đã được sắp xếp
-    console.log(this.itemBanks)
   },
 }
 </script>
