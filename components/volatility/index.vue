@@ -967,7 +967,7 @@ export default {
       object['timer-volatility'] = [moment('8:13:00', 'HH:mm:ss')]
       this.form.setFieldsValue(object)
     },
-    selectBill(item, index) {
+    async selectBill(item, index) {
       this.billSelected[index] = item
       const bill = this.billInfo.find((i) => i.id === item)
       let object = {
@@ -991,7 +991,8 @@ export default {
         moment(bill.date).format('HH:mm:ss'),
         'HH:mm:ss'
       )
-      this.form.setFieldsValue(object)
+      await this.form.setFieldsValue(object)
+      await this.caculatedValue()
     },
     changeMoneyVolatility: _.debounce(function () {
       console.log(123123)
