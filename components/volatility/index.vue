@@ -974,9 +974,9 @@ export default {
       this.caculatedValue()
     },
     caculatedValue() {
-      console.log(12333)
       let money = this.form.getFieldsValue()['money-volatility']
       this.caculateMoneySource = this.form.getFieldsValue()['current-balance']
+      console.log('this.caculateMoneySource', this.caculateMoneySource)
       for (let i = 0; i < this.numberVolatility.length; i++) {
         const element = this.numberVolatility[i]
         if (element.keyTab == 1) {
