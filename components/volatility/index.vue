@@ -1204,7 +1204,7 @@ export default {
               value_money: values[`money-volatility`][i],
               balance: values[`current-balance`][i],
               name: values[`name-recived`][i],
-              bank_cod: values[`number-recived`][i],
+              bank_code: values[`number-recived`][i],
               bank_name: values[`bank_name`][i],
               transfer_code: values[`transfer_code`][i],
               date_time: combinedISODate,
