@@ -22,7 +22,10 @@
           @submit="handleSearch"
         >
           <div class="row">
-            <div class="col-md-6 col-12" :style="{ display: true ? 'block' : 'none' }">
+            <div
+              class="col-md-6 col-12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Số tiền">
                 <a-input
                   @keydown="handleKeyDown"
@@ -41,7 +44,10 @@
                 />
               </a-form-item>
             </div>
-            <div class="col-md-6 col-12" :style="{ display: true ? 'block' : 'none' }">
+            <div
+              class="col-md-6 col-12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Giờ">
                 <a-time-picker
                   v-decorator="[
@@ -75,7 +81,10 @@
               /> -->
               </a-form-item>
             </div>
-            <div class="col-md-6 col-12" :style="{ display: true ? 'block' : 'none' }">
+            <div
+              class="col-md-6 col-12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Tên tài khoản">
                 <a-input
                   v-decorator="[
@@ -93,7 +102,10 @@
                 />
               </a-form-item>
             </div>
-            <div class="col-md-6 col-12" :style="{ display: true ? 'block' : 'none' }">
+            <div
+              class="col-md-6 col-12"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Số tài khoản">
                 <a-input
                   @keydown="handleKeyDown"
@@ -239,7 +251,7 @@
             >
               <div class="title mb-4">Giao diện</div>
               <div class="item">
-                <a-radio :checked="true">Iphone 14 pro max</a-radio>
+                <a-radio :checked="true">Iphone 12 pro </a-radio>
               </div>
             </div>
 
@@ -271,7 +283,7 @@
             <div class="col-md-5 col-12 mb-5">
               <div class="title mb-4">Chế độ mạng</div>
               <div class="list-item d-flex justify-content-evenly">
-                <a-radio-group v-model="internetWifi">
+                <a-radio-group class="mode-radio" v-model="internetWifi">
                   <div class="item text-center">
                     <div>
                       <a-radio value="wifi">Wifi</a-radio>
@@ -296,7 +308,7 @@
             <div class="col-md-7 col-12 mb-5">
               <div class="title mb-4">Sim</div>
               <div class="list-item d-flex justify-content-evenly">
-                <a-radio-group v-model="modeSim">
+                <a-radio-group class="mode-radio" v-model="modeSim">
                   <div class="item text-center">
                     <div
                       class="d-flex align-items-center justify-content-right"
@@ -561,6 +573,10 @@ export default {
       height: auto;
       object-fit: cover;
     }
+  }
+  .mode-radio.ant-radio-group {
+    justify-content: space-between !important;
+    padding: 0 4rem;
   }
 }
 @media only screen and (max-width: 1024px) {

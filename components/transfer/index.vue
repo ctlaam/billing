@@ -264,11 +264,12 @@
                 </a-select>
               </a-form-item>
             </div>
-            <div class="col-md-6" :style="{ display: true ? 'block' : 'none' }">
-              <a-form-item
-                v-if="!['ACB', 'MSB'].includes(itemSelected.name)"
-                label="Mã giao dịch (mã được tạo tự động) "
-              >
+            <div
+              v-if="!['ACB', 'MSB'].includes(itemSelected.name)"
+              class="col-md-6"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
+              <a-form-item label="Mã giao dịch (mã được tạo tự động) ">
                 <a-input
                   v-decorator="[
                     'transfer_code',
@@ -415,26 +416,10 @@
                 </a-upload>
               </div>
             </div> -->
-            <div
-              v-if="
-                [
-                  'ACB',
-                  'Vietcombank',
-                  'Techcombank',
-                  'Agribank',
-                  'MBBank',
-                  'MSB',
-                ].includes(this.itemSelected.name)
-              "
-              class="col-md-6 mb-5 col-12"
-            >
+            <div class="col-md-6 mb-5 col-12">
               <div class="title mb-4 col-12">Giao diện</div>
               <div class="item">
-                <a-radio :checked="true">{{
-                  itemSelected.name == 'Vietcombank'
-                    ? 'Iphone 14 pro max'
-                    : 'Iphone 11 promax'
-                }}</a-radio>
+                <a-radio :checked="true"> Iphone 12 pro </a-radio>
               </div>
             </div>
 
@@ -466,7 +451,7 @@
             <div class="col-xl-5 mb-5 col-12">
               <div class="title mb-4">Chế độ mạng</div>
               <div class="list-item d-flex">
-                <a-radio-group v-model="internetWifi">
+                <a-radio-group class="mode-radio" v-model="internetWifi">
                   <div class="item text-center">
                     <div>
                       <a-radio value="wifi">Wifi</a-radio>
@@ -491,7 +476,7 @@
             <div class="col-xl-7 mb-5 col-12">
               <div class="title mb-4">Sim</div>
               <div class="list-item d-flex">
-                <a-radio-group v-model="modeSim">
+                <a-radio-group class="mode-radio" v-model="modeSim">
                   <div class="item text-center">
                     <div>
                       <a-radio value="simone">Sim 1</a-radio>
@@ -667,6 +652,16 @@ export default {
     },
   },
   methods: {
+    resetForm() {
+      this.form.resetFields()
+      this.modeSim = 'simone'
+      this.modeBaterry = false
+      this.modeOTT = false
+      this.percentBaterry = 68
+      this.internetWifi = 'wifi'
+      this.wifi = 2
+      this.sim1 = 4
+    },
     disabledDate(current) {
       // Lấy ngày hiện tại
       const currentDate = moment()
@@ -817,6 +812,7 @@ export default {
             document.body.appendChild(a)
             a.click()
             document.body.removeChild(a)
+            this.resetForm()
             this.$message.success({
               content: 'Tạo ảnh thành công',
               key: 'success',
@@ -824,7 +820,7 @@ export default {
             this.$store.dispatch('loading/setModalLoading', false)
           })
           .catch((error) => {
-            console.log(error)
+            this.resetForm()
             this.$message.error({
               content: 'Có lỗi xảy ra, vui lòng thử lại',
               key: 'error',

@@ -179,7 +179,7 @@
                   </a-row>
                   <div v-if="item.keyTab == 0">
                     <div class="row">
-                      <div class="h3 col-md-8 col-7" @click="test">
+                      <div class="h3 col-md-8 col-7">
                         Biến động {{ index + 1 }}
                       </div>
                       <div class="text-end col-4">
@@ -338,7 +338,7 @@
                   </div>
                   <div v-if="item.keyTab == 1">
                     <div class="row">
-                      <div class="h3 col-md-8 col-7" @click="test">
+                      <div class="h3 col-md-8 col-7">
                         Biến động {{ index + 1 }}
                       </div>
                       <div class="text-end col-4">
@@ -460,6 +460,11 @@
                         </a-tooltip>
                       </div>
                       <div
+                        v-show="
+                          !['Techcombank', 'Agribank'].includes(
+                            itemSelected.name
+                          )
+                        "
                         class="col-12 col-md-6"
                         :style="{ display: true ? 'block' : 'none' }"
                       >
@@ -481,6 +486,7 @@
                         </a-form-item>
                       </div>
                       <div
+                        v-show="!['Techcombank'].includes(itemSelected.name)"
                         class="col-12 col-md-6"
                         :style="{ display: true ? 'block' : 'none' }"
                       >
@@ -502,7 +508,9 @@
                         </a-form-item>
                       </div>
                       <div
-                        v-if="!['MSB'].includes(itemSelected.name)"
+                        v-show="
+                          !['MSB', 'Techcombank'].includes(itemSelected.name)
+                        "
                         class="col-12 col-md-6"
                         :style="{ display: true ? 'block' : 'none' }"
                       >
@@ -538,11 +546,13 @@
                       <div
                         class="col-12 col-md-6"
                         :style="{ display: true ? 'block' : 'none' }"
+                        v-show="
+                          !['ACB', 'MSB', 'Techcombank', 'Agribank'].includes(
+                            itemSelected.name
+                          )
+                        "
                       >
-                        <a-form-item
-                          v-if="!['ACB', 'MSB'].includes(itemSelected.name)"
-                          label="Mã giao dịch (mã được tạo tự động) "
-                        >
+                        <a-form-item label="Mã giao dịch">
                           <a-input
                             v-decorator="[
                               `transfer_code[${index}]`,
@@ -771,27 +781,25 @@
                 </a-upload>
               </div>
             </div> -->
-            <div
-              v-if="
-                ['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
+            <div class="mb-5 col-md-6 mb-5 col-12">
+              <!-- v-if="
+                ['Vietcombank','ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
                   this.itemSelected.name
                 )
-              "
-              class="mb-5 col-md-6 mb-5 col-12"
-            >
+              " -->
               <div class="title mb-4">Giao diện</div>
               <div class="item">
-                <a-radio :checked="true">Iphone 14 pro max</a-radio>
+                <a-radio :checked="true">Iphone 12 pro </a-radio>
               </div>
             </div>
 
-            <div
+            <!-- <div
               v-if="['Agribank'].includes(itemSelected.name)"
               class="mb-5 col-md-6 mb-5 col-12"
             >
               <div class="title mb-4">Đăng ký OTT biến động số dư</div>
               <a-switch v-model="modeOTT" />
-            </div>
+            </div> -->
             <div class="col-md-6 mb-5 col-12">
               <div class="title mb-4">Chế độ đang sạc</div>
               <a-switch v-model="modeBaterry" />
@@ -813,7 +821,7 @@
             <div class="col-xl-5 mb-5 col-12">
               <div class="title mb-4">Chế độ mạng</div>
               <div class="list-item d-flex">
-                <a-radio-group v-model="internetWifi">
+                <a-radio-group class="mode-radio" v-model="internetWifi">
                   <div class="item text-center">
                     <div>
                       <a-radio value="wifi">Wifi</a-radio>
@@ -838,7 +846,7 @@
             <div class="col-xl-7 mb-5 col-12">
               <div class="title mb-4">Sim</div>
               <div class="list-item d-flex">
-                <a-radio-group v-model="modeSim">
+                <a-radio-group class="mode-radio" v-model="modeSim">
                   <div class="item text-center">
                     <div>
                       <a-radio value="simone">Sim 1</a-radio>
@@ -963,11 +971,17 @@ export default {
     numberVolatility(newVal, oldVal) {},
   },
   methods: {
-    test() {
-      console.log(moment('2023-08-05T08:46:00.000Z').format('HH:mm:ss'))
-      let object = {}
-      object['timer-volatility'] = [moment('8:13:00', 'HH:mm:ss')]
-      this.form.setFieldsValue(object)
+    resetForm() {
+      this.form.resetFields()
+      this.modeSim = 'simone'
+      this.modeBaterry = false
+      this.modeOTT = false
+      this.percentBaterry = 68
+      this.internetWifi = 'wifi'
+      this.wifi = 2
+      this.sim1 = 4
+      this.billSelected = []
+      this.caculateMoneySource = [0, 0, 0, 0]
     },
     async selectBill(item, index) {
       this.billSelected[index] = item
@@ -982,12 +996,12 @@ export default {
         'date-volatility': [...this.form.getFieldsValue()['date-volatility']],
         'timer-volatility': [...this.form.getFieldsValue()['timer-volatility']],
       }
-      object['money-volatility'][index] = bill.value_money
-      object['name-recived'][index] = bill.name
-      object['number-recived'][index] = bill.bank_code
-      object['bank_name'][index] = 'Mb Bank'
-      object['transfer_code'][index] = bill.transfer_code
-      object['text-volatility'][index] = bill.description
+      object['money-volatility'][index] = bill.value_money || 0
+      object['name-recived'][index] = bill.name || ''
+      object['number-recived'][index] = bill.bank_code || ''
+      object['bank_name'][index] = bill.bank_name || ''
+      object['transfer_code'][index] = bill.transfer_code || ''
+      object['text-volatility'][index] = bill.description || ''
       object['date-volatility'][index] = moment(bill.date).format('YYYY/MM/DD')
       object['timer-volatility'][index] = moment(
         moment(bill.date).format('HH:mm:ss'),
@@ -997,7 +1011,6 @@ export default {
       await this.caculatedValue()
     },
     changeMoneyVolatility: _.debounce(function () {
-      console.log(123123)
       this.caculatedValue()
     }, 500),
     caculatedValue() {
@@ -1049,7 +1062,6 @@ export default {
       // )
       const index = this.numberVolatility.findIndex((item) => item.id === id)
       this.numberVolatility.splice(index, 1)
-      console.log(this.numberVolatility)
       let dataObject = await this.form.getFieldsValue()
       const arrayKeysObject = {}
       for (const key in dataObject) {
@@ -1204,7 +1216,7 @@ export default {
               value_money: values[`money-volatility`][i],
               balance: values[`current-balance`][i],
               name: values[`name-recived`][i],
-              bank_cod: values[`number-recived`][i],
+              bank_code: values[`number-recived`][i],
               bank_name: values[`bank_name`][i],
               transfer_code: values[`transfer_code`][i],
               date_time: combinedISODate,
@@ -1236,7 +1248,6 @@ export default {
           money_source: values.money_source,
           data: arrayVolatility,
         }
-        console.log(formData, 'formData')
         this.$store.dispatch('loading/setModalLoading', true)
         await volatilityApi
           .getPhoto(this.itemSelected.name_api, formData)
@@ -1253,10 +1264,11 @@ export default {
               content: 'Tạo ảnh thành công',
               key: 'success',
             })
+            this.resetForm()
             this.$store.dispatch('loading/setModalLoading', false)
           })
           .catch((error) => {
-            console.log(error)
+            this.resetForm()
             this.$message.error({
               content: 'Có lỗi xảy ra, vui lòng thử lại',
               key: 'error',

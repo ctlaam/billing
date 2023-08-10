@@ -142,7 +142,7 @@ export const LISTBANKS_VOLATILITY = [
     url_example: 'tcb.png',
     background: [],
     name_api: 'tech',
-    update: true,
+    // update: true,
   },
 
   {
@@ -152,7 +152,7 @@ export const LISTBANKS_VOLATILITY = [
     url_example: 'agribank.png',
     background: [],
     name_api: 'agri',
-    update: true,
+    // update: true,
   },
   {
     id: 5,

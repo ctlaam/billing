@@ -29,12 +29,11 @@
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
                 <a-icon type="bank" />
-                <span class="name-item">Bill chuyển khoản</span>
+                <span class="name-item">Hoá đơn chuyển khoản</span>
               </div>
             </div>
           </nuxt-link>
           <nuxt-link
-            class="update"
             to="/volatility"
             exact
             active-class="active"
@@ -42,7 +41,7 @@
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
                 <a-icon type="bank" />
-                <span class="name-item">Bill biến động</span>
+                <span class="name-item">Hoá đơn biến động</span>
               </div>
             </div>
           </nuxt-link>
@@ -50,7 +49,7 @@
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
                 <a-icon type="bank" />
-                <span class="name-item">Bill số dư</span>
+                <span class="name-item">Hoá đơn số dư</span>
               </div>
             </div>
           </nuxt-link>
