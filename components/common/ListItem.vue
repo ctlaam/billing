@@ -62,7 +62,6 @@ export default {
       // So sánh theo thuộc tính "name" nếu cả hai không có thuộc tính "update" bằng true
       if (!a.update && !b.update) {
         if (nameA < nameB) {
-          console.log(nameA, nameB, '123')
           return -1
         }
         if (nameA > nameB) {

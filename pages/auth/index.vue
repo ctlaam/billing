@@ -109,15 +109,35 @@
       </div>
       <div class="w-70 intro">
         <h2 class="text-center p-2">
-          FREE TEST MỞ ĐẾN X GIỜ NGÀY
+          Free test anh em đăng ký tài khoản
           <span
             style="
               background: -webkit-linear-gradient(#e90000, #faa6ff);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
             "
-            >30/02/2023</span
+            >5 LƯỢT TẠO BILL</span
           >
+        </h2>
+        <h2 class="text-center p-2">
+          <span
+            style="
+              background: -webkit-linear-gradient(#e90000, #faa6ff);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            "
+            >GIẢM 20%</span
+          >
+          cho anh em nào mua gói và
+          <span
+            style="
+              background: -webkit-linear-gradient(#e90000, #faa6ff);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            "
+            >GIẢM 10%</span
+          >
+          cho ae nào đăng ký kênh telegram trong thời gian test
         </h2>
         <h3 class="p-2 text-justify">
           ANH EM NÀO CẦN MUA TÀI KHOẢN, HỖ TRỢ HOẶC CẦN TEST THÊM BẤM VÀO ĐÂY:
