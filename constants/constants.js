@@ -65,7 +65,7 @@ export const LISTBANKS_TRANFER = [
     url_example: 'msb.JPG',
     background: [],
     name_api: 'msb',
-    update: true,
+    // update: true,
 
   },
   {
