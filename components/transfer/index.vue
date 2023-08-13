@@ -778,8 +778,17 @@ export default {
     },
     // Lâm
     async handleSearch(e) {
-      e.preventDefault()
+      await e.preventDefault()
+      // return
+      // console.log(123)
       this.form.validateFields(async (error, values) => {
+        if (error) {
+          this.$message.error({
+            content: 'Vui lòng nhập đầy đủ thông tin',
+            key: 'error',
+          })
+          return
+        }
         const dateMoment = moment().format('YYYY-MM-DD')
         const timeMoment = moment(values.time).format('HH:mm:ss')
         const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
@@ -822,7 +831,7 @@ export default {
           .catch((error) => {
             this.resetForm()
             this.$message.error({
-              content: 'Có lỗi xảy ra, vui lòng thử lại',
+              content: 'Bạn chưa có quyền dùng chức năng này, vui lòng liên hệ admin để được trợ giúp',
               key: 'error',
             })
             this.$store.dispatch('loading/setModalLoading', false)

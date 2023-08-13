@@ -1200,6 +1200,13 @@ export default {
     handleSearch(e) {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
+        if (error) {
+          this.$message.error({
+            content: 'Vui lòng nhập đầy đủ thông tin',
+            key: 'error',
+          })
+          return
+        }
         const arrayVolatility = []
         for (let i = 0; i < this.numberVolatility.length; i++) {
           const item = this.numberVolatility[i]
@@ -1270,7 +1277,7 @@ export default {
           .catch((error) => {
             this.resetForm()
             this.$message.error({
-              content: 'Có lỗi xảy ra, vui lòng thử lại',
+              content: 'Bạn chưa có quyền dùng chức năng này, vui lòng liên hệ admin để được trợ giúp',
               key: 'error',
             })
             this.$store.dispatch('loading/setModalLoading', false)
