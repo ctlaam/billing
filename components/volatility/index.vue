@@ -149,6 +149,9 @@
                       Nếu muốn hiển thị biến động đầy đủ thì nên thêm 4 biến
                       động (như demo)
                     </li>
+                    <li>
+                      Để chuyên nghiệp hơn hãy nhập số dư cuối lẻ 1 chút để tránh bị phát hiện
+                    </li>
                   </ul>
                 </div>
               </div>
