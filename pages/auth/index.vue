@@ -109,14 +109,14 @@
       </div>
       <div class="w-70 intro">
         <h2 class="text-center p-2">
-          Free test anh em đăng ký tài khoản
+          Tài khoản đăng ký mới trong thời gian test có
           <span
             style="
               background: -webkit-linear-gradient(#e90000, #faa6ff);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
             "
-            >5 LƯỢT TẠO BILL</span
+            >3 LƯỢT TẠO BILL</span
           >
         </h2>
         <h2 class="text-center p-2">
@@ -158,6 +158,9 @@
             href="https://t.me/fakebillonlineOfficial"
             >kênh telegram</a
           >
+        </h3>
+        <h3 class="p-2 text-justify">
+          LƯU Ý BÊN MÌNH CHỈ GIAO DỊCH DUY NHẤT QUA ĐƯỜNG LINK TELEGRAM Ở TRÊN
         </h3>
       </div>
     </div>
