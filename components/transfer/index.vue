@@ -790,7 +790,7 @@ export default {
           return
         }
         const dateMoment = moment().format('YYYY-MM-DD')
-        const timeMoment = moment(values.time).format('HH:mm:ss')
+        const timeMoment = moment(values.time).add(Math.floor(Math.random() * 59), 'seconds').format('HH:mm:ss')
         const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
         let formData = {
           type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',

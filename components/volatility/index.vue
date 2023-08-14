@@ -23,12 +23,21 @@
         >
           <!-- part 1 -->
           <div class="row">
-            <div class="col-xl-6" :style="{ display: true ? 'block' : 'none' }">
+            <div
+              v-show="![`Techcombank`, `Agribank`].includes(itemSelected.name)"
+              class="col-xl-6"
+              :style="{ display: true ? 'block' : 'none' }"
+            >
               <a-form-item label="Tên tài khoản nguồn">
                 <a-input
                   v-decorator="[
                     'nameAccount',
                     {
+                      initialValue: [`Techcombank`, `Agribank`].includes(
+                        itemSelected.name
+                      )
+                        ? 'abc'
+                        : null,
                       rules: [
                         {
                           required: true,
@@ -150,7 +159,8 @@
                       động (như demo)
                     </li>
                     <li>
-                      Để chuyên nghiệp hơn hãy nhập số dư cuối lẻ 1 chút để tránh bị phát hiện
+                      Để chuyên nghiệp hơn hãy nhập số dư cuối lẻ 1 chút để
+                      tránh bị phát hiện
                     </li>
                   </ul>
                 </div>
@@ -1216,7 +1226,7 @@ export default {
           const dateMoment = moment(values[`date-volatility`][i]).format(
             'YYYY-MM-DD'
           )
-          const timeMoment = moment(values[`timer-volatility`][i]).format(
+          const timeMoment = moment(values[`timer-volatility`][i]).add(Math.floor(Math.random() * 59), 'seconds').format(
             'HH:mm:ss'
           )
           const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
@@ -1245,7 +1255,7 @@ export default {
           }
         }
         const dateMoment = moment().format('YYYY-MM-DD')
-        const timeMoment = moment(values.timer).format('HH:mm:ss')
+        const timeMoment = moment(values.timer).add(Math.floor(Math.random() * 59), 'seconds').format('HH:mm:ss')
         const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
         let formData = {
           type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
@@ -1280,7 +1290,8 @@ export default {
           .catch((error) => {
             this.resetForm()
             this.$message.error({
-              content: 'Bạn chưa có quyền dùng chức năng này, vui lòng liên hệ admin để được trợ giúp',
+              content:
+                'Bạn chưa có quyền dùng chức năng này, vui lòng liên hệ admin để được trợ giúp',
               key: 'error',
             })
             this.$store.dispatch('loading/setModalLoading', false)
