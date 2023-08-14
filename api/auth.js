@@ -43,3 +43,26 @@ export function signUp(data) {
       })
   })
 }
+
+export function getUserInfo() {
+  const url = `${baseURL}/auth/get_info/`
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        if (response.status == 201) {
+          resolve(response.data)
+        } else {
+          reject(response)
+        }
+
+      })
+      .catch((response) => {
+        reject(response)
+      })
+  })
+}

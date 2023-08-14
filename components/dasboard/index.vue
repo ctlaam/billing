@@ -42,10 +42,25 @@
               class="card-header h-100 d-flex align-items-center justify-content-between"
             >
               <div>
-                <h2 class="fw-bolder mb-75">0</h2>
-                <p class="card-text h4">Tổng bill đã tạo</p>
+                <h2 class="fw-bolder mb-75">{{ createBill.create_bill }}</h2>
+                <p class="card-text h4">Lượt tạo hoá đơn chuyển khoản</p>
               </div>
               <div class="avatar bg-light-primary p-50 m-0 h1">
+                <a-icon type="transaction" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12 mb-4">
+          <div class="card p-2">
+            <div
+              class="card-header h-100 d-flex align-items-center justify-content-between"
+            >
+              <div>
+                <h2 class="fw-bolder mb-75">{{ createBill.create_change }}</h2>
+                <p class="card-text h4">Lượt tạo hoá đơn biến động</p>
+              </div>
+              <div class="avatar bg-light-success p-50 m-0 h1">
                 <a-icon type="bank" />
               </div>
             </div>
@@ -57,23 +72,8 @@
               class="card-header h-100 d-flex align-items-center justify-content-between"
             >
               <div>
-                <h2 class="fw-bolder mb-75">0</h2>
-                <p class="card-text h4">Tổng đơn đã mua</p>
-              </div>
-              <div class="avatar bg-light-success p-50 m-0 h1">
-                <a-icon type="shopping-cart" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-12 mb-4">
-          <div class="card p-2">
-            <div
-              class="card-header h-100 d-flex align-items-center justify-content-between"
-            >
-              <div>
-                <h2 class="fw-bolder mb-75">0đ</h2>
-                <p class="card-text h4">Tiền chi tiêu</p>
+                <h2 class="fw-bolder mb-75">{{ createBill.create_balance }}</h2>
+                <p class="card-text h4">Lượt tạo hoá đơn số dư</p>
               </div>
               <div class="avatar bg-light-danger p-50 m-0 h1">
                 <a-icon type="credit-card" />
@@ -91,7 +91,7 @@
                 <p class="card-text h4">Tiền còn lại</p>
               </div>
               <div class="avatar bg-light-warning p-50 m-0 h1">
-                <a-icon type="money-collect" />
+                <a-icon type="dollar" />
               </div>
             </div>
           </div>
@@ -102,7 +102,25 @@
 </template>
 
 <script>
-export default {}
+import * as authApi from '../../api/auth.js'
+export default {
+  data() {
+    return {
+      createBill: {},
+    }
+  },
+  created() {
+    this.getUserInfo()
+  },
+  methods: {
+    async getUserInfo() {
+      const res = await authApi.getUserInfo()
+      console.log(res)
+      this.createBill = res
+      console.log(this.createBill, 'this.createBill')
+    },
+  },
+}
 </script>
 
 <style lang="scss">

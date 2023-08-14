@@ -41,8 +41,9 @@ export default async function ({ store }) {
       const token = store.state.auth.accessToken
       // Nếu tồn tại Bearer Token, thêm vào tiêu đề "Authorization" của yêu cầu Axios
       if (
-        !excludedEndpoints.some((endpoint) => config.url.includes(endpoint))
+        config.url.includes('/auth/get_info/') || !excludedEndpoints.some((endpoint) => config.url.includes(endpoint) )
       ) {
+        console.log(123);
         // const token = this.$store.state.auth.accessToken
         config.headers.Authorization = `Bearer ${token}`
       }
