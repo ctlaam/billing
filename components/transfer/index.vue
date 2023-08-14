@@ -117,7 +117,7 @@
               </a-form-item>
             </div>
             <div
-              v-if="['MBBank', 'ACB'].includes(itemSelected.name)"
+              v-if="['MBBank', 'ACB','MSB'].includes(itemSelected.name)"
               class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
@@ -140,7 +140,7 @@
             </div>
             <div
               v-if="
-                ['MBBank', 'ACB', 'MSB', 'Sacombank'].includes(
+                ['MBBank', 'ACB', 'Sacombank'].includes(
                   itemSelected.name
                 )
               "
