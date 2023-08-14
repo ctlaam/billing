@@ -115,9 +115,7 @@ export default {
   methods: {
     async getUserInfo() {
       const res = await authApi.getUserInfo()
-      console.log(res)
       this.createBill = res
-      console.log(this.createBill, 'this.createBill')
     },
   },
 }
