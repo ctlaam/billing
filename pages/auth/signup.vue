@@ -110,6 +110,14 @@
             >
             </a-input>
           </a-form-item>
+          <a-form-item>
+            <a-input
+              v-decorator="['tele_id', {}]"
+              type="text"
+              placeholder="Nhập tài khoản telegram"
+            >
+            </a-input>
+          </a-form-item>
           <!-- <a-form-item>
             <a-input
               v-decorator="['personCode', {}]"
@@ -129,6 +137,11 @@
             <a @click="singIn" style="color: #008dff"> Đăng nhập ngay </a>
           </a-form-item>
         </a-form>
+      </div>
+      <div class="w-70 intro">
+        <h3 class="p-2 text-justify text-uppercase">
+          Nhập tài khoản telegram để chúng tôi liên hệ với bạn trong trường hợp bạn mất mật khẩu
+        </h3>
       </div>
     </div>
   </div>
@@ -170,6 +183,7 @@ export default {
             .signUp({
               email: values.email,
               password: values.password,
+              tele_id: values.tele_id,
             })
             .then((res) => {
               this.$message.success('Đăng kí thành công !')
