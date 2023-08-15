@@ -29,7 +29,7 @@
                 và theo dõi cập nhật mới nhất TẠI ĐÂY
                 <a
                   class="badge rounded-pill bg-warning draggable"
-                  href="https://t.me/fakebillonlineOfficial"
+                  href="https://t.me/FakebillChannelOfficial"
                   >kênh telegram</a
                 >
               </p>

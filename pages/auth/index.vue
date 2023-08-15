@@ -155,7 +155,7 @@
           <a
             style="color: #fff"
             class="badge rounded-pill bg-warning draggable"
-            href="https://t.me/fakebillonlineOfficial"
+            href="https://t.me/FakebillChannelOfficial"
             >kênh telegram</a
           >
         </h3>
