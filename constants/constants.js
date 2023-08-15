@@ -112,6 +112,52 @@ export const LISTBANKS_TRANFER = [
     name_api: 'momo',
     update: true,
   },
+  {
+    id: 12,
+    name: 'OCB',
+    img: 'ocb.png',
+    url_example: '',
+    background: [],
+    name_api: 'ocb',
+    update: true,
+  },
+  {
+    id: 13,
+    name: 'TpBank',
+    img: 'tpbank.png',
+    url_example: '',
+    background: [],
+    name_api: 'tpbank',
+    update: true,
+  },
+  {
+    id: 14,
+    name: 'VIB',
+    img: 'vib.png',
+    url_example: '',
+    background: [],
+    name_api: 'vib',
+    update: true,
+
+  },
+  {
+    id: 15,
+    name: 'Nam Á Bank',
+    img: 'NAB.png',
+    url_example: '',
+    background: [],
+    name_api: 'nab',
+    update: true,
+  },
+  {
+    id: 16,
+    name: 'SHB',
+    img: 'shb.png',
+    url_example: '',
+    background: [],
+    name_api: 'shb',
+    update: true,
+  }
 
 ]
 
@@ -234,6 +280,52 @@ export const LISTBANKS_VOLATILITY = [
     name_api: 'momo',
     update: true,
   },
+  {
+    id: 12,
+    name: 'OCB',
+    img: 'ocb.png',
+    url_example: '',
+    background: [],
+    name_api: 'ocb',
+    update: true,
+  },
+  {
+    id: 13,
+    name: 'TpBank',
+    img: 'tpbank.png',
+    url_example: '',
+    background: [],
+    name_api: 'tpbank',
+    update: true,
+  },
+  {
+    id: 14,
+    name: 'VIB',
+    img: 'vib.png',
+    url_example: '',
+    background: [],
+    name_api: 'vib',
+    update: true,
+
+  },
+  {
+    id: 15,
+    name: 'Nam Á Bank',
+    img: 'NAB.png',
+    url_example: '',
+    background: [],
+    name_api: 'nab',
+    update: true,
+  },
+  {
+    id: 16,
+    name: 'SHB',
+    img: 'shb.png',
+    url_example: '',
+    background: [],
+    name_api: 'shb',
+    update: true,
+  }
 ]
 
 export const LISTBANKS_BALANCE = [
@@ -354,4 +446,50 @@ export const LISTBANKS_BALANCE = [
     name_api: 'momo',
     update: true,
   },
+  {
+    id: 12,
+    name: 'OCB',
+    img: 'ocb.png',
+    url_example: '',
+    background: [],
+    name_api: 'ocb',
+    update: true,
+  },
+  {
+    id: 13,
+    name: 'TpBank',
+    img: 'tpbank.png',
+    url_example: '',
+    background: [],
+    name_api: 'tpbank',
+    update: true,
+  },
+  {
+    id: 14,
+    name: 'VIB',
+    img: 'vib.png',
+    url_example: '',
+    background: [],
+    name_api: 'vib',
+    update: true,
+
+  },
+  {
+    id: 15,
+    name: 'Nam Á Bank',
+    img: 'NAB.png',
+    url_example: '',
+    background: [],
+    name_api: 'nab',
+    update: true,
+  },
+  {
+    id: 16,
+    name: 'SHB',
+    img: 'shb.png',
+    url_example: '',
+    background: [],
+    name_api: 'shb',
+    update: true,
+  }
 ]
