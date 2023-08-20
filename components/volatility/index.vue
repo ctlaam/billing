@@ -486,6 +486,11 @@
                             v-decorator="[
                               `name-recived[${index}]`,
                               {
+                                initialValue: [`Agribank`].includes(
+                                  itemSelected.name
+                                )
+                                  ? 'abc'
+                                  : null,
                                 rules: [
                                   {
                                     required: true,
@@ -571,6 +576,11 @@
                               `transfer_code[${index}]`,
 
                               {
+                                initialValue: [`Agribank`].includes(
+                                  itemSelected.name
+                                )
+                                  ? 'abc'
+                                  : null,
                                 rules: [
                                   {
                                     required: true,
@@ -1214,6 +1224,7 @@ export default {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
         if (error) {
+          console.log(error)
           this.$message.error({
             content: 'Vui lòng nhập đầy đủ thông tin',
             key: 'error',
@@ -1226,9 +1237,9 @@ export default {
           const dateMoment = moment(values[`date-volatility`][i]).format(
             'YYYY-MM-DD'
           )
-          const timeMoment = moment(values[`timer-volatility`][i]).add(Math.floor(Math.random() * 59), 'seconds').format(
-            'HH:mm:ss'
-          )
+          const timeMoment = moment(values[`timer-volatility`][i])
+            .add(Math.floor(Math.random() * 59), 'seconds')
+            .format('HH:mm:ss')
           const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
           if (item.keyTab == 1) {
             const volatility = {
@@ -1255,7 +1266,9 @@ export default {
           }
         }
         const dateMoment = moment().format('YYYY-MM-DD')
-        const timeMoment = moment(values.timer).add(Math.floor(Math.random() * 59), 'seconds').format('HH:mm:ss')
+        const timeMoment = moment(values.timer)
+          .add(Math.floor(Math.random() * 59), 'seconds')
+          .format('HH:mm:ss')
         const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
         let formData = {
           type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
