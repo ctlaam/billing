@@ -117,7 +117,7 @@
               </a-form-item>
             </div>
             <div
-              v-if="['MBBank', 'ACB','MSB'].includes(itemSelected.name)"
+              v-if="['MBBank', 'ACB', 'MSB'].includes(itemSelected.name)"
               class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
@@ -139,11 +139,7 @@
               </a-form-item>
             </div>
             <div
-              v-if="
-                ['MBBank', 'ACB', 'Sacombank'].includes(
-                  itemSelected.name
-                )
-              "
+              v-if="['MBBank', 'ACB', 'Sacombank'].includes(itemSelected.name)"
               class="col-md-6"
               :style="{ display: true ? 'block' : 'none' }"
             >
@@ -600,14 +596,11 @@ export default {
 
           break
         case 'MBBank':
-          for (let i = 0; i < 2; i++) {
-            result += upperCaseLetters.charAt(
-              Math.floor(Math.random() * upperCaseLetters.length)
-            )
-          }
-
+          const currentDateMb = new Date()
+          const currentYearMB = currentDateMb.getFullYear().toString().slice(-2)
+          result = `FT${currentYearMB}`
           // Tạo 14 kí tự số sau
-          for (let i = 0; i < 14; i++) {
+          for (let i = 0; i < 12; i++) {
             result += characters.charAt(
               Math.floor(Math.random() * characters.length)
             )
@@ -790,7 +783,9 @@ export default {
           return
         }
         const dateMoment = moment().format('YYYY-MM-DD')
-        const timeMoment = moment(values.time).add(Math.floor(Math.random() * 59), 'seconds').format('HH:mm:ss')
+        const timeMoment = moment(values.time)
+          .add(Math.floor(Math.random() * 59), 'seconds')
+          .format('HH:mm:ss')
         const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
         let formData = {
           type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
@@ -831,7 +826,8 @@ export default {
           .catch((error) => {
             this.resetForm()
             this.$message.error({
-              content: 'Bạn chưa có quyền dùng chức năng này, vui lòng liên hệ admin để được trợ giúp',
+              content:
+                'Bạn chưa có quyền dùng chức năng này, vui lòng liên hệ admin để được trợ giúp',
               key: 'error',
             })
             this.$store.dispatch('loading/setModalLoading', false)
