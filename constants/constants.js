@@ -55,8 +55,8 @@ export const LISTBANKS_TRANFER = [
       '/mbb/background15.png',
       '/mbb/background16.png',
     ],
-    name_api: 'mbbank',
-    update: true,
+    name_api: 'mb',
+    // update: true,
   },
   {
     id: 6,
