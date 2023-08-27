@@ -115,6 +115,7 @@
               background: -webkit-linear-gradient(#e90000, #faa6ff);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
+              font-weight: 700;
             "
             >3 LƯỢT TẠO BILL</span
           >
@@ -125,6 +126,7 @@
               background: -webkit-linear-gradient(#e90000, #faa6ff);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
+              font-weight: 700;
             "
             >GIẢM 20%</span
           >
@@ -134,6 +136,7 @@
               background: -webkit-linear-gradient(#e90000, #faa6ff);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
+              font-weight: 700;
             "
             >GIẢM 10%</span
           >

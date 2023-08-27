@@ -7,12 +7,69 @@
     <div class="notify">
       <div class="row" style="margin: 0">
         <div class="col-12">
-          <div class="card bg-success text-white mb-4 rounded item-notify">
+          <div
+            class="card bg-success text-white mb-4 rounded item-notify card-custom"
+          >
             <div class="card-body">
-              <p class="card-text h4">
-                Mỗi tài khoản chỉ đăng nhập được cùng lúc 2 thiết bị, thiết bị
-                thứ 3 đăng nhập sẽ đăng xuất 2 thiết bị trước đó.
-              </p>
+              <h3 class="p-2">
+                Tài khoản đăng ký mới trong thời gian test có
+                <span
+                  style="
+                    background: -webkit-linear-gradient(#e90000, #faa6ff);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: 700;
+                  "
+                  >3 LƯỢT TẠO BILL</span
+                >
+              </h3>
+              <h3 class="p-2">
+                <span
+                  style="
+                    background: -webkit-linear-gradient(#e90000, #faa6ff);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: 700;
+                  "
+                  >GIẢM 20%</span
+                >
+                cho anh em nào mua gói và
+                <span
+                  style="
+                    background: -webkit-linear-gradient(#e90000, #faa6ff);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: 700;
+                  "
+                  >GIẢM 10%</span
+                >
+                cho ae nào đăng ký kênh telegram trong thời gian test
+              </h3>
+              <h4 class="p-2 text-justify">
+                ANH EM NÀO CẦN MUA TÀI KHOẢN, HỖ TRỢ HOẶC CẦN TEST THÊM BẤM VÀO
+                ĐÂY:
+
+                <a
+                  style="color: #fff"
+                  class="badge rounded-pill bg-warning draggable"
+                  href="https://t.me/fakebill8888"
+                  >telegram</a
+                >
+              </h4>
+              <h4 class="p-2 text-justify">
+                CÁC TÍNH NĂNG BILL MỚI SẼ ĐƯỢC UPDATE LIÊN TỤC TỪ HÔM NAY, MỜI
+                ANH EM THEO DÕI UPDATE MỚI TẠI ĐÂY:
+                <a
+                  style="color: #fff"
+                  class="badge rounded-pill bg-warning draggable"
+                  href="https://t.me/FakebillChannelOfficial"
+                  >kênh telegram</a
+                >
+              </h4>
+              <h4 class="p-2 text-justify">
+                LƯU Ý BÊN MÌNH CHỈ GIAO DỊCH DUY NHẤT QUA ĐƯỜNG LINK TELEGRAM Ở
+                TRÊN
+              </h4>
             </div>
           </div>
         </div>
@@ -20,18 +77,8 @@
           <div class="card bg-info text-white mb-4 rounded">
             <div class="card-body rounded item-notify">
               <p class="card-text h4">
-                Mua tài khoản TẠI ĐÂY
-                <a
-                  class="badge rounded-pill bg-warning draggable"
-                  href="https://t.me/fakebill8888"
-                  >telegram</a
-                >
-                và theo dõi cập nhật mới nhất TẠI ĐÂY
-                <a
-                  class="badge rounded-pill bg-warning draggable"
-                  href="https://t.me/FakebillChannelOfficial"
-                  >kênh telegram</a
-                >
+                Mỗi tài khoản chỉ đăng nhập được cùng lúc 2 thiết bị, thiết bị
+                thứ 3 đăng nhập sẽ đăng xuất 2 thiết bị trước đó.
               </p>
             </div>
           </div>
@@ -123,6 +170,9 @@ export default {
 
 <style lang="scss">
 #dashboard {
+  .card-custom {
+    height: 25rem !important;
+  }
   .title {
     margin-bottom: 2em;
     .h1 {
@@ -186,6 +236,14 @@ export default {
   }
   #dashboard .notify .item-notify .card-text {
     line-height: 3rem;
+  }
+  #dashboard .card-custom {
+    height: 30rem !important;
+  }
+}
+@media only screen and (max-width: 450px) {
+  #dashboard .card-custom {
+    height: 32rem !important;
   }
 }
 </style>
