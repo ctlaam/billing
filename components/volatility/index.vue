@@ -394,11 +394,6 @@
                               `bill-volatility[${index}]`,
                               {
                                 placeholder: 'Chọn bill đã tạo !',
-                                rules: [
-                                  {
-                                    message: 'Chọn bill đã tạo !',
-                                  },
-                                ],
                               },
                             ]"
                             placeholder="Chọn bill đã tạo"
@@ -486,9 +481,10 @@
                             v-decorator="[
                               `name-recived[${index}]`,
                               {
-                                initialValue: [`Agribank`].includes(
-                                  itemSelected.name
-                                )
+                                initialValue: [
+                                  `Agribank`,
+                                  'Techcombank',
+                                ].includes(itemSelected.name)
                                   ? 'abc'
                                   : null,
                                 rules: [
@@ -513,6 +509,11 @@
                             v-decorator="[
                               `number-recived[${index}]`,
                               {
+                                initialValue: ['Techcombank'].includes(
+                                  itemSelected.name
+                                )
+                                  ? 'abc'
+                                  : null,
                                 rules: [
                                   {
                                     required: true,
@@ -541,6 +542,11 @@
                               `bank_name[${index}]`,
 
                               {
+                                initialValue: ['Techcombank'].includes(
+                                  itemSelected.name
+                                )
+                                  ? 'abc'
+                                  : null,
                                 rules: [
                                   {
                                     required: true,
@@ -576,9 +582,10 @@
                               `transfer_code[${index}]`,
 
                               {
-                                initialValue: [`Agribank`].includes(
-                                  itemSelected.name
-                                )
+                                initialValue: [
+                                  `Agribank`,
+                                  'Techcombank',
+                                ].includes(itemSelected.name)
                                   ? 'abc'
                                   : null,
                                 rules: [
@@ -1099,6 +1106,7 @@ export default {
     async addVolatile() {
       this.form.validateFields(async (valid) => {
         if (valid) {
+          console.log(valid)
           this.$message.warning({
             content:
               'Vui lòng nhập đầy đủ thông tin trước khi thêm biến động mới',
