@@ -136,7 +136,7 @@
                   'MSB',
                   'TpBank',
                   'Vietcombank',
-                  'VietinBank'
+                  'VietinBank',
                 ].includes(this.itemSelected.name)
               "
               class="mb-5"
@@ -227,7 +227,7 @@
                   'Agribank',
                   'MBBank',
                   'MSB',
-                  'VietinBank'
+                  'VietinBank',
                 ].includes(this.itemSelected.name)
               "
               class="mb-5 col-md-6 col-12"
@@ -516,13 +516,17 @@ export default {
         return
       }
       if (info.file.status === 'done') {
+        const reader = new FileReader()
         // Get this url from response in real world.
         await getBase64(info.file.originFileObj, (imageUrl) => {
           this.imageUrl = imageUrl
-          me.avatar = imageUrl
           this.loadingImg = false
-          console.log(me.avatar)
         })
+        await reader.readAsDataURL(info.file.originFileObj)
+        reader.onload = (event) => {
+          const base64String = event.target.result.split(',')[1] // Lấy phần dữ liệu sau dấu phẩy
+          me.avatar = base64String
+        }
       }
     },
     beforeUploadImg(file) {
