@@ -88,7 +88,7 @@
               <a-form-item label="Tên tài khoản">
                 <a-input
                   v-decorator="[
-                    'nameAccount',
+                    'name',
                     {
                       rules: [
                         {
@@ -110,7 +110,7 @@
                 <a-input
                   @keydown="handleKeyDown"
                   v-decorator="[
-                    'accountNumber',
+                    'account_number',
 
                     {
                       rules: [
@@ -129,9 +129,15 @@
           <div class="row">
             <div
               v-if="
-                !['ACB', 'Techcombank', 'Agribank', 'MSB'].includes(
-                  this.itemSelected.name
-                )
+                ![
+                  'ACB',
+                  'Techcombank',
+                  'Agribank',
+                  'MSB',
+                  'TpBank',
+                  'Vietcombank',
+                  'VietinBank'
+                ].includes(this.itemSelected.name)
               "
               class="mb-5"
               :class="
@@ -196,7 +202,7 @@
                         alt=""
                       />
                     </div>
-                    <a-radio value="light">Tối</a-radio>
+                    <a-radio value="dark">Tối</a-radio>
                   </div>
                   <div class="item text-center">
                     <div class="img mb-2">
@@ -206,7 +212,7 @@
                         alt=""
                       />
                     </div>
-                    <a-radio value="dard">Sáng</a-radio>
+                    <a-radio value="light">Sáng</a-radio>
                   </div>
                 </a-radio-group>
               </div>
@@ -215,9 +221,14 @@
           <div class="row">
             <div
               v-if="
-                !['ACB', 'Techcombank', 'Agribank', 'MBBank', 'MSB'].includes(
-                  this.itemSelected.name
-                )
+                ![
+                  'ACB',
+                  'Techcombank',
+                  'Agribank',
+                  'MBBank',
+                  'MSB',
+                  'VietinBank'
+                ].includes(this.itemSelected.name)
               "
               class="mb-5 col-md-6 col-12"
             >
@@ -228,7 +239,6 @@
                   list-type="picture-card"
                   class="avatar-uploader"
                   :show-upload-list="false"
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                   :before-upload="beforeUploadImg"
                   @change="handleChangeImg"
                   v-model="avatar"
@@ -280,9 +290,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-5 col-12 mb-5">
+            <div class="col-xl-5 mb-5 col-12">
               <div class="title mb-4">Chế độ mạng</div>
-              <div class="list-item d-flex justify-content-evenly">
+              <div class="list-item d-flex">
                 <a-radio-group class="mode-radio" v-model="internetWifi">
                   <div class="item text-center">
                     <div>
@@ -292,7 +302,7 @@
                         id="inputNumber"
                         v-model="wifi"
                         :min="1"
-                        :max="4"
+                        :max="3"
                         @change="isNumber2"
                         @keydown="handleKeyDown"
                         :disabled="internetWifi === '4G'"
@@ -305,14 +315,12 @@
                 </a-radio-group>
               </div>
             </div>
-            <div class="col-md-7 col-12 mb-5">
+            <div class="col-xl-7 mb-5 col-12">
               <div class="title mb-4">Sim</div>
-              <div class="list-item d-flex justify-content-evenly">
+              <div class="list-item d-flex">
                 <a-radio-group class="mode-radio" v-model="modeSim">
                   <div class="item text-center">
-                    <div
-                      class="d-flex align-items-center justify-content-right"
-                    >
+                    <div>
                       <a-radio value="simone">Sim 1</a-radio>
                       <a-input-number
                         id="sim1"
@@ -325,24 +333,20 @@
                       />
                     </div>
                   </div>
-                  <div class="item text-center">
-                    <div
-                      class="d-flex align-items-center justify-content-right"
+                  <!-- <div class="item text-center">
+                    <a-radio style="line-height: 32px" value="simtwo"
+                      >Sim 2</a-radio
                     >
-                      <a-radio style="line-height: 32px" value="simtwo"
-                        >Sim 2</a-radio
-                      >
-                      <a-input-number
-                        id="sim2"
-                        :min="1"
-                        :max="4"
-                        @change="isNumber4"
-                        @keydown="handleKeyDown"
-                        v-model="sim2"
-                        :disabled="modeSim === 'simone'"
-                      />
-                    </div>
-                  </div>
+                    <a-input-number
+                      id="sim2"
+                      :min="1"
+                      :max="4"
+                      @change="isNumber4"
+                      @keydown="handleKeyDown"
+                      v-model="sim2"
+                      :disabled="modeSim === 'simone'"
+                    />
+                  </div> -->
                 </a-radio-group>
               </div>
             </div>
@@ -377,6 +381,7 @@
 
 <script>
 import moment from 'moment'
+import * as apiBalance from '../../api/balance.js'
 function getBase64(img, callback) {
   const reader = new FileReader()
   reader.addEventListener('load', () => callback(reader.result))
@@ -406,7 +411,7 @@ export default {
       url: null,
       timeNow: null,
       background: 'hinhnen1',
-      lightness: 'light',
+      lightness: 'dark',
       avatar: null,
       modeBaterry: false,
       modeSim: 'simone',
@@ -422,6 +427,16 @@ export default {
     },
   },
   methods: {
+    resetForm() {
+      this.form.resetFields()
+      this.modeSim = 'simone'
+      this.modeBaterry = false
+      this.modeOTT = false
+      this.percentBaterry = 68
+      this.internetWifi = 'wifi'
+      this.wifi = 2
+      this.sim1 = 4
+    },
     filterCurrency(currency, text = '') {
       if (currency) {
         currency = Math.round(currency)
@@ -493,36 +508,96 @@ export default {
       }
     },
     // for upload img
-    handleChangeImg(info) {
+    async handleChangeImg(info) {
+      console.log(info)
+      let me = this
       if (info.file.status === 'uploading') {
         this.loadingImg = true
         return
       }
       if (info.file.status === 'done') {
         // Get this url from response in real world.
-        getBase64(info.file.originFileObj, (imageUrl) => {
+        await getBase64(info.file.originFileObj, (imageUrl) => {
           this.imageUrl = imageUrl
+          me.avatar = imageUrl
           this.loadingImg = false
+          console.log(me.avatar)
         })
       }
     },
     beforeUploadImg(file) {
       const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
       if (!isJpgOrPng) {
-        this.$message.error('You can only upload JPG file!')
+        this.$message.error('File tải lên không hợp lệ')
       }
       const isLt2M = file.size / 1024 / 1024 < 2
       if (!isLt2M) {
-        this.$message.error('Image must smaller than 2MB!')
+        this.$message.error('Dung lượng file phải nhỏ hơn 2MB')
       }
       return isJpgOrPng && isLt2M
     },
     moment,
-    handleSearch(e) {
+    async handleSearch(e) {
       e.preventDefault()
-      this.form.validateFields((error, values) => {
-        console.log('error', error)
+      this.form.validateFields(async (error, values) => {
+        console.log(this.avatar)
         console.log('Received values of form: ', values)
+        if (error) {
+          this.$message.error({
+            content: 'Vui lòng nhập đầy đủ thông tin',
+            key: 'error',
+          })
+          return
+        }
+        const dateMoment = moment(values.date).format('YYYY-MM-DD')
+        const timeMoment = moment(values.time)
+          .add(Math.floor(Math.random() * 59), 'seconds')
+          .format('HH:mm:ss')
+        const combinedISODate = dateMoment + 'T' + timeMoment + '.000Z'
+        let formData = {
+          type_pin: this.modeBaterry ? 'is_charging' : 'is_normal',
+          pin_code: Math.floor(this.percentBaterry / 10.01) ?? 0,
+          sms: this.sim1 ?? 1,
+          wifi: this.internetWifi == 'wifi' ? this.wifi.toString() : 'LTE',
+          date: combinedISODate,
+          money: values.money,
+          account_number: values.account_number,
+          name: values.name,
+          avatar: this.avatar,
+          inick: this.inick || ' ',
+          mode: this.lightness,
+        }
+        this.$store.dispatch('loading/setModalLoading', true)
+        await apiBalance
+          .getPhoto(this.itemSelected.name_api, formData)
+          .then((res) => {
+            let downloadUrl = res.link
+            var a = document.createElement('a')
+            a.href = downloadUrl //make the link of image
+            a.download = 'autobill'
+            a.target = '_blank' // Mở trong tab mới
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+            this.resetForm()
+            this.$message.success({
+              content: 'Tạo ảnh thành công',
+              key: 'success',
+            })
+            this.$store.dispatch('loading/setModalLoading', false)
+          })
+          .catch((error) => {
+            this.resetForm()
+            this.$store.dispatch('loading/setModalLoading', false)
+            this.$message.error({
+              content:
+                'Bạn chưa có quyền dùng chức năng này, vui lòng liên hệ admin để được trợ giúp',
+              key: 'error',
+            })
+          })
+        setTimeout(() => {
+          this.$store.dispatch('loading/setModalLoading', false)
+        }, 3000)
       })
     },
   },
@@ -530,6 +605,9 @@ export default {
 </script>
 
 <style lang="scss">
+.ant-upload.ant-upload-select.ant-upload-select-picture-card img {
+  width: 128px;
+}
 #form-balance {
   .title {
     .h2 {

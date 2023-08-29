@@ -100,7 +100,7 @@ export const LISTBANKS_TRANFER = [
     img: 'vietinbank.png',
     url_example: 'vtb.png',
     background: [],
-    name_api: 'vtb',
+    name_api: 'vietinbank',
     update: true,
   },
   {
@@ -127,7 +127,7 @@ export const LISTBANKS_TRANFER = [
     img: 'tpbank.png',
     url_example: '',
     background: [],
-    name_api: 'tpbank',
+    name_api: 'tpb',
     update: true,
   },
   {
@@ -268,7 +268,7 @@ export const LISTBANKS_VOLATILITY = [
     img: 'vietinbank.png',
     url_example: 'vtb.png',
     background: [],
-    name_api: 'vtb',
+    name_api: 'vietinbank',
     update: true,
   },
   {
@@ -295,7 +295,7 @@ export const LISTBANKS_VOLATILITY = [
     img: 'tpbank.png',
     url_example: '',
     background: [],
-    name_api: 'tpbank',
+    name_api: 'tpb',
     update: true,
   },
   {
@@ -336,7 +336,7 @@ export const LISTBANKS_BALANCE = [
     url_example: 'vcb.png',
     background: ['/vcb/nen1.png', '/vcb/nen2.png'],
     name_api: 'vietcombank',
-    update: true,
+    // update: true,
   },
   {
     id: 2,
@@ -434,8 +434,8 @@ export const LISTBANKS_BALANCE = [
     img: 'vietinbank.png',
     url_example: 'vtb.png',
     background: [],
-    name_api: 'vtb',
-    update: true,
+    name_api: 'vietinbank',
+    // update: true,
   },
   {
     id: 11,
@@ -461,8 +461,8 @@ export const LISTBANKS_BALANCE = [
     img: 'tpbank.png',
     url_example: '',
     background: [],
-    name_api: 'tpbank',
-    update: true,
+    name_api: 'tpb',
+    // update: true,
   },
   {
     id: 14,

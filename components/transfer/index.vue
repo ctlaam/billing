@@ -782,7 +782,7 @@ export default {
           })
           return
         }
-        const dateMoment = moment().format('YYYY-MM-DD')
+        const dateMoment = moment(values.date).format('YYYY-MM-DD')
         const timeMoment = moment(values.time)
           .add(Math.floor(Math.random() * 59), 'seconds')
           .format('HH:mm:ss')
@@ -832,6 +832,9 @@ export default {
             })
             this.$store.dispatch('loading/setModalLoading', false)
           })
+          setTimeout(() => {
+            this.$store.dispatch('loading/setModalLoading', false)
+          }, 3000)
       })
     },
   },
