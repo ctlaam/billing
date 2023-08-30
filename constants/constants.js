@@ -336,6 +336,7 @@ export const LISTBANKS_BALANCE = [
     url_example: 'vcb.png',
     background: ['/vcb/nen1.png', '/vcb/nen2.png'],
     name_api: 'vietcombank',
+    theme: ['/vcb/giaodien2.png','/vcb/giaodien1.png'],
     // update: true,
   },
   {
@@ -363,6 +364,7 @@ export const LISTBANKS_BALANCE = [
     ],
     name_api: 'mbbank',
     update: true,
+    theme:[],
   },
   {
     id: 3,
@@ -372,6 +374,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'acb',
     update: true,
+    theme:[],
+
   },
 
   {
@@ -382,6 +386,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'tech',
     update: true,
+    theme:[],
+
   },
   {
     id: 5,
@@ -391,6 +397,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'agri',
     update: true,
+    theme:[],
+
   },
   {
     id: 6,
@@ -400,6 +408,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'msb',
     update: true,
+    theme:[],
+
   },
   {
     id: 7,
@@ -409,6 +419,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'scb',
     update: true,
+    theme:[],
+
   },
   {
     id: 8,
@@ -418,6 +430,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'vpb',
     update: true,
+    theme:[],
+
   },
   {
     id: 9,
@@ -427,6 +441,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'bidv',
     update: true,
+    theme:[],
+
   },
   {
     id: 10,
@@ -436,6 +452,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'vietinbank',
     // update: true,
+    theme:[],
+
   },
   {
     id: 11,
@@ -445,6 +463,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'momo',
     update: true,
+    theme:[],
+
   },
   {
     id: 12,
@@ -454,15 +474,20 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'ocb',
     update: true,
+    theme:[],
+
   },
+  
   {
     id: 13,
     name: 'TpBank',
     img: 'tpbank.png',
-    url_example: '',
+    url_example: 'tpbank.png',
     background: [],
     name_api: 'tpb',
     // update: true,
+    theme:['/tpbank/giaodien1.png','/tpbank/giaodien2.png'],
+
   },
   {
     id: 14,
@@ -472,6 +497,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'vib',
     update: true,
+    theme:[],
+
 
   },
   {
@@ -482,6 +509,8 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'nab',
     update: true,
+    theme:[],
+
   },
   {
     id: 16,
@@ -491,5 +520,7 @@ export const LISTBANKS_BALANCE = [
     background: [],
     name_api: 'shb',
     update: true,
+    theme:[],
+
   }
 ]

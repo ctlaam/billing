@@ -136,7 +136,7 @@
                   'MSB',
                   'TpBank',
                   'Vietcombank',
-                  'VietinBank'
+                  'VietinBank',
                 ].includes(this.itemSelected.name)
               "
               class="mb-5"
@@ -194,26 +194,32 @@
               <div class="title mb-4">Giao diện</div>
               <div class="list-item d-flex justify-content-evenly">
                 <a-radio-group v-model="lightness">
-                  <div class="item text-center">
-                    <div class="img mb-2">
-                      <img
-                        style="max-width: 100px"
-                        src="../../static/giaodien1.png"
-                        alt=""
-                      />
+                  <template v-if="itemSelected.theme.length">
+                    <div class="item text-center">
+                      <div class="img mb-2">
+                        <img
+                          style="max-width: 100px"
+                          :src="
+                            require(`~/assets/theme${itemSelected.theme[1]}`)
+                          "
+                          alt=""
+                        />
+                      </div>
+                      <a-radio value="dark">Tối</a-radio>
                     </div>
-                    <a-radio value="dark">Tối</a-radio>
-                  </div>
-                  <div class="item text-center">
-                    <div class="img mb-2">
-                      <img
-                        style="max-width: 100px"
-                        src="../../static/giaodien2.png"
-                        alt=""
-                      />
+                    <div class="item text-center">
+                      <div class="img mb-2">
+                        <img
+                          style="max-width: 100px"
+                          :src="
+                            require(`~/assets/theme${itemSelected.theme[0]}`)
+                          "
+                          alt=""
+                        />
+                      </div>
+                      <a-radio value="light">Sáng</a-radio>
                     </div>
-                    <a-radio value="light">Sáng</a-radio>
-                  </div>
+                  </template>
                 </a-radio-group>
               </div>
             </div>
@@ -227,8 +233,8 @@
                   'Agribank',
                   'MBBank',
                   'MSB',
-                  'VietinBank'
-                ].includes(this.itemSelected.name)
+                  'VietinBank',
+                ].includes(this.itemSelected.name) && false
               "
               class="mb-5 col-md-6 col-12"
             >
@@ -509,7 +515,6 @@ export default {
     },
     // for upload img
     async handleChangeImg(info) {
-      console.log(info)
       let me = this
       if (info.file.status === 'uploading') {
         this.loadingImg = true
@@ -521,7 +526,6 @@ export default {
           this.imageUrl = imageUrl
           me.avatar = imageUrl
           this.loadingImg = false
-          console.log(me.avatar)
         })
       }
     },
@@ -540,8 +544,6 @@ export default {
     async handleSearch(e) {
       e.preventDefault()
       this.form.validateFields(async (error, values) => {
-        console.log(this.avatar)
-        console.log('Received values of form: ', values)
         if (error) {
           this.$message.error({
             content: 'Vui lòng nhập đầy đủ thông tin',

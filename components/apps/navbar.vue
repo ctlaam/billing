@@ -45,7 +45,7 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link class="update" to="/balance" exact active-class="active">
+          <nuxt-link class="" to="/balance" exact active-class="active">
             <div class="item mb-3">
               <div class="d-flex align-items-center justify-content-left">
                 <a-icon type="bank" />
