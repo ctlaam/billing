@@ -14,7 +14,7 @@ export function getPhoto(namebank, data) {
                 resolve(response.data)
             })
             .catch((response) => {
-                reject(response.response.data.message)
+                reject(response)
             })
     })
 }
