@@ -50,7 +50,7 @@ export default {
       Cookies.remove('user_id')
       Cookies.remove('time_valid')
       this.$store.dispatch('auth/logout')
-      this.$router.push('/auth')
+      this.$router.push('/login')
     },
     showNavbar(){
       const nav = document.getElementById('navbar')

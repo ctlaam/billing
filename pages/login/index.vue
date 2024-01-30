@@ -188,7 +188,7 @@ export default {
   },
   methods: {
     singUp() {
-      this.$router.push('/auth/signup')
+      this.$router.push('/login/signup')
     },
     handleSubmit(e) {
       e.preventDefault()

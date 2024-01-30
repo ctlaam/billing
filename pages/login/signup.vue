@@ -163,7 +163,7 @@ export default {
   },
   methods: {
     singIn() {
-      this.$router.push('/auth')
+      this.$router.push('/login')
     },
     compareToFirstPassword(rule, value, callback) {
       const form = this.form
@@ -187,7 +187,7 @@ export default {
             })
             .then((res) => {
               this.$message.success('Đăng kí thành công !')
-              this.$router.push('/auth')
+              this.$router.push('/login')
             })
             .catch((err) => {
               if (err == 400) {
