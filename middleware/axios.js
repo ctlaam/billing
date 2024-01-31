@@ -24,7 +24,7 @@ export default async function ({ store }) {
       }
       const currentTime = moment();
       if (timeValid && !givenTime?.isAfter(currentTime)) {
-        await axios.post('https://api.fakebill.online/auth/token/refresh/', {
+        await axios.post('https://api.funnybill.pro/auth/token/refresh/', {
           refresh: Cookies.get('refresh_token')
         })
           .then(response => {

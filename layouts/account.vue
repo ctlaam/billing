@@ -20,5 +20,6 @@ export default {
   background-color: rgba(34, 41, 47, 0.5);
   cursor: pointer;
   transition: all 0.7s, z-index 0s;
+  overflow-x: auto;
 }
 </style>

@@ -2,7 +2,7 @@
   <div id="signup">
     <div class="left">
       <div class="logo">
-        <img src="../../static/logo.png" alt="" />
+        <img src="../../static/logo_funnybill2.png" alt="" />
       </div>
       <div
         class="main-img p-5 d-flex align-items-center justify-content-center"
@@ -13,10 +13,10 @@
     <div class="right p-5 d-flex align-items-center justify-content-center">
       <div>
         <div class="logo">
-          <img src="../../static/logo.png" alt="" />
+          <img src="../../static/funnybill_logo.png" alt="" />
         </div>
         <h1 class="card-title mb-4 text-center">
-          Chào mừng đến với fakebill.online! 👋
+          Chào mừng đến với funnybill.pro! 👋
         </h1>
         <h4 class="mb-4 text-center">
           Vui lòng đăng kí tài khoản để sử dụng chức năng trên hệ thống

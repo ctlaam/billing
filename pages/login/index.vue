@@ -2,7 +2,7 @@
   <div id="signup">
     <div class="left">
       <div class="logo">
-        <img src="../../static/logo.png" alt="" />
+        <img src="../../static/logo_funnybill2.png" alt="" />
       </div>
       <div
         class="main-img p-5 d-flex align-items-center justify-content-center"
@@ -13,10 +13,10 @@
     <div class="right p-5 d-flex align-items-center justify-content-center">
       <div>
         <div class="logo">
-          <img src="../../static/logo.png" alt="" />
+          <img src="../../static/funnybill_logo.png" alt="" />
         </div>
         <h1 class="card-title mb-4 text-center">
-          Chào mừng đến với fakebill.online! 👋
+          Chào mừng đến với funnybill.pro! 👋
         </h1>
         <h4 class="mb-4 text-center">
           Vui lòng đăng nhập để sử dụng chức năng trên hệ thống
@@ -95,16 +95,6 @@
             Hoặc
             <a @click="singUp" style="color: #008dff"> Đăng kí ngay </a>
           </a-form-item>
-          <!-- <a-form-item class="w-100">
-            <div>
-              FREE TEST MỞ ĐẾN X GIỜ NGÀY XX/XX
-              <br />
-              ANH EM NÀO CẦN MUA TÀI KHOẢN, HỖ TRỢ HOẶC CẦN TEST THÊM BẤM VÀO
-              ĐÂY: (t.me/fakebill8888) CÁC TÍNH NĂNG BILL MỚI SẼ ĐƯỢC UPDATE
-              LIÊN TỤC TỪ HÔM NAY, MỜI ANH EM THEO DÕI UPDATE MỚI TẠI ĐÂY:
-              (t.me/fakebillonlineOfficial)
-            </div>
-          </a-form-item> -->
         </a-form>
       </div>
       <div class="w-70 intro">
@@ -117,51 +107,24 @@
               -webkit-text-fill-color: transparent;
               font-weight: 700;
             "
-            >3 LƯỢT TẠO BILL</span
+            >1 LƯỢT TẠO BILL</span
           >
-        </h2>
-        <h2 class="text-center p-2">
-          <span
-            style="
-              background: -webkit-linear-gradient(#e90000, #faa6ff);
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              font-weight: 700;
-            "
-            >GIẢM 20%</span
-          >
-          cho anh em nào mua gói và
-          <span
-            style="
-              background: -webkit-linear-gradient(#e90000, #faa6ff);
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              font-weight: 700;
-            "
-            >GIẢM 10%</span
-          >
-          cho ae nào đăng ký kênh telegram trong thời gian test
         </h2>
         <h3 class="p-2 text-justify">
-          ANH EM NÀO CẦN MUA TÀI KHOẢN, HỖ TRỢ HOẶC CẦN TEST THÊM BẤM VÀO ĐÂY:
-
+          Nhằm phục vụ cho anh em chơi tết, troll người thân, gửi đến nhau những
+          lời chúc năm mới, sống ảo... Chỉ với 200k anh em đã có thể thỏa thích
+          tạo bill không giới hạn. Để được kích hoàn gói tài khoản VIP không
+          giới hạn lượt tạo bill, anh em liên hệ với <span class="p-2 text-justify">
           <a
             style="color: #fff"
             class="badge rounded-pill bg-warning draggable"
-            href="https://t.me/fakebill8888"
-            >telegram</a
+            href="https://t.me/funnybillproAdministrator"
+            target="_blank"
+            >ADMIN</a
           >
-        </h3>
-        <h3 class="p-2 text-justify">
-          CÁC TÍNH NĂNG BILL MỚI SẼ ĐƯỢC UPDATE LIÊN TỤC TỪ HÔM NAY, MỜI ANH EM
-          THEO DÕI UPDATE MỚI TẠI ĐÂY:
-          <a
-            style="color: #fff"
-            class="badge rounded-pill bg-warning draggable"
-            href="https://t.me/FakebillChannelOfficial"
-            >kênh telegram</a
-          >
-        </h3>
+        </span> để được hỗ trợ
+          trực tiếp. Chúc anh em chơi tết vui vẻ !!
+        </h3>     
         <h3 class="p-2 text-justify">
           LƯU Ý BÊN MÌNH CHỈ GIAO DỊCH DUY NHẤT QUA ĐƯỜNG LINK TELEGRAM Ở TRÊN
         </h3>

@@ -37,7 +37,7 @@
                       ],
                     },
                   ]"
-                  placeholder="Nhập số tiền cần làm giả"
+                  placeholder="Nhập số tiền"
                 />
               </a-form-item>
             </div>

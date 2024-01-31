@@ -2,11 +2,11 @@
   <div v-click-outside="hide" id="navbar" class="navbar-mobile">
     <nuxt-link to="/" exact active-class="active">
       <div class="image mb-4">
-        <img src="../../static/ICON.png" width="50" alt="" />
+        <img src="../../static/ICON2.png" width="150" alt="" />
       </div>
     </nuxt-link>
     <div class="walet mb-5">
-      <p class="h3">Số dư ví: 0đ</p>
+      <!-- <p class="h3">Số dư ví: 0đ</p> -->
     </div>
     <div class="menu">
       <div class="item-menu mb-5">

@@ -15,10 +15,10 @@
       </div>
     </div>
     <div class="right d-flex align-items-center justify-content-right">
-      <div class="money text-center">
+      <!-- <div class="money text-center">
         <h3 class="number">0đ</h3>
         <p class="h5">Số dư ví</p>
-      </div>
+      </div> -->
       <div class="avatar">
         <a-dropdown>
           <a-menu slot="overlay" class="header-dropdown">
