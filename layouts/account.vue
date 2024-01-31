@@ -21,5 +21,6 @@ export default {
   cursor: pointer;
   transition: all 0.7s, z-index 0s;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 </style>
