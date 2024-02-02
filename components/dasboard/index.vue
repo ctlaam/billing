@@ -26,7 +26,7 @@
               <h3 class="p-2 text-justify">
                 Nhằm phục vụ cho anh em chơi tết, troll người thân, gửi đến nhau
                 những lời chúc năm mới, sống ảo... Chỉ với 200k anh em đã có thể
-                thỏa thích tạo bill không giới hạn. Để được kích hoàn gói tài
+                thỏa thích tạo bill không giới hạn. Để được kích hoạt gói tài
                 khoản VIP không giới hạn lượt tạo bill, anh em liên hệ với
                 <span class="p-2 text-justify">
                   <a

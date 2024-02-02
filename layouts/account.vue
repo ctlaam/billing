@@ -17,10 +17,16 @@ export default {
 .account-content {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(34, 41, 47, 0.5);
+  background-color: #283046;
   cursor: pointer;
   transition: all 0.7s, z-index 0s;
   overflow-x: auto;
   overflow-y: hidden;
+}
+@media only screen and (max-width: 1024px) {
+  .account-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }
 </style>

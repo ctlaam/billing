@@ -13,7 +13,7 @@
     <div class="right p-5 d-flex align-items-center justify-content-center">
       <div>
         <div class="logo">
-          <img src="../../static/funnybill_logo.png" alt="" />
+          <img width="200" src="../../static/ICON2.png" alt="" />
         </div>
         <h1 class="card-title mb-4 text-center">
           Chào mừng đến với funnybill.pro! 👋
@@ -239,14 +239,12 @@ export default {
       display: none;
     }
     .right {
+      margin-top: 10px;
       width: 100%;
       .logo {
         display: block;
         text-align: center;
         margin-bottom: 2em;
-        img {
-          width: 100%;
-        }
       }
     }
   }
