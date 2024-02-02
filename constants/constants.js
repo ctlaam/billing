@@ -337,7 +337,7 @@ export const LISTBANKS_BALANCE = [
     background: ['/vcb/nen1.png', '/vcb/nen2.png'],
     name_api: 'vietcombank',
     theme: ['/vcb/giaodien2.png','/vcb/giaodien1.png'],
-    // update: true,
+    update: true,
   },
   {
     id: 2,
@@ -387,6 +387,7 @@ export const LISTBANKS_BALANCE = [
     name_api: 'tech',
     update: true,
     theme:[],
+
 
   },
   {
@@ -451,7 +452,7 @@ export const LISTBANKS_BALANCE = [
     url_example: 'vtb.png',
     background: [],
     name_api: 'vietinbank',
-    // update: true,
+    update: true,
     theme:[],
 
   },
@@ -485,7 +486,7 @@ export const LISTBANKS_BALANCE = [
     url_example: 'tpbank.png',
     background: [],
     name_api: 'tpb',
-    // update: true,
+    update: true,
     theme:['/tpbank/giaodien1.png','/tpbank/giaodien2.png'],
 
   },
