@@ -118,7 +118,7 @@
           <a
             style="color: #fff"
             class="badge rounded-pill bg-warning draggable"
-            href="https://t.me/funnybillproAdministrator"
+            href="https://t.me/vulethin"
             target="_blank"
             >ADMIN</a
           >
